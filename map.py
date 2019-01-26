@@ -9,10 +9,10 @@ fips_dict = dict()
 for index, row in df.iterrows():
     fips_dict[row['FIPS_Combined']] = 0
 
-df_2010_Heroin = df[(df['YYYY'] == 2011) & (df['SubstanceName'] == 'Heroin')]
+df_2010_Heroin = df[(df['SubstanceName'] == 'Heroin')]
 
 for index, row in df_2010_Heroin.iterrows():
-    fips_dict[row['FIPS_Combined']] = row['DrugReports']
+    fips_dict[row['FIPS_Combined']] += row['DrugReports']
 
 fips = list(fips_dict.keys())
 values = list(fips_dict.values())

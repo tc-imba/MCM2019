@@ -9,3 +9,4 @@ matplotlib
 xlrd
 geopy
 tqdm
+sklearn
