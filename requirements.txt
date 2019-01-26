@@ -1,0 +1,11 @@
+geopandas
+pyshp
+shapely
+plotly
+pandas
+numpy
+scipy
+matplotlib
+xlrd
+geopy
+tqdm
