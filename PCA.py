@@ -1,97 +1,90 @@
-import sys
-import xlrd
 import pandas as pd
 from sklearn.decomposition import PCA
 from sklearn import preprocessing
-# from sklearn.svm import SVC
+
 import numpy as np
-import matplotlib.pyplot as plt
-from sklearn import datasets, linear_model
-from sklearn.metrics import mean_squared_error, r2_score
+from sklearn.linear_model import LinearRegression
 
-# NFLIS Data
-book = xlrd.open_workbook('MCM_NFLIS_Data.xlsx')
-sheet = book.sheet_by_name('Data')
-rows = sheet.nrows
-columns = sheet.ncols
-print(rows, columns)
+df_data = pd.DataFrame()
+for i in range(7):
+    year = '1%d' % i
+    filename = 'data/ACS_1%d_5YR_DP02/ACS_1%d_5YR_DP02_with_ann.csv' % (i, i)
+    df_temp = pd.read_csv(filename, header=[0, 1])
+    df_temp.columns = df_temp.columns.get_level_values(0)
+    df_temp = df_temp.filter(regex='^(HC01|GEO.id2)', axis=1)
+    columns = df_temp.columns.tolist()
+    columns = ['YYYY', 'State'] + columns
+    df_temp = df_temp.reindex(columns=columns)
+    df_temp['YYYY'] = '201%d' % i
+    df_temp['State'] = df_temp['GEO.id2'].apply(lambda fips: str(fips)[0:2])
+    # df_temp['GEO.id2'] = df_temp['GEO.id2'].apply(lambda fips: '%d,201%d' % (fips, i))
+    df_data = df_data.append(df_temp, sort=False)
 
-dict1 = {}
-for i in range(1, sheet.nrows):
-    if sheet.cell(i, 5).value in dict1.keys():
-        continue
-    dict1[int(sheet.cell(i, 5).value)] = sheet.cell(i, 8).value
-y = pd.DataFrame(list(dict1.items()), columns=['A', 'B'])
 
-y = y.sort_values(by='A', axis=0, ascending=True)
-col1 = y.iloc[:, 0]
-arrs1 = col1.values
+# df = pd.read_csv('data/ACS_10_5YR_DP02/ACS_10_5YR_DP02_with_ann.csv', header=[0, 1])
+# df.columns = df.columns.get_level_values(0)
+# df = df.filter(regex='^(HC01|GEO.id2|YYYY)', axis=1)
+# df_data.set_index('GEO.id2', inplace=True)
 
-col2 = y.iloc[:, 1]
-arrs2 = col2.values
-# print(len(arrs2))
+def preprocess_data(x):
+    if isinstance(x, str) and x == '(X)':
+        return 0
+    if not isinstance(x, str) and np.isnan(x):
+        return 0
+    return x
 
-df = pd.read_csv('ACS_10_5YR_DP02_with_ann.csv', header=[0, 1])
-df.columns = df.columns.get_level_values(0)
-df = df.filter(regex='^(HC01|GEO)', axis=1)
-# rownum = len(df)
-for e in df['GEO.id2']:
-    if float(e) not in arrs1:
-        df = df[~df['GEO.id2'].isin([e])]
-# D = df.shape[1]
-# N = len(df)
-# print(D)
-# print(N)
-# df = df.drop([df.columns[[0, 1, 2]]], axis=1, inplace=True)
-df = df.filter(regex='^(HC01)', axis=1)
-df = df.astype(float)
-X = df.values
 
-X = preprocessing.normalize(X, norm='l2')
+df = df_data[df_data['State'] == '21'].reset_index(drop=True)
+df = df.applymap(preprocess_data)
+
+# drop_columns = []
+# for col in df.columns:
+#     if isinstance(df[col].iloc[0], str):
+#         drop_columns.append(col)
+# df.drop(columns=drop_columns, inplace=True)
+# df.dropna(inplace=True, axis=1)
+
+X = df[df.columns[3:]].astype(np.float64)
+X = preprocessing.scale(X)
 
 pca = PCA(n_components=10)
-
-model = pca.fit(X)
+pca.fit(X)
 print(pca.explained_variance_ratio_)
-print(pca.components_)
+
 A = pca.transform(X)
 
-sys.exit(0)
+df_result = pd.concat([df[df.columns[0:3]], pd.DataFrame(A)], axis=1)
+df_result['key'] = df_result['YYYY'].astype(str) + df_result['GEO.id2'].astype(str)
+df_result.set_index('key', inplace=True)
+df_result.drop(columns=['YYYY', 'State', 'GEO.id2'], inplace=True)
 
-#
-#
-diabetes_X = A
 
-# Split the data into training/testing sets
-diabetes_X_train = diabetes_X[:20]
-diabetes_X_test = diabetes_X[-20:]
+df_test = pd.read_excel('data/MCM_NFLIS_Data.xlsx', sheet_name='Data')
+df_test = df_test.groupby(['YYYY', 'FIPS_Combined']).first().reset_index()
+# df_test = df_test[df_test['YYYY'] == 2010].reset_index()
+df_test['key'] = df_test['YYYY'].astype(str) + df_test['FIPS_Combined'].astype(str)
+df_test.set_index('key', inplace=True)
+df_test = df_test.filter(['TotalDrugReportsCounty'], axis=1)
 
-# Split the targets into training/testing sets
-diabetes_y_train = arrs2[:-20]
-diabetes_y_test = arrs2[-20:]
+df_result = df_result.join(df_test)
+df_result.dropna(inplace=True)
 
-# Create linear regression object
-regr = linear_model.LinearRegression()
+X = df_result[df_result.columns[:-1]].values
+y = df_result[df_result.columns[-1]].values
 
-# Train the model using the training sets
-regr.fit(diabetes_X_train, diabetes_y_train)
+data_length = X.shape[0]
+train_data_length = data_length * 2 // 3
 
-# Make predictions using the testing set
-diabetes_y_pred = regr.predict(diabetes_X_test)
+arr = np.arange(data_length)
+np.random.shuffle(arr)
 
-# The coefficients
-print('Coefficients: \n', regr.coef_)
-# The mean squared error
-print("Mean squared error: %.2f"
-      % mean_squared_error(diabetes_y_test, diabetes_y_pred))
-# Explained variance score: 1 is perfect prediction
-print('Variance score: %.2f' % r2_score(diabetes_y_test, diabetes_y_pred))
+train_X = X[arr[:train_data_length]]
+train_y = y[arr[:train_data_length]]
+test_X = X[arr[train_data_length:]]
+test_y = y[arr[train_data_length:]]
 
-# Plot outputs
-plt.scatter(diabetes_X_test, diabetes_y_test,  color='black')
-plt.plot(diabetes_X_test, diabetes_y_pred, color='blue', linewidth=3)
-
-plt.xticks(())
-plt.yticks(())
-#
-plt.show()
+reg = LinearRegression().fit(train_X, train_y)
+print(reg.score(train_X, train_y))
+print(reg.score(test_X, test_y))
+print(reg.coef_)
+print(reg.intercept_)

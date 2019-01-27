@@ -11,7 +11,7 @@ class Path:
         self.src = src
         self.dest = dest
         self.dist = dist
-        self.ratio = 0
+        self.weight = 0
 
 
 class County:
@@ -33,15 +33,13 @@ class County:
 
     def train(self, year):
         for path in self.paths:
-            path.dest.aggregate_data -= path.ratio * self.train_data[year]
+            path.dest.aggregate_data -= (path.weight * self.train_data[year])
 
     def back_propagation(self, year):
         for path in self.paths:
             error = path.dest.aggregate_data / len(path.dest.paths)
             error_rate = error / path.dest.train_data[year + 1]
-            path.ratio = max(path.ratio + training_rate * error_rate, 0)
-            # if path.ratio == 0:
-            #     print(path.ratio)
+            path.weight = max(0, path.weight + training_rate * error_rate)
 
 
 df = pd.read_excel('data/MCM_NFLIS_Data.xlsx', sheet_name='Data')
@@ -53,7 +51,7 @@ def get_distance(a, b):
 
 
 df_county = df[df['State'] == 'PA'].groupby('FIPS_Combined').first()
-df = df[(df['State'] == 'PA') & (df['SubstanceName'] == 'Heroin')].reset_index()
+df = df[(df['State'] == 'PA') & (df['SubstanceName'] == 'Oxycodone')].reset_index()
 
 county_list = dict()
 
@@ -70,7 +68,11 @@ for _, county_i in county_list.items():
             min_distance = distance
         if distance < 40:
             county_i.add_path(county_j, distance)
+    if max_min_distance < min_distance:
+        print(_)
     max_min_distance = max(max_min_distance, min_distance)
+
+print(max_min_distance)
 
 for index, row in df.iterrows():
     fips = row['FIPS_Combined']
@@ -84,7 +86,7 @@ for year in range(total_years - 1):
         mean += county_i.train_data[year + 1]
 mean = mean / (total_years - 1) / len(county_list)
 
-for i in range(100):
+for i in range(10):
     u = 0
     v = 0
     for year in range(total_years - 1):
