@@ -77,7 +77,11 @@
 \RequirePackage{geometry}
 \RequirePackage[T1]{fontenc}
 \RequirePackage[scaled]{berasans}
-\RequirePackage{hyperref}
+\RequirePackage[colorlinks,
+            linkcolor=red,
+            anchorcolor=blue,
+            citecolor=green
+            ]{hyperref}
 \RequirePackage{ifpdf, ifxetex}
 \ifMCM@opt@CTeX
 \else
