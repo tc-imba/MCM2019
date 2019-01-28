@@ -141,7 +141,7 @@ def apply_pca(state=None, year=None, n_components=10):
 #
 # df_plot.to_csv('../result/pca_year_PA.csv', index=False)
 
-df_PCA = pd.DataFrame(columns=['D1','D2','D3','D4','YYYY','FIPS'])
+df_PCA = pd.DataFrame(columns=['D1', 'D2', 'D3', 'D4', 'YYYY', 'FIPS'])
 
 for i in range(5):
     _, df_KY = apply_pca(state=states[i], n_components=4)

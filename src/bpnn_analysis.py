@@ -1,7 +1,9 @@
 import pandas as pd
 
-state = 'OH'
-substance_name = 'Buprenorphine'
+# state = 'OH'
+# substance_name = 'Buprenorphine'
+state = 'KY'
+substance_name = 'Hydrocodone'
 df = pd.read_csv('../result/bpnn_source_%s_%s.csv' % (state, substance_name))
 
 Q1 = df.quantile(0.25)[10]
