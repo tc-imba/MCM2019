@@ -21,11 +21,6 @@ for i in range(7):
     df_data = df_data.append(df_temp, sort=False)
 
 
-# df = pd.read_csv('data/ACS_10_5YR_DP02/ACS_10_5YR_DP02_with_ann.csv', header=[0, 1])
-# df.columns = df.columns.get_level_values(0)
-# df = df.filter(regex='^(HC01|GEO.id2|YYYY)', axis=1)
-# df_data.set_index('GEO.id2', inplace=True)
-
 def preprocess_data(x):
     if isinstance(x, str) and x == '(X)':
         return 0
@@ -34,57 +29,92 @@ def preprocess_data(x):
     return x
 
 
-df = df_data[df_data['State'] == '21'].reset_index(drop=True)
-df = df.applymap(preprocess_data)
-
-# drop_columns = []
-# for col in df.columns:
-#     if isinstance(df[col].iloc[0], str):
-#         drop_columns.append(col)
-# df.drop(columns=drop_columns, inplace=True)
-# df.dropna(inplace=True, axis=1)
-
-X = df[df.columns[3:]].astype(np.float64)
-X = preprocessing.scale(X)
-
-pca = PCA(n_components=10)
-pca.fit(X)
-print(pca.explained_variance_ratio_)
-
-A = pca.transform(X)
-
-df_result = pd.concat([df[df.columns[0:3]], pd.DataFrame(A)], axis=1)
-df_result['key'] = df_result['YYYY'].astype(str) + df_result['GEO.id2'].astype(str)
-df_result.set_index('key', inplace=True)
-df_result.drop(columns=['YYYY', 'State', 'GEO.id2'], inplace=True)
+df_data = df_data.applymap(preprocess_data)
+states = [21, 39, 42, 51, 54, None]
+states_dict = {
+    21: 'KY',
+    39: 'OH',
+    42: 'PA',
+    51: 'VA',
+    54: 'WV'
+}
 
 
-df_test = pd.read_excel('data/MCM_NFLIS_Data.xlsx', sheet_name='Data')
-df_test = df_test.groupby(['YYYY', 'FIPS_Combined']).first().reset_index()
-# df_test = df_test[df_test['YYYY'] == 2010].reset_index()
-df_test['key'] = df_test['YYYY'].astype(str) + df_test['FIPS_Combined'].astype(str)
-df_test.set_index('key', inplace=True)
-df_test = df_test.filter(['TotalDrugReportsCounty'], axis=1)
+def apply_pca(state=None, year=None, n_components=10):
+    df = df_data.copy()
+    if state:
+        df = df[df['State'] == str(state)]
+    if year:
+        df = df[df['YYYY'] == str(year)]
+    df = df.reset_index(drop=True)
 
-df_result = df_result.join(df_test)
-df_result.dropna(inplace=True)
+    X = df[df.columns[3:]].astype(np.float64)
+    X = preprocessing.scale(X)
 
-X = df_result[df_result.columns[:-1]].values
-y = df_result[df_result.columns[-1]].values
+    pca = PCA(n_components=n_components)
+    pca.fit(X)
+    # print(pca.explained_variance_ratio_)
 
-data_length = X.shape[0]
-train_data_length = data_length * 2 // 3
+    A = pca.transform(X)
 
-arr = np.arange(data_length)
-np.random.shuffle(arr)
+    df_result = pd.concat([df[df.columns[0:3]], pd.DataFrame(A)], axis=1)
+    df_result['key'] = df_result['YYYY'].astype(str) + df_result['GEO.id2'].astype(str)
+    df_result.set_index('key', inplace=True)
+    df_result.drop(columns=['YYYY', 'State', 'GEO.id2'], inplace=True)
 
-train_X = X[arr[:train_data_length]]
-train_y = y[arr[:train_data_length]]
-test_X = X[arr[train_data_length:]]
-test_y = y[arr[train_data_length:]]
+    df_test = pd.read_excel('data/MCM_NFLIS_Data.xlsx', sheet_name='Data')
+    df_test = df_test.groupby(['YYYY', 'FIPS_Combined']).first().reset_index()
+    # df_test = df_test[df_test['YYYY'] == 2010].reset_index()
+    df_test['key'] = df_test['YYYY'].astype(str) + df_test['FIPS_Combined'].astype(str)
+    df_test.set_index('key', inplace=True)
+    df_test = df_test.filter(['TotalDrugReportsCounty'], axis=1)
 
-reg = LinearRegression().fit(train_X, train_y)
-print(reg.score(train_X, train_y))
-print(reg.score(test_X, test_y))
-print(reg.coef_)
-print(reg.intercept_)
+    df_result = df_result.join(df_test)
+    df_result.dropna(inplace=True)
+
+    result_arr = []
+    year_name = year and str(year) or 'All'
+    state_name = state and states_dict[state] or 'All'
+
+    for i in range(1, n_components + 1):
+        X = df_result[df_result.columns[:i]].values
+        y = df_result[df_result.columns[-1]].values
+
+        data_length = X.shape[0]
+        train_data_length = data_length * 2 // 3
+
+        reg_score = []
+        for j in range(10):
+            arr = np.arange(data_length)
+            np.random.shuffle(arr)
+
+            train_X = X[arr[:train_data_length]]
+            train_y = y[arr[:train_data_length]]
+            test_X = X[arr[train_data_length:]]
+            test_y = y[arr[train_data_length:]]
+
+            reg = LinearRegression().fit(train_X, train_y)
+            reg_score.append(reg.score(test_X, test_y))
+            # print(reg.score(train_X, train_y))
+            # print(reg.score(test_X, test_y))
+            # print(reg.coef_)
+            # print(reg.intercept_)
+
+        explained_variance_ratio_sum = np.sum(pca.explained_variance_ratio_[:i])
+        score = np.average(reg_score)
+
+        result = [year_name, state_name, i, explained_variance_ratio_sum, score]
+        result_arr.append(result)
+        print(result)
+
+    df = pd.DataFrame(result_arr, columns=['YYYY', 'State', 'components', 'ratio', 'score'])
+    return df
+
+
+df_plot = pd.DataFrame(columns=['YYYY', 'State', 'components', 'ratio', 'score'])
+
+# states = [21]
+for i, state in enumerate(states):
+    df_plot = df_plot.append(apply_pca(state=state, n_components=10), ignore_index=True)
+
+df_plot.to_csv('result/pca_state.csv', index=False)
