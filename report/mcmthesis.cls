@@ -5,15 +5,15 @@
 %% The original source files were:
 %%
 %% mcmthesis.dtx  (with options: `class')
-%%
+%% 
 %% -----------------------------------
-%%
+%% 
 %% This is a generated file.
-%%
+%% 
 %% Copyright (C)
-%%     2010 -- 2015 by Zhaoli Wang
-%%     2014 -- 2016 by Liam Huang
-%%
+%%     2010 -- 2015    by Zhaoli Wang
+%%     2014 -- present by Liam Huang
+%% 
 %% This work may be distributed and/or modified under the
 %% conditions of the LaTeX Project Public License, either version 1.3
 %% of this license or (at your option) any later version.
@@ -21,16 +21,16 @@
 %%   http://www.latex-project.org/lppl.txt
 %% and version 1.3 or later is part of all distributions of LaTeX
 %% version 2005/12/01 or later.
-%%
+%% 
 %% This work has the LPPL maintenance status `maintained'.
-%%
+%% 
 %% The Current Maintainer of this work is Liam Huang.
-%%
+%% 
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
 \ProvidesClass{mcmthesis}
-  [2016/01/29 v6.2 The Thesis Template Designed For MCM/ICM]
+  [2019/01/26 v6.2.2 The Thesis Template Designed For MCM/ICM]
 \typeout{The Thesis Template Designed For MCM/ICM}
-\def\MCMversion{v6.2}
+\def\MCMversion{v6.2.2}
 \RequirePackage{xkeyval}
 \RequirePackage{etoolbox}
 \define@boolkey{MCM}[MCM@opt@]{CTeX}[false]{}
@@ -41,7 +41,7 @@
 \define@boolkey{MCM}[MCM@opt@]{keywordsinsheet}[false]{}
 \define@cmdkeys{MCM}[MCM@opt@]{tcn,problem}
 \define@key{MCM}{tcn}[0000]{\gdef\MCM@opt@tcn{#1}}
-\define@key{MCM}{problem}[C]{\gdef\MCM@opt@problem{#1}}
+\define@key{MCM}{problem}[A]{\gdef\MCM@opt@problem{#1}}
 \setkeys{MCM}{tcn=0000,problem=B}
 
 \define@key{mcmthesis.cls}{tcn}[0000]{\gdef\MCM@opt@tcn{#1}}
@@ -138,6 +138,7 @@
   \ifMCM@opt@titlepage
     \MCM@maketitle
   \fi
+  \newpage
   \let\thepage\saved@thepage
   \setcounter{page}{1}
   \pagestyle{fancy}
@@ -179,7 +180,7 @@
     \@keywords\par
   }
 \fi
-\newcommand{\headset}{{\Large\the\year}\\MCM/ICM\\Summary Sheet}
+\newcommand{\headset}{{\Large\the\year}\\[0.3em]MCM/ICM\\Summary Sheet}
 \newcommand{\problem}[1]{\mcmsetup{problem = #1}}
 \def\makesheet{%
   \pagestyle{empty}%
@@ -239,6 +240,53 @@
   \end{center}%
   \par
   \vskip 1.5em%
+  \ifMCM@opt@abstract%
+    \make@abstract
+    \make@keywords
+  \fi%
+}
+\def\MCM@memoto{\relax}
+\newcommand{\memoto}[1]{\gdef\MCM@memoto{#1}}
+\def\MCM@memofrom{\relax}
+\newcommand{\memofrom}[1]{\gdef\MCM@memofrom{#1}}
+\def\MCM@memosubject{\relax}
+\newcommand{\memosubject}[1]{\gdef\MCM@memosubject{#1}}
+\def\MCM@memodate{\relax}
+\newcommand{\memodate}[1]{\gdef\MCM@memodate{#1}}
+\def\MCM@memologo{\relax}
+\newcommand{\memologo}[1]{\gdef\MCM@memologo{\protect #1}}
+\def\@letterheadaddress{\relax}
+\newcommand{\lhaddress}[1]{\gdef\@letterheadaddress{#1}}
+\newenvironment{memo}[1][Memorandum]{%
+  \pagestyle{plain}%
+  \ifthenelse{\equal{\MCM@memologo}{\relax}}{%
+    % without logo specified.
+  }{%
+    % with logo specified
+    \begin{minipage}[t]{\columnwidth}%
+      \begin{flushright}
+        \vspace{-0.6in}
+        \MCM@memologo
+        \vspace{0.5in}
+      \par\end{flushright}%
+    \end{minipage}%
+  }
+  \begin{center}
+    \LARGE\bfseries\scshape
+    #1
+  \end{center}
+  \begin{description}
+    \ifthenelse{\equal{\MCM@memoto}{\relax}}{}{\item [{To:}] \MCM@memoto}
+    \ifthenelse{\equal{\MCM@memofrom}{\relax}}{}{\item [{From:}] \MCM@memofrom}
+    \ifthenelse{\equal{\MCM@memosubject}{\relax}}{}{\item [{Subject:}] \MCM@memosubject}
+    \ifthenelse{\equal{\MCM@memodate}{\relax}}{}{\item [{Date:}] \MCM@memodate}
+  \end{description}
+  \par\noindent
+  \rule[0.5ex]{\linewidth}{0.1pt}\par
+  \bigskip{}
+}{%
+  \clearpage
+  \pagestyle{fancy}%
 }
 \newtheorem{Theorem}{Theorem}[section]
 \newtheorem{Lemma}[Theorem]{Lemma}
@@ -268,7 +316,7 @@
 }
 \lstloadlanguages{C,C++,Java,Matlab,Mathematica}
 \endinput
-%%
+%% 
 %% This work consists of these files mcmthesis.dtx,
 %%                                   figures/ and
 %%                                   code/,

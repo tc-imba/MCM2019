@@ -30,7 +30,7 @@
 \mcmsetup{CTeX = false,   % 使用 CTeX 套装时，设置为 true
         tcn = 1920446, problem = C,
         sheet = true, titleinsheet = true, keywordsinsheet = true,
-        titlepage = true}
+        titlepage = true, abstract = true}
 \usepackage{palatino}
 \usepackage{mwe}
 \usepackage{graphicx}
@@ -41,14 +41,21 @@
 \usepackage{gensymb}
 \usepackage[ruled,lined,commentsnumbered]{algorithm2e}
 \usepackage{geometry}
-\geometry{left=2cm,right=2cm,top=2cm,bottom=2cm} %%页边距
-\usepackage{algorithm}  
+% \geometry{left=2cm,right=2cm,top=2cm,bottom=2cm} %%页边距
+% \usepackage{algorithm}  
 \usepackage{algorithmicx}  
 \usepackage{algpseudocode}  
-\usepackage{amsmath} 
 \renewcommand{\algorithmicrequire}{\textbf{Input:}}  % Use Input in the format of Algorithm  
 \renewcommand{\algorithmicensure}{\textbf{Output:}} % Use Output in the format of Algorithm 
 
+\usepackage{minted}
+\usemintedstyle{autumn}
+\setminted{
+    linenos,breaklines,tabsize=4,xleftmargin=1.5em,
+    breaksymbol=\quad,fontfamily=courier
+}
+
+% \usepackage{cmbright}
 
 \begin{document}
 \linespread{0.6}  %%行间距
@@ -79,7 +86,7 @@ The Opioid Crisis means the rapid increase in the use of prescription and non-pr
 
 \begin{figure}[h]
 	\centering 
-	\includegraphics[width=1\linewidth]{test.png}  
+	\includegraphics[width=1\linewidth]{../figure/test.png}  
 	\caption{Heroin identification counts in years 2010-2017 in each of the counties from five states: Ohio (OH), Kentucky (KY), West Virginia (WV), Virginia (VA), and Pennsylvania (PA)} 
 	\label{situation}  
 \end{figure}
@@ -93,7 +100,7 @@ In this paper, we propose a novel framework, named SOS ( Spreading Model, Optimi
 
 \begin{figure}[h]
 	\centering 
-	\includegraphics[width=1\linewidth]{XXX}  
+	\includegraphics[width=1\linewidth]{../figure/test.png}  
 	\caption{Framework of SOS: Spreading Model, Optimization, and Strategy for the Opioid Crisis} 
 	\label{Framework}  
 \end{figure}
@@ -210,15 +217,17 @@ In this section, we will discuss all details about our model \textbf{SOS}. Gener
 
    Define the residuals as $e_i = y_i$ - $f_i$ (forming a vector $\vec{e}$ ). $\bar{y}$ is the mean of the observed data: 
     $\bar{y}=\frac{1}{n}\sum_{i=1}^n y_{i}$ , then the variability of the data set can be measured using three sums of squares formulas:
-    
     \begin{gather}
         SS_{tot}=\sum _{i} \left ( y_i-\bar{y} \right )^2\\
          SS_{reg}=\sum _{i} \left ( f_i-\bar{y} \right )^2\\
-       SS_{res}=\sum _{i} \left ( y_i-f_i \right )^2=\sum _{i}e_i^2\\
-       R^2\equiv 1-\frac{SS_{res}}{SS_{tot}}
-    \end{gather}
-    
-   The better the linear regression (on the right) fits the data in comparison to the simple average (on the left graph), the closer the value of $R^{2}$ is to 1. 
+       SS_{res}=\sum _{i} \left ( y_i-f_i \right )^2=\sum _{i}e_i^2
+     \end{gather}
+     
+    Here we use the most general definition of the coefficient of determination as equation \ref{R^2}.
+    \begin{equation}\label{R^2}
+        R^2\equiv 1-\frac{SS_{res}}{SS_{tot}}
+    \end{equation}
+   The better the linear regression fits the data in comparison to the simple average, the closer the value of $R^{2}$ is to 1. 
     
 	\subsubsection{Back-Propagation Neutral Network (BPNN) Model} \label{Sec:BPNN} 
 	In order to describe how the opioid identification counts spread in and between the five states, we build a Back-Propagation Neutral Network Model, using distance matrix and last year's data as input. Back-Propagation is a supervised learning algorithm, for training Artificial Neural Networks, especially,  multi-layer networks. The weights such that the minimum error occurs is then considered to be a solution to the learning problem.
@@ -383,7 +392,47 @@ where $\mathbf {x}$  is usually averaged over some input training set.
 
 If the feature space $\mathcal {F}$ has lower dimensionality than the input space $\mathcal {X}$, then the feature vector $\phi (x)$ can be regarded as a compressed representation of the input $x$. If the hidden layers are larger than the input layer, an autoencoder can potentially learn the identity function and become useless. However, experimental results have shown that autoencoders might still learn useful features in these cases.
 
-\paragraph{\textbf{Results for the Two Methods}}
+\subsubsection{Linear Regression (LR) for Principle Component}
+After we choose the number of components to express the use or trends-in-use according to the U.S. Census socio-economic data, we apply linear regression to test if the components we choose can give a satisfying result that is close to the reports given by the NFLIS data. In this way, we can a score of this linear regression. The closer it approaches $1$, the better the components show the fact.
+
+Given a data set $\left \{ y_{i}, x_{i1}, \cdots , x_{ip} \right \}_{i = 1}^{n}$ of n statistical units, a linear regression model assumes that the relationship between the dependent variable $y$ and the $p$-vector of regressors $x$ is linear. This relationship is modeled through a disturbance term or error variable $ε$ , an unobserved random variable that adds "noise" to the linear relationship between the dependent variable and regressors. Thus the model takes the form  as the following shows.
+
+\begin{equation}
+    y_i = \beta_{0}1+ \beta_{1}x_{i1}+\cdots +\beta_{p}x_{ip} + \varepsilon _{i} = x_{i}^{T}\beta + \varepsilon_{i}
+\end{equation}
+
+The superscript $T$ denotes the transpose, so that $x_{i}^{T}\beta$ is the inner product between vectrs $x_{i}$ and $\beta$. 
+
+Often these n equations are stacked together and written in matrix notation as the following.
+
+\begin{equation}
+    y = X\beta + \varepsilon
+\end{equation}
+
+$y = \left( \begin{array}{cccc}
+y_{1} \\
+y_{2} \\
+\vdots  \\
+y_{n}
+\end{array} 
+\right ),$
+
+$X= \left( \begin{array}{cccc}x_{1}^{T} \\x_{2}^{T} \\
+\vdots  \\x_{n}^{T}\end{array} \right )=\left( \begin{array}{cccc}1& x_{11}&\cdots &x_{1p}\\1& x_{21}&\cdots &x_{2p}\\\vdots&\vdots&\ddots &\vdots\\1& x_{n1}&\cdots &x_{np}\end{array} \right ),$
+
+$\beta = \left( \begin{array}{cccc}\beta_{0} \\\beta_{1} \\
+\vdots  \\\beta_{p}\end{array} \right ),\varepsilon =\left( \begin{array}{cccc}\varepsilon_{0} \\\varepsilon_{1} \\
+\vdots  \\\varepsilon_{n}\end{array} \right ).$
+
+\begin{itemize}
+\item[-] $y$ is a vector of observed values $y_{i} ( i = 1, \cdots, n )$ of the variable called the regressand, endogenous variable, response variable, measured variable, criterion variable, or dependent variable. This variable is also sometimes known as the predicted variable. $X$ may be seen as a matrix of row-vectors 
+\item[-] $x_{i}$ or of n-dimensional column-vectors $X_{j}$, which are known as regressors, exogenous variables, explanatory variables, covariates, input variables, predictor variables, or independent variables (not to be confused with the concept of independent random variables).
+ \item[-] $\beta$ is a $( p + 1 )$-dimensional parameter vector, where $\beta _{0}$ is the intercept term (if one is included in the model—otherwise $\beta$ is $p$-dimensional). Its elements are known as effects or regression coefficients (although the latter term is sometimes reserved for the estimated effects).
+\item[-] $\varepsilon$ is a vector of values $\varepsilon _{i}$. This part of the model is called the error term, disturbance term, or sometimes noise (in contrast with the "signal" provided by the rest of the model).
+
+\end{itemize}
+
+\subsubsection{Results for Di}
 
 ~\smallskip
 
@@ -397,61 +446,68 @@ In PCA, we choose to reduce the dimensions to $4$ because the variance ratio rea
 \end{center}
 From these four dimension, we can get the score of about $0.92$, which shows a good result of the dimension reduction. 
 
-As we mentioned before, the five states can be treated similar. So we can apply the same method to these states and combine the results for all five states. The results are shown below:
+As we mentioned before, the five states can be treated similar. So we can apply the same method to these states and combine the results for all five states. The results are shown below: 
 
 \begin{figure}[h]
     \centering
     \begin{subfigure}[b]{0.49\textwidth}
         \includegraphics[width=\textwidth]{../figure/pca_state_ratio.eps}
-        \caption*{\parbox{20em}{(a) Five states in 2010-2017   different components}}
-        \label{fig:flow2d}
+        \subcaption{The ratio of data retained after dimensionality reduction among five states in 2010-2017 against different components}
+        \label{fig:pca_state_ratio}
     \end{subfigure}
     \begin{subfigure}[b]{0.49\textwidth}
         \includegraphics[width=\textwidth]{../figure/pca_state_score.eps}
-        \caption*{\parbox{20em}{(b) name}}
-        \label{fig:flow3d}
+        \subcaption{The $R^2$ of linear regression among five states in 2010-2017 against different components }
+        \label{fig:pca_state_score}
     \end{subfigure}
-    \caption{name}\label{fig:flow}
+    \caption{PCA and LR results among five states in 2010-2017 against different components}\label{fig:pca_state}
+\end{figure}
+
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{../figure/pca_state_2010_ratio.eps}
+        \subcaption{The ratio of data retained after dimensionality reduction among five states in 2010 against different components}
+        \label{fig:pca_state_2010_ratio}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{../figure/pca_state_2010_score.eps}
+        \subcaption{The $R^2$ of Linear Regression among five states in 2010 against different components}
+        \label{fig:pca_state_2010_score}
+    \end{subfigure}
+    \caption{PCA and LR results among five states in 2010 against different components}\label{fig:pca_state_2010}
 \end{figure}
 
 \begin{figure}[h]
     \centering
     \begin{subfigure}[b]{0.49\textwidth}
         \includegraphics[width=\textwidth]{../figure/pca_year_ratio.eps}
-        \caption*{\parbox{20em}{(a) name}}
-        \label{fig:flow2d}
+        \subcaption{The ratio of data retained after dimensionality reduction in 2010-2017 against different aggregations}
+        \label{fig:pca_year_ratio}
     \end{subfigure}
     \begin{subfigure}[b]{0.49\textwidth}
         \includegraphics[width=\textwidth]{../figure/pca_year_score.eps}
-        \caption*{\parbox{20em}{(b) name}}
-        \label{fig:flow3d}
+        \subcaption{The $R^2$ of Linear Regression rre in 2010-2017 against different aggregations}
+        \label{fig:pca_year_score}
     \end{subfigure}
-    \caption{name}\label{fig:flow}
+    \caption{PCA and LR results of data in 2010-2017 against different aggregations}\label{fig:pca_year}
 \end{figure}
 
 \begin{figure}[h]
     \centering
     \begin{subfigure}[b]{0.49\textwidth}
         \includegraphics[width=\textwidth]{../figure/pca_year_PA_ratio.eps}
-        \caption*{\parbox{20em}{(a) name}}
-        \label{fig:flow2d}
+        \subcaption{The ratio of data retained after dimensionality reduction in PA in 2010-2017 against different aggregations}
+        \label{fig:pca_year_PA_ratio}
     \end{subfigure}
     \begin{subfigure}[b]{0.49\textwidth}
         \includegraphics[width=\textwidth]{../figure/pca_year_PA_score.eps}
-        \caption*{\parbox{20em}{(b) name}}
-        \label{fig:flow3d}
+        \subcaption{The $R^2$ of data retained after dimensionality reduction in PA in 2010-2017 against different aggregations}
+        \label{fig:pca_year_PA_score}
     \end{subfigure}
-    \caption{name}\label{fig:flow}
+    \caption{PCA results of data retained after dimensionality reduction in PA in 2010-2017 against different aggregations}\label{fig:pca_year_PA}
 \end{figure}
-
-
-
-
-\subsubsection{Linear Regression for Principle Component}
-After we choose the number of components to express the get the important factors by dimension reduction, we apply linear regression to test the results that we get from dimension reduction. 
-
-
-
 
 
 
@@ -530,6 +586,8 @@ Thanks!
 \begin{appendices}
 
 \section{1}
+
+\inputminted{python}{../src/geocode.py}
 
 \section{2}
 
