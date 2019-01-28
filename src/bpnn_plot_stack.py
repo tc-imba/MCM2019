@@ -4,9 +4,10 @@ import numpy as np
 from mayavi import mlab
 from tvtk.api import tvtk
 
-state = 'OH'
-substance_name = 'Buprenorphine'
-fig_start = 6
+# state = 'OH'
+# substance_name = 'Buprenorphine'
+state = 'KY'
+substance_name = 'Hydrocodone'
 
 
 def draw_layer(path, position):
@@ -19,7 +20,7 @@ def draw_layer(path, position):
     m_image = mlab.imshow(
         np.ones(im.shape[:2]),
         extent=[0, 0, 0, 0, position, position],
-        opacity=0.4)
+        opacity=0.6)
 
     m_image.actor.input.point_data.scalars = colors
 
@@ -28,7 +29,7 @@ if __name__ == "__main__":
     fig_num = 5
     fig_height = 200 * (fig_num - 1)
 
-    mlab.figure(bgcolor=(0.8, 0.8, 0.8), size=(1000, 1000))
+    mlab.figure(bgcolor=(0.97, 0.97, 0.97), size=(1000, 1000))
 
     for i in range(fig_num):
         draw_layer('../figure/%s_%s_%d.png' % (state, substance_name, i + 1), i * 200)

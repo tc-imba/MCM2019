@@ -93,8 +93,10 @@ def get_distance(a, b):
     return df_distance[str(a)].loc[int(b)]
 
 
-state = 'OH'
-substance_name = 'Buprenorphine'
+# state = 'OH'
+# substance_name = 'Buprenorphine'
+state = 'KY'
+substance_name = 'Hydrocodone'
 df_county = df[df['State'] == state].groupby('FIPS_Combined').first()
 df = df[(df['State'] == state) & (df['SubstanceName'] == substance_name)].reset_index()
 
@@ -121,8 +123,8 @@ for _i, county_i in county_list.items():
 
 for index, row in df.iterrows():
     fips = row['FIPS_Combined']
-    year = row['YYYY'] - start_year
-    # year = start_year - 1 + total_years - row['YYYY']
+    # year = row['YYYY'] - start_year
+    year = start_year - 1 + total_years - row['YYYY']
     data = row['DrugReports']
     county_list[fips].set_train_data_drug(year, data)
 
@@ -130,8 +132,8 @@ for index, row in df_pca.iterrows():
     fips = row['FIPS']
     if fips not in county_list:
         continue
-    year = row['YYYY'] - start_year
-    # year = start_year - 1 + total_years - row['YYYY']
+    # year = row['YYYY'] - start_year
+    year = start_year - 1 + total_years - row['YYYY']
     data = [row['D%d' % i] for i in range(1, 5)]
     county_list[fips].set_train_data_pca(year, data)
 
