@@ -4,7 +4,7 @@ import plotly
 import pandas as pd
 import numpy as np
 
-df = pd.read_excel('data/MCM_NFLIS_Data.xlsx', sheet_name='Data')
+df = pd.read_excel('../data/MCM_NFLIS_Data.xlsx', sheet_name='Data')
 fips_dict = dict()
 for index, row in df.iterrows():
     fips_dict[row['FIPS_Combined']] = 0

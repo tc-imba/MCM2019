@@ -11,7 +11,7 @@ from sklearn.gaussian_process.kernels import DotProduct, WhiteKernel
 
 tqdm.pandas()
 
-df = pd.read_excel('data/MCM_NFLIS_Data.xlsx', sheet_name='Data')
+df = pd.read_excel('../data/MCM_NFLIS_Data.xlsx', sheet_name='Data')
 df_distance = pd.read_csv('geocode_distance.csv', index_col=0)
 
 

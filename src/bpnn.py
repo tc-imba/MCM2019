@@ -42,7 +42,7 @@ class County:
             path.weight = max(0, path.weight + training_rate * error_rate)
 
 
-df = pd.read_excel('data/MCM_NFLIS_Data.xlsx', sheet_name='Data')
+df = pd.read_excel('../data/MCM_NFLIS_Data.xlsx', sheet_name='Data')
 df_distance = pd.read_csv('geocode_distance.csv', index_col=0)
 
 

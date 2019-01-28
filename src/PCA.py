@@ -8,7 +8,7 @@ from sklearn.linear_model import LinearRegression
 df_data = pd.DataFrame()
 for i in range(7):
     year = '1%d' % i
-    filename = 'data/ACS_1%d_5YR_DP02/ACS_1%d_5YR_DP02_with_ann.csv' % (i, i)
+    filename = '../data/ACS_1%d_5YR_DP02/ACS_1%d_5YR_DP02_with_ann.csv' % (i, i)
     df_temp = pd.read_csv(filename, header=[0, 1])
     df_temp.columns = df_temp.columns.get_level_values(0)
     df_temp = df_temp.filter(regex='^(HC01|GEO.id2)', axis=1)
@@ -63,7 +63,7 @@ def apply_pca(state=None, year=None, n_components=10):
     df_result.set_index('key', inplace=True)
     df_result.drop(columns=['YYYY', 'State', 'GEO.id2'], inplace=True)
 
-    df_test = pd.read_excel('data/MCM_NFLIS_Data.xlsx', sheet_name='Data')
+    df_test = pd.read_excel('../data/MCM_NFLIS_Data.xlsx', sheet_name='Data')
     df_test = df_test.groupby(['YYYY', 'FIPS_Combined']).first().reset_index()
     # df_test = df_test[df_test['YYYY'] == 2010].reset_index()
     df_test['key'] = df_test['YYYY'].astype(str) + df_test['FIPS_Combined'].astype(str)
@@ -116,24 +116,24 @@ df_plot = pd.DataFrame(columns=['YYYY', 'State', 'components', 'ratio', 'score']
 for i, state in enumerate(states):
     df_plot = df_plot.append(apply_pca(state=state, n_components=10), ignore_index=True)
 
-df_plot.to_csv('result/pca_state.csv', index=False)
+df_plot.to_csv('../result/pca_state.csv', index=False)
 
 df_plot = pd.DataFrame(columns=['YYYY', 'State', 'components', 'ratio', 'score'])
 for i, year in enumerate(years):
     df_plot = df_plot.append(apply_pca(year=year, n_components=10), ignore_index=True)
 
-df_plot.to_csv('result/pca_year.csv', index=False)
+df_plot.to_csv('../result/pca_year.csv', index=False)
 
 df_plot = pd.DataFrame(columns=['YYYY', 'State', 'components', 'ratio', 'score'])
 for i, state in enumerate(states):
     df_plot = df_plot.append(apply_pca(state=state, year=2010, n_components=10), ignore_index=True)
 
-df_plot.to_csv('result/pca_state_2010.csv', index=False)
+df_plot.to_csv('../result/pca_state_2010.csv', index=False)
 
 
 df_plot = pd.DataFrame(columns=['YYYY', 'State', 'components', 'ratio', 'score'])
 for i, year in enumerate(years):
     df_plot = df_plot.append(apply_pca(state=42, year=year, n_components=10), ignore_index=True)
 
-df_plot.to_csv('result/pca_year_PA.csv', index=False)
+df_plot.to_csv('../result/pca_year_PA.csv', index=False)
 

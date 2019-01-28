@@ -10,7 +10,7 @@ def formatter_func(x, pos):
     return '%.1f' % x
 
 
-df = pd.read_csv('result/pca_state.csv')
+df = pd.read_csv('../result/pca_state.csv')
 n_components = df['components'].max()
 
 fig = plt.figure(figsize=(8, 6))
@@ -34,7 +34,7 @@ plt.legend(loc='lower right', prop={'size': 15})
 plt.title('PCA components vs explained variance ratio')
 ax.yaxis.set_major_formatter(ticker.FuncFormatter(formatter_func))
 ax.yaxis.set_minor_formatter(ticker.FuncFormatter(formatter_func))
-plt.savefig('result/pca_state_ratio.eps')
+plt.savefig('../result/pca_state_ratio.eps')
 plt.show()
 
 fig = plt.figure(figsize=(8, 6))
@@ -57,10 +57,10 @@ plt.legend(loc='lower right', prop={'size': 15})
 plt.title('PCA components vs coefficient of determination')
 ax.yaxis.set_major_formatter(ticker.FuncFormatter(formatter_func))
 ax.yaxis.set_minor_formatter(ticker.FuncFormatter(formatter_func))
-plt.savefig('result/pca_state_score.eps')
+plt.savefig('../result/pca_state_score.eps')
 plt.show()
 
-df = pd.read_csv('result/pca_year.csv')
+df = pd.read_csv('../result/pca_year.csv')
 n_components = df['components'].max()
 
 fig = plt.figure(figsize=(8, 6))
@@ -84,7 +84,7 @@ plt.legend(loc='lower right', prop={'size': 15})
 plt.title('PCA components vs explained variance ratio')
 ax.yaxis.set_major_formatter(ticker.FuncFormatter(formatter_func))
 ax.yaxis.set_minor_formatter(ticker.FuncFormatter(formatter_func))
-plt.savefig('result/pca_year_ratio.eps')
+plt.savefig('../result/pca_year_ratio.eps')
 plt.show()
 
 
@@ -108,11 +108,11 @@ plt.legend(loc='lower right', prop={'size': 15})
 plt.title('PCA components vs coefficient of determination')
 ax.yaxis.set_major_formatter(ticker.FuncFormatter(formatter_func))
 ax.yaxis.set_minor_formatter(ticker.FuncFormatter(formatter_func))
-plt.savefig('result/pca_year_score.eps')
+plt.savefig('../result/pca_year_score.eps')
 plt.show()
 
 
-df = pd.read_csv('result/pca_state_2010.csv')
+df = pd.read_csv('../result/pca_state_2010.csv')
 n_components = df['components'].max()
 
 fig = plt.figure(figsize=(8, 6))
@@ -136,7 +136,7 @@ plt.legend(loc='lower right', prop={'size': 15})
 plt.title('PCA components vs explained variance ratio (2010)')
 ax.yaxis.set_major_formatter(ticker.FuncFormatter(formatter_func))
 ax.yaxis.set_minor_formatter(ticker.FuncFormatter(formatter_func))
-plt.savefig('result/pca_state_2010_ratio.eps')
+plt.savefig('../result/pca_state_2010_ratio.eps')
 plt.show()
 
 fig = plt.figure(figsize=(8, 6))
@@ -159,10 +159,10 @@ plt.legend(loc='lower right', prop={'size': 15})
 plt.title('PCA components vs coefficient of determination (2010)')
 ax.yaxis.set_major_formatter(ticker.FuncFormatter(formatter_func))
 ax.yaxis.set_minor_formatter(ticker.FuncFormatter(formatter_func))
-plt.savefig('result/pca_state_2010_score.eps')
+plt.savefig('../result/pca_state_2010_score.eps')
 plt.show()
 
-df = pd.read_csv('result/pca_year_PA.csv')
+df = pd.read_csv('../result/pca_year_PA.csv')
 n_components = df['components'].max()
 
 fig = plt.figure(figsize=(8, 6))
@@ -186,7 +186,7 @@ plt.legend(loc='lower right', prop={'size': 15})
 plt.title('PCA components vs explained variance ratio (PA)')
 ax.yaxis.set_major_formatter(ticker.FuncFormatter(formatter_func))
 ax.yaxis.set_minor_formatter(ticker.FuncFormatter(formatter_func))
-plt.savefig('result/pca_year_PA_ratio.eps')
+plt.savefig('../result/pca_year_PA_ratio.eps')
 plt.show()
 
 
@@ -210,5 +210,5 @@ plt.legend(loc='lower right', prop={'size': 15})
 plt.title('PCA components vs coefficient of determination (PA)')
 ax.yaxis.set_major_formatter(ticker.FuncFormatter(formatter_func))
 ax.yaxis.set_minor_formatter(ticker.FuncFormatter(formatter_func))
-plt.savefig('result/pca_year_PA_score.eps')
+plt.savefig('../result/pca_year_PA_score.eps')
 plt.show()

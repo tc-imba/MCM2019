@@ -9,7 +9,7 @@ tqdm.pandas()
 geolocator = Nominatim(user_agent='mcm2019-1920446')
 geocode = RateLimiter(geolocator.geocode, min_delay_seconds=0.5)
 
-df = pd.read_excel('data/MCM_NFLIS_Data.xlsx', sheet_name='Data')
+df = pd.read_excel('../data/MCM_NFLIS_Data.xlsx', sheet_name='Data')
 
 df = df.groupby('FIPS_Combined').first().reset_index()
 
