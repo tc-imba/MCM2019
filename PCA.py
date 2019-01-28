@@ -30,6 +30,7 @@ def preprocess_data(x):
 
 
 df_data = df_data.applymap(preprocess_data)
+years = [2010, 2011, 2012, 2013, 2014, 2015, 2016, None]
 states = [21, 39, 42, 51, 54, None]
 states_dict = {
     21: 'KY',
@@ -112,9 +113,13 @@ def apply_pca(state=None, year=None, n_components=10):
 
 
 df_plot = pd.DataFrame(columns=['YYYY', 'State', 'components', 'ratio', 'score'])
-
-# states = [21]
 for i, state in enumerate(states):
     df_plot = df_plot.append(apply_pca(state=state, n_components=10), ignore_index=True)
 
 df_plot.to_csv('result/pca_state.csv', index=False)
+
+df_plot = pd.DataFrame(columns=['YYYY', 'State', 'components', 'ratio', 'score'])
+for i, year in enumerate(years):
+    df_plot = df_plot.append(apply_pca(year=year, n_components=10), ignore_index=True)
+
+df_plot.to_csv('result/pca_year.csv', index=False)
