@@ -109,31 +109,46 @@ def apply_pca(state=None, year=None, n_components=10):
         print(result)
 
     df = pd.DataFrame(result_arr, columns=['YYYY', 'State', 'components', 'ratio', 'score'])
-    return df
+    return df, df_result
 
 
-df_plot = pd.DataFrame(columns=['YYYY', 'State', 'components', 'ratio', 'score'])
-for i, state in enumerate(states):
-    df_plot = df_plot.append(apply_pca(state=state, n_components=10), ignore_index=True)
+#
+# df_plot = pd.DataFrame(columns=['YYYY', 'State', 'components', 'ratio', 'score'])
+# for i, state in enumerate(states):
+#     df_temp, _ = apply_pca(state=state, n_components=10)
+#     df_plot = df_plot.append(df_temp, ignore_index=True)
+#
+# df_plot.to_csv('../result/pca_state.csv', index=False)
+#
+# df_plot = pd.DataFrame(columns=['YYYY', 'State', 'components', 'ratio', 'score'])
+# for i, year in enumerate(years):
+#     df_temp, _ = apply_pca(year=year, n_components=10)
+#     df_plot = df_plot.append(df_temp, ignore_index=True)
+#
+# df_plot.to_csv('../result/pca_year.csv', index=False)
+#
+# df_plot = pd.DataFrame(columns=['YYYY', 'State', 'components', 'ratio', 'score'])
+# for i, state in enumerate(states):
+#     df_temp, _ = apply_pca(state=state, year=2010, n_components=10)
+#     df_plot = df_plot.append(df_temp, ignore_index=True)
+#
+# df_plot.to_csv('../result/pca_state_2010.csv', index=False)
+#
+# df_plot = pd.DataFrame(columns=['YYYY', 'State', 'components', 'ratio', 'score'])
+# for i, year in enumerate(years):
+#     df_temp, _ = apply_pca(state=42, year=year, n_components=10)
+#     df_plot = df_plot.append(df_temp, ignore_index=True)
+#
+# df_plot.to_csv('../result/pca_year_PA.csv', index=False)
 
-df_plot.to_csv('../result/pca_state.csv', index=False)
+df_PCA = pd.DataFrame(columns=['D1','D2','D3','D4','YYYY','FIPS'])
 
-df_plot = pd.DataFrame(columns=['YYYY', 'State', 'components', 'ratio', 'score'])
-for i, year in enumerate(years):
-    df_plot = df_plot.append(apply_pca(year=year, n_components=10), ignore_index=True)
+for i in range(5):
+    _, df_KY = apply_pca(state=states[i], n_components=4)
+    df_KY = df_KY[[0, 1, 2, 3]]
+    df_KY.rename(lambda x: 'D' + str(int(x) + 1), axis=1, inplace=True)
+    df_KY['YYYY'] = df_KY.index.map(lambda x: x[0:4])
+    df_KY['FIPS'] = df_KY.index.map(lambda x: x[4:])
+    df_PCA = df_PCA.append(df_KY, ignore_index=True)
 
-df_plot.to_csv('../result/pca_year.csv', index=False)
-
-df_plot = pd.DataFrame(columns=['YYYY', 'State', 'components', 'ratio', 'score'])
-for i, state in enumerate(states):
-    df_plot = df_plot.append(apply_pca(state=state, year=2010, n_components=10), ignore_index=True)
-
-df_plot.to_csv('../result/pca_state_2010.csv', index=False)
-
-
-df_plot = pd.DataFrame(columns=['YYYY', 'State', 'components', 'ratio', 'score'])
-for i, year in enumerate(years):
-    df_plot = df_plot.append(apply_pca(state=42, year=year, n_components=10), ignore_index=True)
-
-df_plot.to_csv('../result/pca_year_PA.csv', index=False)
-
+df_PCA.to_csv('../result/pca.csv', index=False)
