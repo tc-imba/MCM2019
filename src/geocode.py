@@ -21,4 +21,3 @@ df['longitude'] = df['location'].apply(lambda loc: loc and loc.longitude or 0)
 df = df.reindex(columns=['FIPS_Combined', 'State', 'COUNTY', 'latitude', 'longitude'])
 
 df.to_csv('geocode.csv', index=False)
-print(df)

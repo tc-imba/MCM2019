@@ -10,4 +10,5 @@ xlrd
 geopy
 tqdm
 sklearn
-torch
+mayavi
+PyQt5
