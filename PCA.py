@@ -123,3 +123,17 @@ for i, year in enumerate(years):
     df_plot = df_plot.append(apply_pca(year=year, n_components=10), ignore_index=True)
 
 df_plot.to_csv('result/pca_year.csv', index=False)
+
+df_plot = pd.DataFrame(columns=['YYYY', 'State', 'components', 'ratio', 'score'])
+for i, state in enumerate(states):
+    df_plot = df_plot.append(apply_pca(state=state, year=2010, n_components=10), ignore_index=True)
+
+df_plot.to_csv('result/pca_state_2010.csv', index=False)
+
+
+df_plot = pd.DataFrame(columns=['YYYY', 'State', 'components', 'ratio', 'score'])
+for i, year in enumerate(years):
+    df_plot = df_plot.append(apply_pca(state=42, year=year, n_components=10), ignore_index=True)
+
+df_plot.to_csv('result/pca_year_PA.csv', index=False)
+
