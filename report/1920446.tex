@@ -426,7 +426,8 @@ So any value that will be more than the upper limit or lesser than the lower lim
 
 \subsubsection{Source Dedection of Spreading Model}
 \label{sec: Implementation}
-As we mentioned before in 4.1.2 table\ref{tab:my_label}, Hydrocodone in the state KY is the most often occurred case by statistics. So we choose it to be a sample for us to derive its source. Considering that we have just 8-year data, so we only predict 2 years forward and backward to ensure the accuracy. Thus, With data from 2010 to 2017 inputted into our model, we predict how the identification counts for the Hydrocodone cases distribute in KY in 2008, which is shown in table \ref{tab:2008}, and Buprenorphine cases in Ohio (OH) in 2018, which is shown in table \ref{2018} and figure \ref{KY_Hydrocodone_5}.
+
+As we mentioned before in 4.1.2 table\ref{tab:my_label}, Hydrocodone in the state KY is the most often occurred case by statistics. So we choose it to be a sample for us to derive its source. Considering that we have just 8-year data, so we only predict 2 years forward and backward to ensure the accuracy. Thus, With data from 2010 to 2017 inputted into our model, we predict how the identification counts for the Hydrocodone cases distribute in KY in 2008, which is shown in table \ref{tab:2008} and figure \ref{KY_Hydrocodone_5}. Similarly, we can predict Buprenorphine cases in Ohio (OH) in 2018, which is shown in table \ref{2018} and figure \ref{OH}.
 
 \begin{table}[H]
     \centering  
@@ -450,6 +451,13 @@ KNOX&KY&21121&61.78282318731254\\
     \end{tabular}
 \end{table} 
 
+\begin{figure}[htbp]
+	\centering 
+	\includegraphics[width=0.8\linewidth]{../figure/KY_Hydrocodone_5}  
+	\caption{Hydrocodone identification counts in 2008 in  Kentucky (KY)} 
+	\label{KY_Hydrocodone_5}  
+\end{figure}
+
 \begin{table}[H]
     \centering  
     \caption{ Buprenorphine identification counts in 2018 in Ohio (OH)}
@@ -463,7 +471,7 @@ CUYAHOGA&OH&39035&139.50639150154788\\
 FAIRFIELD&OH&39045&98.06495486668322\\
 CRAWFORD&OH&39033&89.3587012990159\\
 STARK&OH&39151&82.62489026827468\\
-GUERNSEY&OH39059&81.52033854514106\\
+GUERNSEY&OH&39059&81.52033854514106\\
 LAKE&OH&39085&78.01769217413005\\
         \hline
     \end{tabular}
@@ -471,19 +479,30 @@ LAKE&OH&39085&78.01769217413005\\
 
 \begin{figure}[htbp]
 	\centering 
-	\includegraphics[width=0.8\linewidth]{../figure/KY_Hydrocodone_5}  
-	\caption{Hydrocodone identification counts in 2008 in  Kentucky (KY)} 
-	\label{KY_Hydrocodone_5}  
+	\includegraphics[width=0.8\linewidth]{../figure/OH_Buprenorphine_1}  
+	\caption{ Buprenorphine identification counts in 2018 in Ohio (OH)} 
+	\label{OH}
 \end{figure}
 
-Then we overlay such images generated from 2008 to 2012 in chronological order to show the spreading characteristics of Hydrocodone identification counts in Kentucky as figure \ref{KY_Hydrocodone} shows. With this method, we identify some  possible locations where specific opioid use might have started in each of the five states.
+Then we overlay such images generated from 2008 to 2012 in chronological order to show the spreading characteristics of Hydrocodone identification counts in Kentucky as figure \ref{KY_Hydrocodone} shows. With this method, we identify some  possible locations where specific opioid use might have started in each of the five states. Similarly, we can demonstrate the spreading characteristics of Buprenorphine identification counts in Ohio as figure \ref{OH_Buprenorphine} shows.
 
 \begin{figure}[htbp]
 	\centering 
 	\includegraphics[width=0.7\linewidth]{../figure/KY_Hydrocodone} 
-	\caption{Hydrocodone identification counts  from 2008 to 2012 in  Kentucky (KY)} 
+	\caption{Buprenorphine identification counts in 2018 in Ohio (OH)} 
 	\label{KY_Hydrocodone}  
 \end{figure}
+
+
+
+\begin{figure}[htbp]
+	\centering 
+	\includegraphics[width=0.7\linewidth]{../figure/OH_Buprenorphine} 
+	\caption{Buprenorphine identification counts preading diagram from 2014 to 2018 in Ohio (OH)} 
+	\label{OH_Buprenorphine}  
+\end{figure}
+
+
 
 \subsubsection{Future Prediction of Spreading Model}
 
@@ -831,7 +850,7 @@ In this paper,we propose a novel framework called \textbf{SOS} (Spreading Model,
 \newpage
 \section*{MEMORANDUM} 
 
-\noindent\textbf{To:} Chief Administrator, DEA/NFLIS Database
+b\noindent\textbf{To:} Chief Administrator, DEA/NFLIS Database
 
 \noindent\textbf{From:} Team \# 1920446
 
