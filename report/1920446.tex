@@ -61,6 +61,8 @@
 % \usepackage{cmbright}
 
 \usepackage[final]{pdfpages}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
 
 \begin{document}
 \linespread{0.6}  %%行间距
@@ -68,19 +70,19 @@
 \title{SOS: Spreading Model, Optimization, and Strategy Program for the Opioid Crisis}
 
 \date{\today}
-	\begin{abstract}
+\begin{abstract}
 	As the deteriorating Opioid Crisis overwhelms the United States, the DEA/National Forensic Laboratory Information System (NFLIS) are striving to control the nationwide spread of opioid overdose indidents. In this paper, we formuate a concrete and novel framework, named \textbf{SOS ( Spreading Model, Optimization, and Strategy Program for the Opioid Crisis)}, seeking for new strategies to combat the exacerbating opioid crisis.
 	
-	Based on the report provided, we create a Spreading Model of opioid incidents, focusing on the individual counties located in five U.S. states: Ohio (OH), Kentucky (KY), West Virginia (WV), Virginia (VA), and Pennsylvania (PA). We first get the longitude and latitude of every county and utilize a \textbf{Back-Propagation Neutral Network (BPNN)} to characterize the basic evolving and spreading trends of the reported opioid and heroin incidents in and between the five states and their counties from 2010 to 2017. Thus, we forecast the opioid accidents happened in the following two years, which demonstrates the urgence of solving the opioids abuse problem. Based on this initial model, we next adopt \textbf{Outlier Detection} to identify some most possible locations where specific opioid accidents might have started in the five states. 
+	Based on the report provided, we create a Spreading Model of opioid incidents, focusing on the individual counties located in five U.S. states: Ohio (OH), Kentucky (KY), West Virginia (WV), Virginia (VA), and Pennsylvania (PA). We first get the longitude and latitude of every county and utilize a \textbf{Back-Propagation Neutral Network (BPNN)} to characterize the reported opioid and heroin incidents in and between the five states and their counties from 2010 to 2017. Based on this initial model, we next adopt \textbf{Outlier Detection} to identify some most possible locations where specific opioid accidents might have started, and the trending opioids crisis in the future of the five states. 
 	
-	Furthermore, we combine \textbf{Principal Component Analysis (PCA)} and \textbf{Deep Learning Approach Auto-encoder (AE)} two techniques to analyze the U.S. Census Socio-economic data provided, aiming to reduce dimensions and find any important principal components. Then we make \textbf{Linear Regressions (LR)} to test the validity of these principal components, with which we add to our Spreading Model for modification.
+	Furthermore, we combine \textbf{Principal Component Analysis (PCA)} and \textbf{Deep Learning Approach Auto-encoder (AE)} techniques to analyze the U.S. Census Socio-economic data provided, aiming to reduce dimensions and find any important principal components. Then we use \textbf{Linear Regressions (LR)} to evaluate these principal components, proving that the data is effective for our model. Then we are able to add the transformed variables under the principal components axis into our Spreading Model for modification.
 	
 	Eventually, according to the results above, we figure out a comprehensive and feasible \textbf{Strategy Program} called \textbf{"SSD"}. The whole strategy program can be divided into three parts: \textbf{Supply Control, Spread Control, and Demand Control}. After being tested by our promoted model, these strategies are proven to be significantly effective in controlling and preventing the opioid crisis. We finally give a significant parameter bound that success is dependent upon.
 	
-		\begin{keywords}
+	\begin{keywords}
 		SOS; Back-Propagation Neutral Network (BPNN); Outlier Detection; Principal Component Analysis (PCA);Deep Learning Approach: Auto Encoder;Linear Regression (LR); Strategy Program ``SSD''
-		\end{keywords}
-	\end{abstract}
+	\end{keywords}
+\end{abstract}
 
 \maketitle
 
@@ -95,7 +97,7 @@ The Opioid Crisis means the rapid increase in the use of prescription and non-pr
 \begin{figure}[htbp]
 	\centering 
 	\includegraphics[width=1\linewidth]{../figure/test.png}  
-	\caption{Heroin identification counts in years 2010-2017 in each of the counties from five states: Ohio (OH), Kentucky (KY), West Virginia (WV), Virginia (VA), and Pennsylvania (PA)} 
+	\caption{Heroin identification counts in years 2010-2017 in each of the counties from five states: Ohio (OH), Kentucky (KY), West Virginia (WV), Virginia (VA), and Pennsylvania (PA).} 
 	\label{situation}  
 \end{figure}
 
@@ -104,12 +106,12 @@ Studies show that the increase in opioid overdose deaths has been dramatic, and 
 Currently, the U.S. government has payed great attention and taken a bunch of measures on this issue~\cite{CORRIGAN201844}. While the U.S. Centers for Disease Control (CDC) continue to fight the opioid overdose epidemic, simply enforcing existing laws is still a complex challenge for the Federal Bureau of Investigation (FBI), and the U.S. Drug Enforcement Administration (DEA), among others~\cite{intro}. Therefore, they need investigate the spread and characteristics of the opioids and heroin incidents in the United States, so that they can develop their strategies to better control and prevent the deteriorating opioids overdose situation.
 
 \subsection{Our Work}
-In this paper, we propose a novel framework, named SOS ( Spreading Model, Optimization, and Strategy Pragram for the Opioid Crisis), seeking for new strategies to combat the exacerbating opioid crisis. The framework of SOS is shown in Figure \ref{Framework}. 
+In this paper, we propose a novel framework, named SOS ( Spreading Model, Optimization, and Strategy Pragram for the Opioid Crisis), seeking for new strategies to combat the exacerbating opioid crisis. The framework of SOS is shown in figure \ref{Framework}. 
 
 \begin{figure}[htbp]
 	\centering 
-	\includegraphics[width=1\linewidth]{../figure/framework2.pdf}  
-	\caption{Framework of SOS: Spreading Model, Optimization, and Strategy Program for the Opioid Crisis} 
+	\includegraphics[width=1\linewidth]{../figure/framework2.pdf} 
+	\caption{Framework of our model SOS: Spreading Model, Optimization, and Strategy Program for the Opioid Crisis.} 
 	\label{Framework}  
 \end{figure}
 
@@ -144,16 +146,16 @@ First and foremost, we make some basic assumptions and explain their rationales.
 In this paper we use the nomenclature in Table \ref{tab:Nomen} to describe our model. Other symbols that are used only once will be described later.
 \begin{table}[H]
     \centering
-    \caption{Nomenclature}
+    \caption{Nomenclature.}
     \label{tab:Nomen}
-    \begin{tabular}{c|c}
+    \begin{tabular}{|c|c|}
 \hline
     	Symbol & Definition\\
 \hline
-	$A_x$ & The longitude of point A, so do B\\
-	$A_y$ & The latitude of point A, so do B \\
+	$A_x$ & The longitude of point A\\
+	$A_y$ & The latitude of point A \\
     $D_{ij}$ &  The distance between any two state counties\\
-    $R^2$ & The coefficient of determination, pronounced "R squared"\\
+    $R^2$ & The coefficient of determination\\
 	$h_{w}$ & A vector function depends on the input-layer weights \\
 	$y$ & Target result of the function $h_{w}$ \\
 	$Err_k$ & The $k$th component of the error vector $y-h_{w}$\\
@@ -166,6 +168,7 @@ In this paper we use the nomenclature in Table \ref{tab:Nomen} to describe our m
     AE	& Auto Encoder\\
     PCA & Principal Component Analysis\\
     LR  & Linear Regression\\
+    BPNN & Back-Propagation Neutral Network \\
 \hline
     \end{tabular}
 \end{table}    
@@ -173,7 +176,7 @@ In this paper we use the nomenclature in Table \ref{tab:Nomen} to describe our m
 \section{SOS: Spreading Model, Optimization, and Strategy Program for the Opioid Crisis} \label{Sec-Model}
 In this section, we will discuss all details about our model \textbf{SOS}. Generally, this model consists of three parts: Spreading Model  for Opioid Incidents, Optimization with Socio-Economic Components, and Strategy Program for the Opioid Crisis.
 
-\subsection{Data Pre-Processing}
+\subsection{Data Pre-Processing and Model Evaluation Criteria}
 
 \subsubsection{Geometric Location and Distances between the Counties}
 
@@ -181,7 +184,7 @@ To begin with, we consider the relative distance between any two counties as one
     
 \begin{table}[H]
     \centering
-     \caption{The official coordinates of these 462 counties we get through Python from Microsoft Bing Map API}
+     \caption{Part of the official coordinates of these 462 counties we get through Python from Microsoft Bing Map API.}
     \label{tab:geotable}
     \begin{tabular}{|c|c|c|c|c|}
         \hline
@@ -201,16 +204,19 @@ FIPS-Combined &	State &	County &	latitude &	longitude \\ \hline
     
 
 
-In that case, we can calculate the distance between each two counties. The earth is a near-standard ellipsoid with an equatorial radius of 6,378.140 km and a polar radius of 6,356.755 km, with an average radius of 6,371.004 km. If we assume that the earth is a perfect sphere, then its radius is the average radius of the earth, called R. If the zero degree longitude line is the basis, the surface distance between any two points on the earth's surface can be calculated based on the longitude and latitude of the two points. Let the longitude and latitude of point $A$ be $(A_x, A_y)$, and the longitude and latitude of point $B$ be $(B_x, B_y)$. Then, according to the Trigonometric Derivation, the equation \ref{1} and equation \ref{2} for calculating the distance ($D$) between two points can be obtained.
+In that case, we can calculate the distance between each two counties. The earth is a near-standard ellipsoid with an equatorial radius of 6,378.140 km and a polar radius of 6,356.755 km, with an average radius of 6,371.004 km. If we assume that the earth is a perfect sphere, then its radius is the average radius of the earth, called R. If the zero degree longitude line is the basis, the surface distance between any two points on the earth's surface can be calculated based on the longitude and latitude of the two points. Let the longitude and latitude of point $A$ be $(A_x, A_y)$, and the longitude and latitude of point $B$ be $(B_x, B_y)$. Then, according to the Trigonometric Derivation, the equation \ref{1}and \ref{2} for calculating the distance ($D$) between two points can be obtained.
 
-     \begin{equation}
-          \label{1}
+\begin{equation}
+\label{1}
           C = \sin(A_y)\sin(B_y)\cos(A_x-B_x) + \cos(A_y)\cos(B_y),
-     \end{equation}
-     \begin{equation}
-         \label{2}
+\end{equation}
+
+\begin{equation}
+\label{2}
          D = R\arccos(C)\pi/180,
-     \end{equation}
+\end{equation}
+
+    
     where $C$ is a temporary variable and $D$ is distance. Using the location data we got before, we can make a matrix that represents all the distance between any two counties in these five states.
 
 \subsubsection{Count of Drug Report by State}
@@ -219,7 +225,7 @@ In that case, we can calculate the distance between each two counties. The earth
     
 \begin{table}[H]
     \centering  
-    \caption{Ranking table according to the number of specific opioid incidents in each state county }
+    \caption{Part of ranking table according to the number of specific opioid incidents in each state county, sorted in descending order.}
     \label{tab:my_label}
     \begin{tabular}{|c|c|c|}
         \hline
@@ -237,9 +243,8 @@ In that case, we can calculate the distance between each two counties. The earth
 \end{table}    
     
     
-\subsection{ Spreading Model for Opioid Incidents }
 
-    \subsubsection{Model Evaluation Criteria:  Coefficient of Determination}
+\subsubsection{Model Evaluation Criteria:  Coefficient of Determination}
     
     In our model, we take  Coefficient of Determination as our Evaluation Criteria.In statistics, the coefficient of determination, denoted $R^2$ and pronounced "R squared", is the proportion of the variance in the dependent variable that is predictable from the independent variable(s) ~\cite{R}. 
     
@@ -247,20 +252,79 @@ In that case, we can calculate the distance between each two counties. The earth
 
     Define the residuals as $e_i = y_i$ - $f_i$ (forming a vector $\vec{e}$ ). $\bar{y}$ is the mean of the observed data: 
     $\bar{y}=\frac{1}{n}\sum_{i=1}^n y_{i}$ , then the variability of the data set can be measured using three sums of squares formulas:
-    \begin{gather}
-        SS_{tot}=\sum _{i} \left ( y_i-\bar{y} \right )^2\\
-         SS_{reg}=\sum _{i} \left ( f_i-\bar{y} \right )^2\\
+    \begin{gather*}
+        SS_{tot}=\sum _{i} \left ( y_i-\bar{y} \right )^2 ~,~
+         SS_{reg}=\sum _{i} \left ( f_i-\bar{y} \right )^2 ~,~
        SS_{res}=\sum _{i} \left ( y_i-f_i \right )^2=\sum _{i}e_i^2
-     \end{gather}
+     \end{gather*}
      
     Here we use the most general definition of the coefficient of determination as equation \ref{R^2}.
     \begin{equation}\label{R^2}
         R^2\equiv 1-\frac{SS_{res}}{SS_{tot}}
     \end{equation}
-   The better the linear regression fits the data in comparison to the simple average, the closer the value of $R^{2}$ is to 1. 
     
-	\subsubsection{Back-Propagation Neutral Network (BPNN) Model} \label{Sec:BPNN} 
-	In order to describe how the opioids identification counts spread in and between the five states, we build a Back-Propagation Neutral Network model, using distance matrix and last year's data as input. Back-Propagation is a supervised learning algorithm, for training Artificial Neural Networks, especially,  multi-layer networks ~\cite{AI}. The weights that the minimum error occurs is then considered to be a solution to the learning problem. See appendix \ref{code:bpnn} for the complete python code. 
+   The better the linear regression fits the data in comparison to the simple average, the closer the value of $R^{2}$ is to 1. A constant model that always predicts the expected value of $y$, disregarding the input features, would get a $R^2$ score of 0.
+
+\subsection{ Spreading Model for Opioid Incidents }
+
+\subsubsection{Introduction}    
+
+In order to describe how the opioids identification counts spread in and between the five states, we build a Back-Propagation Neutral Network model, using distance matrix and last year's data as input. Back-Propagation is a supervised learning algorithm, for training Artificial Neural Networks, especially,  multi-layer networks ~\cite{AI}. The weights that the minimum error occurs is then considered to be a solution to the learning problem. 
+
+However, the origin \textbf{BPNN} model is full-connected, which means, it doesn't take the distance between counties into consideration. The connections between two counties far away from each other can have a great impact on the learning time and effect of the model. Thus, we use a sparse-connected hidden layer between the input layer and output layer to solve this problem. Whether two neutrons are connected depends on whether the distance of the two counties they represent is under a certain threshold. Two neutrons of same counties are connected since their distance is zero.
+
+In addition, the drugs reports can not only depend on the data of last year, but the data several years before as well. In practice, we found that using data of the previous two years could result in the better performance of the model. So we use a linear combination of them can try to learn two parameters for both years.
+
+Here is an example structure of our model. Suppose there are five counties, named $A$, $B$, $C$, $D$, $E$, connected as shown in Figure \ref{fig:example}.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}
+    \node (A) at (-2,0) {A};	
+    \node (B) at (0,1) {B};	
+    \node (E) at (2,0) {E};	
+    \node (D) at (0,-1) {D};	
+    \node (C) at (0,0) {C};	
+    \draw (A) -- (B) -- (E) -- (D) -- (A);
+    \draw (A) -- (C) (B) -- (C) (D) -- (C) (E) -- (C);
+    \end{tikzpicture}
+    \caption{Diagrammatic drawing of five counties in our model}
+    \label{fig:example}
+\end{figure}
+
+Then we can build a neutral network as shown in Figure \ref{fig:BPNN}. See appendix \ref{code:bpnn} for the complete python code. 
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[>/.tip={Latex}]
+    \foreach \i/\j in {1/A,2/B,3/C,4/D,5/E} {
+    	\foreach \k in {1,2,3} {
+    		\node [circle, draw] (\j\k) at (3*\k,-2*\i) {\j};	
+    	}
+    	\path[->] (\j1)++(left:2cm) edge (\j1.west);
+    	\path[<-] (\j3)++(right:2cm) edge (\j3.east);
+    	\draw (\j1) -- (\j2) -- (\j3);
+    }
+    \draw (A1) -- (B2)  (A1) -- (D2)  (A1) -- (C2);
+    \draw (B1) -- (A2)  (B1) -- (E2)  (B1) -- (C2);
+    \draw (E1) -- (B2)  (E1) -- (D2)  (E1) -- (C2);
+    \draw (D1) -- (A2)  (D1) -- (E2)  (D1) -- (C2);
+    \draw (C1) -- (A2)  (C1) -- (B2)  (C1) -- (E2)  (C1) -- (D2);
+    \draw (A3) -- (B2)  (A3) -- (D2)  (A3) -- (C2);
+    \draw (B3) -- (A2)  (B3) -- (E2)  (B3) -- (C2);
+    \draw (E3) -- (B2)  (E3) -- (D2)  (C3) -- (C2);
+    \draw (D3) -- (A2)  (D3) -- (E2)  (D3) -- (C2);
+    \draw (C3) -- (A2)  (C3) -- (B2)  (C3) -- (E2)  (C3) -- (D2);
+    \node (l1) at (3,-1) {Input Layer};
+    \node (l1) at (6,-1) {Hidden Layer};
+    \node (l1) at (9,-1) {Output Layer};
+    \end{tikzpicture}
+    \caption{Diagrammatic drawing of BPNN model}
+    \label{fig:BPNN}
+\end{figure}
+
+
+\subsubsection{Back-Propagation Neutral Network (BPNN) Model} \label{Sec:BPNN} 
+	
 	
 	Let $h_{w}$ be a vector function and $y$ be its target result. Then $Err_{k}$ be the $k$th component of the error vector $y-h_{w}$.
 	
@@ -290,49 +354,140 @@ In that case, we can calculate the distance between each two counties. The earth
 	    w_{j,k}\leftarrow w_{j,k}+\alpha \times a_{j} \times\Delta _{k}
 	\end{equation}
 	
-	The process of back-propagation can be shown as the following steps:
-\begin{itemize}
-\item Compute the $\Delta$ values for the output units, using the observed error.
-\item Starting with output layer, repeat the following for each layer in the network, until the earliest hidden layer is reached:
-\begin{itemize}
-    \item[-] Propagation the $\Delta$ values back to the previous layer.
-    \item[-] Update the weights between the two layers.
-\end{itemize}
-\end{itemize}
+% 	The process of back-propagation can be shown as the following steps:
+% \begin{itemize}
+% \item Compute the $\Delta$ values for the output units, using the observed error.
+% \item Starting with output layer, repeat the following for each layer in the network, until the earliest hidden layer is reached:
+% \begin{itemize}
+%     \item[-] Propagation the $\Delta$ values back to the previous layer.
+%     \item[-] Update the weights between the two layers.
+% \end{itemize}
+% \end{itemize}
 
-From above, we compute the gradient for $Loss_{k}=\left ( y_{k}-a_{k} \right )^{2}$ at the $k$th output. The gradient of this loss with respect to weights connecting the hidden layer to the output layer will be zero except for weights $w_{j,k}$ that connect to the $k$th output unit. For those weights, we have the following equation \ref{align}.
+% From above, we compute the gradient for $Loss_{k}=\left ( y_{k}-a_{k} \right )^{2}$ at the $k$th output. The gradient of this loss with respect to weights connecting the hidden layer to the output layer will be zero except for weights $w_{j,k}$ that connect to the $k$th output unit. For those weights, we have the following equation \ref{align}.
 
-\begin{align}
-\label{align}
-\frac{\partial Loss_{k}}{\partial w_{j,k}}
-&=-2\left ( y_{k}-a_{k} \right )\frac{\partial a_{k}}{\partial w_{j,k}}=-2\left ( y_{k}-a_{k} \right )\frac{\partial g\left ( in_{k} \right )}{\partial w_{j,k}} \notag\\
-&=2\left ( y_{k}-a_{k} \right )g{}'\left ( in_{k} \right )\frac{\partial in_{k}}{\partial w_{j,k}} = 2\left ( y_{k}-a_{k} \right )g{}'\left ( in_{k} \right )\frac{\partial }{\partial w_{j,k}} \left ( \sum_{j} w_{j,k}a_{j}\right )\notag\\
-&=-2\left ( y_{k}-a_{k} \right )g{}'\left ( in_{k} \right )a_{j}=-a_{j}\Delta _{k}
-\end{align}
+% \begin{align}
+% \label{align}
+% \frac{\partial Loss_{k}}{\partial w_{j,k}}
+% &=-2\left ( y_{k}-a_{k} \right )\frac{\partial a_{k}}{\partial w_{j,k}}=-2\left ( y_{k}-a_{k} \right )\frac{\partial g\left ( in_{k} \right )}{\partial w_{j,k}} \notag\\
+% &=2\left ( y_{k}-a_{k} \right )g{}'\left ( in_{k} \right )\frac{\partial in_{k}}{\partial w_{j,k}} = 2\left ( y_{k}-a_{k} \right )g{}'\left ( in_{k} \right )\frac{\partial }{\partial w_{j,k}} \left ( \sum_{j} w_{j,k}a_{j}\right )\notag\\
+% &=-2\left ( y_{k}-a_{k} \right )g{}'\left ( in_{k} \right )a_{j}=-a_{j}\Delta _{k}
+% \end{align}
 
-To obtain the gradient with respect to the $w_{i,j}$ weights connecting the input layer to the hidden layer, we have to expand out the activation $a_{j}$ and reapply the chain rule. We will show the derivation in gory detail because it is interesting to see how the derivation operator propagates back through the network as equation \ref{omg}.
+% To obtain the gradient with respect to the $w_{i,j}$ weights connecting the input layer to the hidden layer, we have to expand out the activation $a_{j}$ and reapply the chain rule. We will show the derivation in gory detail because it is interesting to see how the derivation operator propagates back through the network as equation \ref{omg}.
 
-\begin{align}
-\label{omg}
-\frac{\partial Loss_{k}}{\partial w_{i,j}} &=-2\left ( y_{k}-a_{k} \right )\frac{\partial a_{k}}{\partial w_{i,j}}=-2\left ( y_{k}-a_{k} \right )\frac{\partial g\left ( in_{k} \right )}{\partial w_{i,j}} \notag\\
-&=-2\left ( y_{k}-a_{k} \right )g{}'\left ( in_{k} \right ) \frac{\partial in_{k}}{\partial w_{i,j}} = -2\Delta_{k}\frac{\partial }{\partial w_{i,j}} \left ( \sum_{j} w_{j,k}a_{j}\right )\notag\\ &=-2\Delta_{k}w_{j,k}\frac{\partial a_{j}}{\partial w_{i,j}}=-2\Delta_{k}w_{j,k}\frac{\partial g\left ( in_{j} \right )}{\partial w_{i,j}}=-2\Delta_{k}w_{j,k}g{}'\left ( in_{j} \right )\frac{\partial in_{j}}{\partial w_{i,j}}\notag\\ &=-2\Delta_{k}w_{j,k}g{}'\left ( in_{j} \right )\frac{\partial }{\partial w_{i,j}}\left ( \sum_{j} w_{i,j}a_{i}\right )\notag\\ 
-&=-2\Delta_{k}w_{j,k}g{}'\left ( in_{j} \right )a_{i} = -a_{i}\Delta_{j}
-\end{align}
+% \begin{align}
+% \label{omg}
+% \frac{\partial Loss_{k}}{\partial w_{i,j}} &=-2\left ( y_{k}-a_{k} \right )\frac{\partial a_{k}}{\partial w_{i,j}}=-2\left ( y_{k}-a_{k} \right )\frac{\partial g\left ( in_{k} \right )}{\partial w_{i,j}} \notag\\
+% &=-2\left ( y_{k}-a_{k} \right )g{}'\left ( in_{k} \right ) \frac{\partial in_{k}}{\partial w_{i,j}} = -2\Delta_{k}\frac{\partial }{\partial w_{i,j}} \left ( \sum_{j} w_{j,k}a_{j}\right )\notag\\ &=-2\Delta_{k}w_{j,k}\frac{\partial a_{j}}{\partial w_{i,j}}=-2\Delta_{k}w_{j,k}\frac{\partial g\left ( in_{j} \right )}{\partial w_{i,j}}=-2\Delta_{k}w_{j,k}g{}'\left ( in_{j} \right )\frac{\partial in_{j}}{\partial w_{i,j}}\notag\\ &=-2\Delta_{k}w_{j,k}g{}'\left ( in_{j} \right )\frac{\partial }{\partial w_{i,j}}\left ( \sum_{j} w_{i,j}a_{i}\right )\notag\\ 
+% &=-2\Delta_{k}w_{j,k}g{}'\left ( in_{j} \right )a_{i} = -a_{i}\Delta_{j}
+% \end{align}
 
- Thus, we obtain the update rules obtained earlier from intuitive considerations. It is also clear that the process can be continued for networks with more than one hidden layer.
+%  Thus, we obtain the update rules obtained earlier from intuitive considerations. It is also clear that the process can be continued for networks with more than one hidden layer.
 
-The error value indicates how much the network's output (actual) is off the mark from the expected output (target) so that we use the \textbf{Mean Squared Error Function} to calculate the error. In this way, we solve every individual differential to get the initial desired differential.
+% The error value indicates how much the network's output (actual) is off the mark from the expected output (target) so that we use the \textbf{Mean Squared Error Function} to calculate the error. In this way, we solve every individual differential to get the initial desired differential.
 
-We just saw how back propagation of errors is used in The Multilayer Perception (MLP) neural networks to adjust weights for the output layer to train the network. We use a similar process to adjust weights in the hidden layers of the network which we would see next with a real neural network's implementation since it will be easier to explain it with an example where we have actual numbers to play with.
+% We just saw how back propagation of errors is used in The Multilayer Perception (MLP) neural networks to adjust weights for the output layer to train the network. We use a similar process to adjust weights in the hidden layers of the network which we would see next with a real neural network's implementation since it will be easier to explain it with an example where we have actual numbers to play with.
 
-\subsubsection{Implementation of Spreading Model}
+\subsubsection{Prediction and Outlier Detection}
+
+Outlier is a value that lies in a data series on its extremes, which is either very small or large and thus can affect the overall observation made from the data series. Outliers are also termed as extremes because they lie on the either end of a data series. We apply Outlier to look for the prediction of the the specific concerns and the source of the each drug crisis.  
+
+Let $n$ be the number of data values in the data set. The $Median \left(Q2\right)$ is the middle value of the data set.
+\begin{equation}
+Median \left (Q2\right )=\frac{1}{2}\left ( n+1 \right )th~term.
+\end{equation}
+
+The $Lower~Quartile \left (Q1\right )$ is the median of the lower half of the data set.
+\begin{equation}
+    Lower~Quartile \left (Q1\right )=\frac{1}{4}\left ( n+1 \right )th~term.
+\end{equation}
+
+The $Upper~Quartile \left (Q3\right )$ is the median of the upper half of the data set.
+\begin{equation}
+    Upper~Quartile \left (Q3\right )=\frac{3}{4}\left ( n+1 \right )th~term.
+\end{equation}
+
+The $Interquartile~range \left(IQR\right)$ is the spread of the middle 50\% of the data values.
+
+\begin{equation}
+    IQR=Q3-Q1
+\end{equation}
+
+\begin{equation}
+    Lower Limit = Q1-1.5IQR
+\end{equation}
+
+\begin{equation}
+    Upper Limit = Q3+1.5IQR
+\end{equation}
+
+So any value that will be more than the upper limit or lesser than the lower limit will be the outliers. Only the data that lies within Lower and upper limit are statistically considered normal and thus can be used for further prediction.
+
+\subsubsection{Source Dedection of Spreading Model}
+\label{sec: Implementation}
+As we mentioned before in 4.1.2 table\ref{tab:my_label}, Hydrocodone in the state KY is the most often occurred case by statistics. So we choose it to be a sample for us to derive its source. Considering that we have just 8-year data, so we only predict 2 years forward and backward to ensure the accuracy. Thus, With data from 2010 to 2017 inputted into our model, we predict how the identification counts for the Hydrocodone cases distribute in KY in 2008, which is shown in table \ref{tab:2008}, and Buprenorphine cases in Ohio (OH) in 2018, which is shown in table \ref{2018} and figure \ref{KY_Hydrocodone_5}.
+
+\begin{table}[H]
+    \centering  
+    \caption{Hydrocodone identification counts in 2008 in  Kentucky (KY)}
+    \label{tab:2008}
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+County&State & FIPS\_Combined & Drug Reports  \\\hline
+JEFFERSON&KY&21111&1255.2609121966236\\
+LAUREL&KY&21125&118.82046016127771\\
+PERRY&KY&21193&112.60682836636549\\
+BELL&KY&21013&87.37394803803085\\
+HARLAN&KY&21095&88.32856186367516\\
+PULASKI&KY&21199&85.35215622685533\\
+FAYETTE&KY&21067&115.80939466255792\\
+WHITLEY&KY&21235&64.73657669872404\\
+PIKE&KY&21195&91.37133733637823\\
+FLOYD&KY&21071&70.3041332520833\\
+KNOX&KY&21121&61.78282318731254\\
+\hline
+    \end{tabular}
+\end{table} 
+
+\begin{table}[H]
+    \centering  
+    \caption{ Buprenorphine identification counts in 2018 in Ohio (OH)}
+    \label{tab:2018}
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+FRANKLIN&OH&39049&240.30323117953546\\
+HAMILTON&OH&39061&155.8992887077675\\
+MONTGOMERY&OH&39113&140.91534090717613\\
+CUYAHOGA&OH&39035&139.50639150154788\\
+FAIRFIELD&OH&39045&98.06495486668322\\
+CRAWFORD&OH&39033&89.3587012990159\\
+STARK&OH&39151&82.62489026827468\\
+GUERNSEY&OH39059&81.52033854514106\\
+LAKE&OH&39085&78.01769217413005\\
+        \hline
+    \end{tabular}
+\end{table} 
 
 \begin{figure}[htbp]
 	\centering 
-	\includegraphics[width=1\linewidth]{../figure/}  
-	\caption{} 
-	\label{}  
+	\includegraphics[width=0.8\linewidth]{../figure/KY_Hydrocodone_5}  
+	\caption{Hydrocodone identification counts in 2008 in  Kentucky (KY)} 
+	\label{KY_Hydrocodone_5}  
 \end{figure}
+
+Then we overlay such images generated from 2008 to 2012 in chronological order to show the spreading characteristics of Hydrocodone identification counts in Kentucky as figure \ref{KY_Hydrocodone} shows. With this method, we identify some  possible locations where specific opioid use might have started in each of the five states.
+
+\begin{figure}[htbp]
+	\centering 
+	\includegraphics[width=0.7\linewidth]{../figure/KY_Hydrocodone} 
+	\caption{Hydrocodone identification counts  from 2008 to 2012 in  Kentucky (KY)} 
+	\label{KY_Hydrocodone}  
+\end{figure}
+
+\subsubsection{Future Prediction of Spreading Model}
+
+
 
 
 
@@ -456,15 +611,15 @@ Often these n equations are stacked together and written in matrix notation as t
 
 \end{itemize}
 
-\subsubsection{Results for Dimension Reduction and Linear Regression}
+\subsubsection{Results for Dimension Reduction and Linear Regression}\label{sec:DRLR}
 
-We have selected the most important factors from the $596$ dimensions that the U.S. Census socio-economic data provides by dimensionality reduction. And then, we use linear regression to test our selection and get the score for each selection. In this way, we can get a satisfying set of components. 
+We have selected the most important factors from the $596$ dimensions that the U.S. Census socio-economic data that provides by dimensionality reduction. And then, we use linear regression to test our selection and get a score for each selection. In this way, we can get a satisfying set of components. 
 
-According to PCA, we can get the variance ratio, which shows the ratio of the variance value of each principal component to the total variance value after dimension reduction. The larger the value of the variance ratio, the more important the principal component. Actually, the more components we take into account, the larger variance ratio we get. However, what we pursue is not only the completeness characterization of the fact ,but also the simplification of the vast dimension. So we need to get an appropriate set of components that can characterize all the information as well as simplifies this problem.
+According to PCA, we can get the variance ratio, which shows the ratio of the variance value of each principal component to the total variance value after dimension reduction. The larger the value of the variance ratio, the more important the principal component. Actually, the more components we take into account, the larger variance ratio that we can get. However, what we pursue is not only the completeness characterization of the fact ,but also the simplification of the vast dimension. So we need to get an appropriate set of components that can characterize all the information as well as simplify this problem.
 
-According to LR, we can get a score for the fitting. Actually, the score is the $R^{2}$ of linear regression results and the fact data from the NFLIS Data, which shows how closer the results we get from the components reach the fact. The closer it approaches $1$, the better the components can express the fact.
+According to LR, we can get a score for the fitting. Actually, the score is the $R^{2}$ of linear regression results and the fact data provided by the NFLIS Data, which shows how closer the results we get from the components reach the fact. The closer it approaches $1$, the better our fitting according to the chosen components.
 
-In addition, to get a good result, we also need to select the way how to deal with the data given by the U.S. Census socio-economic data. So we apply the PCA as well as LR to the these data in four ways, and you can see appendix \ref{code:PCA_plot} for the complete python code. Here we show the results by diagrams:
+In addition, to get a good result, we also need to select the way to deal with the data given by the U.S. Census socio-economic data. So we apply the PCA as well as LR to the these data in four ways, and you can see appendix \ref{code:PCA_plot} for the complete python code. Here we show the results by diagrams:
 
 ~\smallskip
 
@@ -485,7 +640,7 @@ In addition, to get a good result, we also need to select the way how to deal wi
     \caption{PCA and LR results of data among five states in 2010-2016 against different components}\label{fig:pca_state}
 \end{figure}
 
-From (a) in figure \ref{fig:pca_state}, we can see the curve for a single state raises as the number of the components increases. When we choose four components to describe this problem, the superimposed explained variance ratio is close to 1. That is to say that under this circumstance, the results that we get from the fitting is very close to the fact. 
+From (a) in figure \ref{fig:pca_state}, we can see the curve for a single state raises as the number of the components increases. When we choose four components to describe this problem, the superimposed explained variance ratio is almost close to 1. That is to say that under this circumstance, the results that we get from the fitting is very close to the fact. 
 
 From (b) in figure \ref{fig:pca_state}, we can see the curves for the five years are almost stable as the number of the components increase, except some special cases. As for one component for the WV state, the low coefficient of determination ascribes that there is only one component to characterize the problem. As for nine components for the OH state, the low coefficient of determination may attribute to overfitting. 
 
@@ -507,7 +662,7 @@ From (b) in figure \ref{fig:pca_state}, we can see the curves for the five years
     \caption{PCA and LR results of data among five states in 2010 against different components}\label{fig:pca_state_2010}
 \end{figure}
 
-From (a) in figure \ref{fig:pca_state_2010}, we can see the ratio shows the similar characteristics to (a) in figure \ref{fig:pca_state}, which means an excellent characterization of this problem with only four components. But when it comes to the evaluation part, form the (b) in figure \ref{fig:pca_state_2010}, we can directly see that the fitting is no as stable as the last one.
+From (a) in figure \ref{fig:pca_state_2010}, we can see the ratio shows the similar characteristics to (a) in figure \ref{fig:pca_state}, which means an excellent characterization of this problem with only four components. But when it comes to the evaluation part, from (b) in figure \ref{fig:pca_state_2010}, we can directly see that the fitting is not as stable as the last one.
 
 ~\smallskip
 
@@ -516,18 +671,18 @@ From (a) in figure \ref{fig:pca_state_2010}, we can see the ratio shows the simi
     \centering
     \begin{subfigure}[b]{0.49\textwidth}
         \includegraphics[width=\textwidth]{../figure/pca_year_ratio.eps}
-        \subcaption{The ratio of data remained after dimensionality reduction in 2010-2017}
+        \subcaption{The ratio of data remained after dimensionality reduction in 2010-2016}
         \label{fig:pca_year_ratio}
     \end{subfigure}
     \begin{subfigure}[b]{0.49\textwidth}
         \includegraphics[width=\textwidth]{../figure/pca_year_score.eps}
-        \subcaption{The $R^2$ of Linear Regression results of data in 2010-2017 against different aggregations}
+        \subcaption{The $R^2$ of Linear Regression results of data in 2010-2016 against different aggregations}
         \label{fig:pca_year_score}
     \end{subfigure}
-    \caption{PCA and LR results of data in 2010-2017 against different aggregations}\label{fig:pca_year}
+    \caption{PCA and LR results of data in 2010-2016 against different aggregations}\label{fig:pca_year}
 \end{figure}
 
-From (a) in figure \ref{fig:pca_year}, we can see the curve for a single year raises as the number of the components increases almost in the same way. However, the superimposed explained variance ratio gets close to 1 when the components raises to 6 or more, which indicates that it does not do well in simplification. Moreover, the coefficient of determination that is shown in (b) of figure \ref{fig:pca_year} is unstable.
+From (a) in figure \ref{fig:pca_year}, we can see the curve for a single year raises as the number of the components increases almost in the same way. However, the superimposed explained variance ratio gets close to 1 when the number of the components raises to 6 or more, which indicates that it does not do well in simplification. Moreover, the coefficient of determination that is shown in (b) of figure \ref{fig:pca_year} is unstable.
 
 ~\smallskip
 
@@ -536,7 +691,7 @@ From (a) in figure \ref{fig:pca_year}, we can see the curve for a single year ra
     \centering
     \begin{subfigure}[b]{0.49\textwidth}
         \includegraphics[width=\textwidth]{../figure/pca_year_PA_ratio.eps}
-        \subcaption{The ratio of data after dimensionality reduction in PA in 2010-2017}
+        \subcaption{The ratio of data after dimensionality reduction in PA in 2010-2016}
         \label{fig:pca_year_PA_ratio}
     \end{subfigure}
     \begin{subfigure}[b]{0.49\textwidth}
@@ -544,19 +699,46 @@ From (a) in figure \ref{fig:pca_year}, we can see the curve for a single year ra
         \subcaption{The $R^2$ of Linear Regression results in PA over years against different aggregations}
         \label{fig:pca_year_PA_score}
     \end{subfigure}
-    \caption{PCA and LR results of data in PA in 2010-2017 against different aggregations}\label{fig:pca_year_PA}
+    \caption{PCA and LR results of data in PA in 2010-2016 against different aggregations}\label{fig:pca_year_PA}
 \end{figure}
 
-From (a) in figure \ref{fig:pca_year_PA}, the curve shows similar characteristics to the above ones and also does well in characterize through few components. But (b) of figure \ref{fig:pca_year_PA} shows its instability.
+From (a) in figure \ref{fig:pca_year_PA}, the curve shows similar characteristics to the above ones and also does well in characterize through only few components. But (b) of figure \ref{fig:pca_year_PA} also shows its instability.
 
-From the visualization and analysis that we have shown above, it can be concluded that when we choose all the data over the years ranging from 2010 to 2016 of the five states respectively, we can gain a great, simple, and stable dimensionality reduction with only four components.
+From the visualization and analysis that we have shown above, it can be concluded that when we choose all the data over the years ranging from 2010 to 2016 of the five states respectively, we can gain a great, simple, and stable dimensionality reduction with only 4 components.
 
-For example, we select the U.S. Census socio-economic data of KY state ranging from 2010 to 2016. In PCA, the variance ratio reaches a threshold of about $0.01$ after the fourth dimension. The first four variance ratios are 
+For example, we select the U.S. Census socio-economic data of KY state ranging from 2010 to 2016. In PCA, the variance ratio reaches a threshold of about 0.01 after the fourth dimension. The first four variance ratios are 
 \begin{center}
     $0.59396827$, $0.28748557$, $0.02754973$, $0.02732665$.
 \end{center}
 
 From these four dimension, we can get the score of about $0.92$ by linear regression, which shows a good result of the dimension reduction. 
+
+\subsubsection{Results for Optimizied SOS Model}
+Based on the results of Dimension Reduction and Linear Regression in section \ref{sec:DRLR}, we add these four principal components into our BPNN model for modification. With this Optimizied SOS Model, we do as section \ref{sec: Implementation} do and get the table \ref{tab:2008new}.
+
+\begin{table}[h]
+    \centering  
+    \caption{Hydrocodone identification counts in 2008 in  Kentucky (KY) using modified SOS model}
+    \label{tab:2008new}
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+County&State & FIPS\_Combined & Drug Reports  \\\hline
+JEFFERSON&KY&21111&1158.6009419546995\\
+LAUREL&KY&21125&103.17384124461908\\
+PERRY&KY&21193&98.5873242291028\\
+BELL&KY&21013&86.35324952606659\\
+HARLAN&KY&21095&85.24447008432064\\
+PULASKI&KY&21199&78.44663884927238\\
+FAYETTE&KY&21067&77.75175859418509\\
+WHITLEY&KY&21235&68.65319115138982\\
+PIKE&KY&21195&68.61863843789055\\
+FLOYD&KY&21071&61.285023951904996\\
+KNOX&KY&21121&59.54623443228225\\
+BULLITT&KY&21029&52.96888785496657\\
+LETCHER&KY&21133&47.432846932984475\\
+\hline
+    \end{tabular}
+\end{table} 
 
 \subsection{Strategy Program for the Opioid Crisis}\label{Sec:Strategy}
 
@@ -610,6 +792,11 @@ Corresponding to our SOS model, controlling Demand means setting a \textbf{resis
 \section{Model Analysis}\label{Sec-Analysis}
 
 \subsection{Sensitivity Analysis}
+\begin{itemize}
+    \item In our Back-Propagation Neutral Network (BPNN) Model, there is no parameter, but a sparse-connected hidden layer between the input layer and output layer to solve this problem. Thus, the robustness of our model is only dependent on data scale.
+    \item In our Principal Component Analysis (PCA) and Linear Regression progress, we did the sensitivity analysis in section \ref{sec:DRLR}.
+    \item As for Strategy Program "SSD", we have no extra time to do sensitivity analysis, but we did a comprehensive theoretical analysis concerning every possible factors.
+\end{itemize}
 
 \subsection{Strengths and Weaknesses}
 \subsubsection{Strengths}
@@ -716,7 +903,6 @@ Thanks!
 \subsection{PCA\_plot.py} \label{code:PCA_plot}
 \inputminted{python}{../src/PCA_plot.py}
 
-\section{2}
 
 \end{appendices}
 \end{document}
