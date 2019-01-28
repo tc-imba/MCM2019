@@ -60,22 +60,25 @@
 \author{}
 % \usepackage{cmbright}
 
+\usepackage[final]{pdfpages}
+
 \begin{document}
 \linespread{0.6}  %%行间距
 \setlength{\parskip}{0.5\baselineskip}  %%段间距
-\title{SOS: Spreading Model, Optimization, and Strategy for the Opioid Crisis}
+\title{SOS: Spreading Model, Optimization, and Strategy Program for the Opioid Crisis}
 
 \date{\today}
 	\begin{abstract}
-	As the deteriorating Opioid Crisis overwhelms the United States, the DEA/National Forensic Laboratory Information System (NFLIS) are striving to control the nationwide spread of opioid overdose indidents. In this paper, we formuate a novel framework, named \textbf{SOS ( Spreading Model, Optimization, and Strategy for the Opioid Crisis)}, seeking for new strategies to combat the exacerbating opioid crisis.
+	As the deteriorating Opioid Crisis overwhelms the United States, the DEA/National Forensic Laboratory Information System (NFLIS) are striving to control the nationwide spread of opioid overdose indidents. In this paper, we formuate a concrete and novel framework, named \textbf{SOS ( Spreading Model, Optimization, and Strategy Program for the Opioid Crisis)}, seeking for new strategies to combat the exacerbating opioid crisis.
 	
-	Based on the report provided, we create a Spreading Model of opioid incidents, focusing on the individual counties located in five U.S. states: Ohio (OH), Kentucky (KY), West Virginia (WV), Virginia (VA), and Pennsylvania (PA). We first get the longitude and latitude of every county and utilize a \textbf{Back-Propagation Neutral Network (BPNN)} to describe the spread and characteristics of the reported opioid incidents over time. With this initial model, we can identify some possible locations where specific opioid use might have started in each of the five states.Furthermore, we analyze the U.S. Census Socio-Economic data provided with two techniques:   \textbf{Principal Component Analysis (PCA)} and \textbf{Learning Approach: Auto Encoder},  aiming to reduce the dimensions and find any important principal components. Then we make \textbf{Linear Regression (LR)} to test the validity of these components, with which we add to our Spreading Model for modification.
+	Based on the report provided, we create a Spreading Model of opioid incidents, focusing on the individual counties located in five U.S. states: Ohio (OH), Kentucky (KY), West Virginia (WV), Virginia (VA), and Pennsylvania (PA). We first get the longitude and latitude of every county and utilize a \textbf{Back-Propagation Neutral Network (BPNN)} to characterize the basic evolving and spreading trends of the reported opioid and heroin incidents in and between the five states and their counties from 2010 to 2017. Thus, we forecast the opioid accidents happened in the following two years, which demonstrates the urgence of solving the opioids abuse problem. Based on this initial model, we next adopt \textbf{Outlier Detection} to identify some most possible locations where specific opioid accidents might have started in the five states. 
 	
-	Eventually, we identify some possible and feasible strategies for countering the opioid crisis.  After being tested by our model, these strategies are proven to be significantly effective in controlling the opioid crisis. We finally give a significant parameter bound that success is dependent upon.
+	Furthermore, we combine \textbf{Principal Component Analysis (PCA)} and \textbf{Deep Learning Approach Auto-encoder (AE)} two techniques to analyze the U.S. Census Socio-economic data provided, aiming to reduce dimensions and find any important principal components. Then we make \textbf{Linear Regressions (LR)} to test the validity of these principal components, with which we add to our Spreading Model for modification.
+	
+	Eventually, according to the results above, we figure out a comprehensive and feasible \textbf{Strategy Program} called \textbf{"SSD"}. The whole strategy program can be divided into three parts: \textbf{Supply Control, Spread Control, and Demand Control}. After being tested by our promoted model, these strategies are proven to be significantly effective in controlling and preventing the opioid crisis. We finally give a significant parameter bound that success is dependent upon.
 	
 		\begin{keywords}
-		SOS; Back-Propagation Neutral Network (BPNN); Principal Component Analysis (PCA); Learning Approach: Auto Encoder;
-		Linear Regression;	strategies for opioid crisis
+		SOS; Back-Propagation Neutral Network (BPNN); Outlier Detection; Principal Component Analysis (PCA);Deep Learning Approach: Auto Encoder;Linear Regression (LR); Strategy Program ``SSD''
 		\end{keywords}
 	\end{abstract}
 
@@ -87,7 +90,7 @@
 
 \section{Introduction}	
 \subsection{Problem Background}
-The Opioid Crisis means the rapid increase in the use of prescription and non-prescription opioid drugs in the United States beginning in the late 1990s and continuing throughout the past two decades~\cite{op}. Nowadays, it has developed into a nationwide crisis sweeping across the United States. For instance, using the data supplied with this problem, we analyze just heroin identification counts during years 2010-2017 in figure \ref{situation}, which to some extent demonstrate the rampant drug problem in these five states, especially in Ohio (OH) and Pennsylvania (PA).
+The Opioid Crisis means the rapid increase in the use of prescription and non-prescription opioid drugs in the United States beginning in the late 1990s and continuing throughout the past two decades~\cite{op}. Nowadays, it has developed into a nationwide crisis sweeping across the United States. For instance, using the data supplied with this problem, we analyze just heroin identification counts during years 2010-2017 in figure \ref{situation}, which to some extent demonstrate the rampant drug problem in these five states, especially in Ohio (OH) and Pennsylvania (PA).See appendix \ref{code:map} for the complete code. 
 
 \begin{figure}[htbp]
 	\centering 
@@ -96,27 +99,27 @@ The Opioid Crisis means the rapid increase in the use of prescription and non-pr
 	\label{situation}  
 \end{figure}
 
-Studies show that the increase in opioid overdose deaths has been dramatic, and opioids are now responsible for 49,000 of the 72,000 drug overdose deaths overall in the US in 2017~\cite{NIH}.The rate of prolonged opioid use is also increasing globally, threatening not only Americans' health but also the U.S. economy in many aspects. Consequently, president Donald Trump declared the country's opioid crisis a "national emergency"~\cite{Trump}.
+Studies show that the increase in opioid overdose deaths has been dramatic, and opioids are now responsible for 49,000 of the 72,000 drug overdose deaths overall in the US in 2017~\cite{NIH}. The rate of prolonged opioid use is also increasing globally, threatening not only Americans' health but also the U.S. economy in many aspects. Consequently, president Donald Trump declared the country's opioid crisis a "national emergency"~\cite{Trump}.
 
-Currently, the U.S. government has payed great attention and taken a bunch of measures on this issue. While the U.S. Centers for Disease Control (CDC) continue to fight the opioid overdose epidemic, simply enforcing existing laws is still a complex challenge for the Federal Bureau of Investigation (FBI), and the U.S. Drug Enforcement Administration (DEA), among others~\cite{intro}. Therefore, they need investigate the spread and characteristics of the opioids and heroin incidents in the United States, so that they can develop their strategies to better control and prevent the deteriorating opioids overdose situation.
+Currently, the U.S. government has payed great attention and taken a bunch of measures on this issue~\cite{CORRIGAN201844}. While the U.S. Centers for Disease Control (CDC) continue to fight the opioid overdose epidemic, simply enforcing existing laws is still a complex challenge for the Federal Bureau of Investigation (FBI), and the U.S. Drug Enforcement Administration (DEA), among others~\cite{intro}. Therefore, they need investigate the spread and characteristics of the opioids and heroin incidents in the United States, so that they can develop their strategies to better control and prevent the deteriorating opioids overdose situation.
 
 \subsection{Our Work}
-In this paper, we propose a novel framework, named SOS ( Spreading Model, Optimization, and Strategy for the Opioid Crisis), seeking for new strategies to combat the exacerbating opioid crisis. The framework of SOS is shown in Figure XXX. 
+In this paper, we propose a novel framework, named SOS ( Spreading Model, Optimization, and Strategy Pragram for the Opioid Crisis), seeking for new strategies to combat the exacerbating opioid crisis. The framework of SOS is shown in Figure \ref{Framework}. 
 
 \begin{figure}[htbp]
 	\centering 
-	\includegraphics[width=1\linewidth]{../figure/test.png}  
-	\caption{Framework of SOS: Spreading Model, Optimization, and Strategy for the Opioid Crisis} 
+	\includegraphics[width=1\linewidth]{../figure/framework2.pdf}  
+	\caption{Framework of SOS: Spreading Model, Optimization, and Strategy Program for the Opioid Crisis} 
 	\label{Framework}  
 \end{figure}
 
 
-We can divide our SOS framework in Figure xxx into following steps:
+We can divide our SOS framework in figure  \ref{Framework}  into following steps:
 
 \begin{itemize}
-\item \textbf{Spreading Model}: Based on the report provided, we focus on the individual counties located in five U.S. states: Ohio (OH), Kentucky (KY), West Virginia (WV), Virginia (VA), and Pennsylvania (PA). We first get the longitude and latitude of every county and build a \textbf{Back-Propagation Neutral Network (BPNN) Model} to describe the spread and characteristics of the reported opioid incidents over time. With this model, we identify some possible locations where specific opioid use might have started in each of the five states.
-\item \textbf{Optimization}: Furthermore, we analyze the U.S. Census Socio-Economic data provided with two techniques:   \textbf{Principal Component Analysis (PCA)} and \textbf{Learning Approach: Auto Encoder} ,  aiming to reduce the dimensions and find any important principal components. Then we make \textbf{Linear Regressions} to test the validity of these components, with which we add to our Spreading Model.
-\item \textbf{Strategy for the Opioid Crisis}: Eventually, we identify some possible and feasible strategies for countering the opioid crisis.  After being tested by our model, these strategies are proven to be significantly effective in controlling the opioid crisis. We finally give a significant parameter bound that success is dependent upon.
+\item \textbf{Spreading Model}: Based on the report provided, we focus on the individual counties located in five U.S. states: Ohio (OH), Kentucky (KY), West Virginia (WV), Virginia (VA), and Pennsylvania (PA). We first get the longitude and latitude of every county and build a \textbf{Back-Propagation Neutral Network (BPNN) Model~\cite{NURCIN2017417}} to describe the spread and characteristics of the reported opioid incidents over time. With this model, we identify some possible locations where specific opioid use might have started in each of the five states.
+\item \textbf{Optimization}: Furthermore, we analyze the U.S. Census Socio-Economic data provided with two techniques:   \textbf{Principal Component Analysis (PCA)} and \textbf{Learning Approach: Auto Encoder~\cite{NURCIN2017417}} ,  aiming to reduce the dimensionalities and find any important principal components. Then we make \textbf{Linear Regressions} to test the validity of these components, with which we add to our Spreading Model.
+\item \textbf{Strategy Program for the Opioid Crisis}: Eventually, we identify a comprehensive and feasible Strategy Program for countering the opioid crisis. It contains three aspects: \textbf{Supply Control, Spread Control, and Demand Control(SSD)} After being tested by our model, these strategies are proven to be significantly effective in controlling the opioid crisis. We finally give a significant parameter bound that success is dependent upon.
 \end{itemize}
 
 \section{Assumptions}\label{Sec-Assume}
@@ -147,8 +150,8 @@ In this paper we use the nomenclature in Table \ref{tab:Nomen} to describe our m
 \hline
     	Symbol & Definition\\
 \hline
-	$a_x$ & The longitude of point A\\
-	$a_y$ & The latitude of point A \\
+	$A_x$ & The longitude of point A, so do B\\
+	$A_y$ & The latitude of point A, so do B \\
     $D_{ij}$ &  The distance between any two state counties\\
     $R^2$ & The coefficient of determination, pronounced "R squared"\\
 	$h_{w}$ & A vector function depends on the input-layer weights \\
@@ -160,40 +163,89 @@ In this paper we use the nomenclature in Table \ref{tab:Nomen} to describe our m
 	$\mathbf{X^TX}$ & A positive semidefinite matrix\\
 	$\mathbf{W}$ & A $p$-by-$p$ matrix whose columns are the eigenvectors of $\mathbf{X^TX}$\\
     MLP	& The Multilayer Perception\\
+    AE	& Auto Encoder\\
+    PCA & Principal Component Analysis\\
+    LR  & Linear Regression\\
 \hline
     \end{tabular}
 \end{table}    
 
-\section{SOS: Spreading Model, Optimization, and Strategy for the Opioid Crisis} \label{Sec-Model}
-In this section, we will discuss all details about our model \textbf{SOS}. Generally, this model consists of three parts: Spreading Model  for Opioid Incidents, Optimization with Socio-Economic Components, and Strategy for the Opioid Crisis.
+\section{SOS: Spreading Model, Optimization, and Strategy Program for the Opioid Crisis} \label{Sec-Model}
+In this section, we will discuss all details about our model \textbf{SOS}. Generally, this model consists of three parts: Spreading Model  for Opioid Incidents, Optimization with Socio-Economic Components, and Strategy Program for the Opioid Crisis.
 
 \subsection{Data Pre-Processing}
-To begin with, we consider the relative distance between any two counties as one of the factors that affects the spreading of Opioid Crisis. However, the data of geometry information of the counties listed is not included in the dataset. Thus, we write a short python program to get the geographical locations of all the counties in the above five states from the \textbf{Microsoft Bing Map API}~\cite{bing}, which is a tool used to search through OpenStreetMap data by name and address. The official coordinates of these 462 counties that we get are partly present as follows. See \ref{code:geocode} for the complete code. 
 
-In that case, we can calculate the distance between each two counties. The earth is a near-standard ellipsoid with an equatorial radius of 6,378.140 km and a polar radius of 6,356.755 km, with an average radius of 6,371.004 km. If we assume that the earth is a perfect sphere, then its radius is the average radius of the earth, called R. If the zero degree longitude line is the basis, the surface distance between any two points on the earth's surface can be calculated based on the longitude and latitude of the two points. Let the longitude and latitude of point $A$ be $(A_x, A_y)$, and the longitude and latitude of point $B$ be $(B_x, B_y)$. Then, according to the Trigonometric Derivation, the equation \ref{1} and equation \ref{2} for calculating the distance between two points can be obtained.
+\subsubsection{Geometric Location and Distances between the Counties}
+
+To begin with, we consider the relative distance between any two counties as one of the factors that affect the spreading of Opioid Crisis. However, the data of geometry information of the counties listed is not given in the dataset. Thus, we write a short python program to get the geographical locations of all the counties in the above five states from the \textbf{Microsoft Bing Map API}~\cite{bing}, which is a tool used to search through OpenStreetMap data by name and address. The official coordinates of these 462 counties that we get are partly present as follows. See appendix \ref{code:geocode} for the detailed code. 
+    
+\begin{table}[H]
+    \centering
+     \caption{The official coordinates of these 462 counties we get through Python from Microsoft Bing Map API}
+    \label{tab:geotable}
+    \begin{tabular}{|c|c|c|c|c|}
+        \hline
+FIPS-Combined &	State &	County &	latitude &	longitude \\ \hline
+21001 &	KY &	ADAIR&	37.97293091	&-86.84214783\\
+21003&	KY&	ALLEN&	37.61523056&	-82.72395325\\
+21005&	KY&	ANDERSON&	37.01742172	&-86.79804993\\
+21007&	KY&	BALLARD&	38.23900986	&-85.7456665\\
+21009&	KY&	BARREN&	37.18073654&	-86.62342072\\
+21011&	KY&	BATH&	37.24637985&	-82.90135956\\
+21013&	KY& BELL&	36.73059845&   -83.67401123\\
+21015&	KY&	BOONE&	37.51216888&	-84.32032776\\
+21017&	KY&	BOURBON	&37.05149841&	-84.62284088\\
+\hline
+    \end{tabular}
+\end{table}    
+    
+
+
+In that case, we can calculate the distance between each two counties. The earth is a near-standard ellipsoid with an equatorial radius of 6,378.140 km and a polar radius of 6,356.755 km, with an average radius of 6,371.004 km. If we assume that the earth is a perfect sphere, then its radius is the average radius of the earth, called R. If the zero degree longitude line is the basis, the surface distance between any two points on the earth's surface can be calculated based on the longitude and latitude of the two points. Let the longitude and latitude of point $A$ be $(A_x, A_y)$, and the longitude and latitude of point $B$ be $(B_x, B_y)$. Then, according to the Trigonometric Derivation, the equation \ref{1} and equation \ref{2} for calculating the distance ($D$) between two points can be obtained.
 
      \begin{equation}
           \label{1}
-          C = \sin(A_y)*\sin(B_y)*\cos(A_x-B_x) + \cos(A_y)*\cos(B_y)
+          C = \sin(A_y)\sin(B_y)\cos(A_x-B_x) + \cos(A_y)\cos(B_y),
      \end{equation}
      \begin{equation}
          \label{2}
-         D = R*\arccos(C)*\pi/180
+         D = R\arccos(C)\pi/180,
      \end{equation}
+    where $C$ is a temporary variable and $D$ is distance. Using the location data we got before, we can make a matrix that represents all the distance between any two counties in these five states.
+
+\subsubsection{Count of Drug Report by State}
+
+    Besides, we rank the number of opioid incidents of each drug in each state county, and then we get the table \ref{tab:my_label}. Since there is no statistic significance for small amounts of data, we screen out significant data with statistically large amounts for the following modeling. See appendix \ref{code:count} for the complete code. 
     
-    Using the location data we got before, we can make a matrix that represents all the distance between any two counties in these five states.
+\begin{table}[H]
+    \centering  
+    \caption{Ranking table according to the number of specific opioid incidents in each state county }
+    \label{tab:my_label}
+    \begin{tabular}{|c|c|c|}
+        \hline
+        State & Substance Name & Drug Reports \\\hline
+        KY & Hydrocodone & 861 \\
+        KY & Oxycodone & 838 \\
+        VA & Oxycodone & 816 \\
+        VA & Hydrocodone & 746 \\
+        VA & Heroin & 716 \\
+        OH & Heroin & 682 \\
+        OH & Oxycodone & 682 \\
+        OH & Hydrocodone & 659 \\
+        KY & Buprenorphine & 642 \\\hline
+    \end{tabular}
+\end{table}    
     
-    Besides, we ranked the number of opioid incidents of each drug in each state county, and we get the table . Since there is no statistic significance for small amounts of data, we screened out significant data with statistically large amounts for the following modeling.
     
 \subsection{ Spreading Model for Opioid Incidents }
 
     \subsubsection{Model Evaluation Criteria:  Coefficient of Determination}
     
-    In our model, we take  Coefficient of Determination as our Evaluation Criteria.In statistics, the coefficient of determination, denoted $R^2$ or $r^2$ and pronounced "R squared", is the proportion of the variance in the dependent variable that is predictable from the independent variable(s) ~\cite{R}. 
+    In our model, we take  Coefficient of Determination as our Evaluation Criteria.In statistics, the coefficient of determination, denoted $R^2$ and pronounced "R squared", is the proportion of the variance in the dependent variable that is predictable from the independent variable(s) ~\cite{R}. 
     
     A data set has $n$ values marked $y_1$,...,$y_n$ (collectively known as $y_i$ or as a vector $y = [y_1,...,y_n]^T$), each associated with a predicted (or modeled) value $f_1$,...,$f_n$ (known as $f_i$, or sometimes $\hat{y_i}$, as a vector $f$).
 
-   Define the residuals as $e_i = y_i$ - $f_i$ (forming a vector $\vec{e}$ ). $\bar{y}$ is the mean of the observed data: 
+    Define the residuals as $e_i = y_i$ - $f_i$ (forming a vector $\vec{e}$ ). $\bar{y}$ is the mean of the observed data: 
     $\bar{y}=\frac{1}{n}\sum_{i=1}^n y_{i}$ , then the variability of the data set can be measured using three sums of squares formulas:
     \begin{gather}
         SS_{tot}=\sum _{i} \left ( y_i-\bar{y} \right )^2\\
@@ -208,7 +260,7 @@ In that case, we can calculate the distance between each two counties. The earth
    The better the linear regression fits the data in comparison to the simple average, the closer the value of $R^{2}$ is to 1. 
     
 	\subsubsection{Back-Propagation Neutral Network (BPNN) Model} \label{Sec:BPNN} 
-	In order to describe how the opioid identification counts spread in and between the five states, we build a Back-Propagation Neutral Network Model, using distance matrix and last year's data as input. Back-Propagation is a supervised learning algorithm, for training Artificial Neural Networks, especially,  multi-layer networks ~\cite{AI}. The weights such that the minimum error occurs is then considered to be a solution to the learning problem.
+	In order to describe how the opioids identification counts spread in and between the five states, we build a Back-Propagation Neutral Network model, using distance matrix and last year's data as input. Back-Propagation is a supervised learning algorithm, for training Artificial Neural Networks, especially,  multi-layer networks ~\cite{AI}. The weights that the minimum error occurs is then considered to be a solution to the learning problem. See appendix \ref{code:bpnn} for the complete python code. 
 	
 	Let $h_{w}$ be a vector function and $y$ be its target result. Then $Err_{k}$ be the $k$th component of the error vector $y-h_{w}$.
 	
@@ -269,13 +321,22 @@ To obtain the gradient with respect to the $w_{i,j}$ weights connecting the inpu
 
  Thus, we obtain the update rules obtained earlier from intuitive considerations. It is also clear that the process can be continued for networks with more than one hidden layer.
 
-The error value indicates how much the network's output (actual) is off the mark from the expected output (target) so that we use the \textbf{Mean Squared Error Function} to calculate the error.
+The error value indicates how much the network's output (actual) is off the mark from the expected output (target) so that we use the \textbf{Mean Squared Error Function} to calculate the error. In this way, we solve every individual differential to get the initial desired differential.
 
-In this way, we solve every individual differential to get the initial desired differential.
+We just saw how back propagation of errors is used in The Multilayer Perception (MLP) neural networks to adjust weights for the output layer to train the network. We use a similar process to adjust weights in the hidden layers of the network which we would see next with a real neural network's implementation since it will be easier to explain it with an example where we have actual numbers to play with.
 
-We just saw how back propagation of errors is used in MLP neural networks to adjust weights for the output layer to train the network. We use a similar process to adjust weights in the hidden layers of the network which we would see next with a real neural network's implementation since it will be easier to explain it with an example where we have actual numbers to play with.
+\subsubsection{Implementation of Spreading Model}
 
-   	\subsection{Optimization: Modification using Socio-economic Component}\label{Sec:Optimazation}
+\begin{figure}[htbp]
+	\centering 
+	\includegraphics[width=1\linewidth]{../figure/}  
+	\caption{} 
+	\label{}  
+\end{figure}
+
+
+
+\subsection{Optimization: Modification using Socio-economic Component}\label{Sec:Optimazation}
 \subsubsection{Dimensionality Reduction}
 
 \paragraph{\textbf{Technique 1: Principal Component Analysis (PCA)}}
@@ -331,7 +392,7 @@ The full principal components decomposition of $\mathbf{X}$ can therefore be giv
     \mathbf {T} =\mathbf {X} \mathbf {W}
 \end{equation}
 
-where $\mathbf{W}$ is a $p$-by-$p$ matrix whose columns are the eigenvectors of $\mathbf{X^TX}$. The transpose of $\mathbf{W}$ is sometimes called the whitening or sphering transformation. 
+where $\mathbf{W}$ is a $p$-by-$p$ matrix whose columns are the eigenvectors of $\mathbf{X^TX}$. The transpose of $\mathbf{W}$ is sometimes called the whitening or sphering transformation. See appendix \ref{code:PCA} for the complete python code. 
 
 \paragraph{\textbf{Technique 2: Deep Learning Approach: Auto Encoder}}
 
@@ -399,14 +460,16 @@ Often these n equations are stacked together and written in matrix notation as t
 
 We have selected the most important factors from the $596$ dimensions that the U.S. Census socio-economic data provides by dimensionality reduction. And then, we use linear regression to test our selection and get the score for each selection. In this way, we can get a satisfying set of components. 
 
-According to PCA, we can get the variance ratio, which shows the ratio of the variance value of each principal component to the total variance value after dimension reduction. The larger the value of the variance ratio, the more important the principal component.
+According to PCA, we can get the variance ratio, which shows the ratio of the variance value of each principal component to the total variance value after dimension reduction. The larger the value of the variance ratio, the more important the principal component. Actually, the more components we take into account, the larger variance ratio we get. However, what we pursue is not only the completeness characterization of the fact ,but also the simplification of the vast dimension. So we need to get an appropriate set of components that can characterize all the information as well as simplifies this problem.
 
 According to LR, we can get a score for the fitting. Actually, the score is the $R^{2}$ of linear regression results and the fact data from the NFLIS Data, which shows how closer the results we get from the components reach the fact. The closer it approaches $1$, the better the components can express the fact.
 
-In addition, to get a good result, we also need to select the way how to deal with the data given by the U.S. Census socio-economic data. So we apply the PCA as well as LR to the these data in four ways, and show the results by diagrams:
+In addition, to get a good result, we also need to select the way how to deal with the data given by the U.S. Census socio-economic data. So we apply the PCA as well as LR to the these data in four ways, and you can see appendix \ref{code:PCA_plot} for the complete python code. Here we show the results by diagrams:
 
-\begin{itemize}
-    \item Analyze all the data over the years ranging from 2010 to 2016 of the five states respectively, and the results are shown in figure \ref{fig:pca_state}.
+~\smallskip
+
+(1) Analyze all the data over the years ranging from 2010 to 2016 of the five states respectively, and the results are shown in figure \ref{fig:pca_state}.
+
     \begin{figure}[H]
     \centering
     \begin{subfigure}[b]{0.49\textwidth}
@@ -422,9 +485,13 @@ In addition, to get a good result, we also need to select the way how to deal wi
     \caption{PCA and LR results of data among five states in 2010-2016 against different components}\label{fig:pca_state}
 \end{figure}
 
-We can see when we choose 4 components to describe this problem, the explained variance ratio almost reaches 1. That is to say that 
+From (a) in figure \ref{fig:pca_state}, we can see the curve for a single state raises as the number of the components increases. When we choose four components to describe this problem, the superimposed explained variance ratio is close to 1. That is to say that under this circumstance, the results that we get from the fitting is very close to the fact. 
 
-    \item Analyze the data of 2010 of the five states respectively, and the results are shown in figure \ref{fig:pca_state_2010}.
+From (b) in figure \ref{fig:pca_state}, we can see the curves for the five years are almost stable as the number of the components increase, except some special cases. As for one component for the WV state, the low coefficient of determination ascribes that there is only one component to characterize the problem. As for nine components for the OH state, the low coefficient of determination may attribute to overfitting. 
+
+~\smallskip
+
+(2) Analyze the data of 2010 of the five states respectively, and the results are shown in figure \ref{fig:pca_state_2010}. 
     \begin{figure}[H]
     \centering
     \begin{subfigure}[b]{0.49\textwidth}
@@ -440,7 +507,11 @@ We can see when we choose 4 components to describe this problem, the explained v
     \caption{PCA and LR results of data among five states in 2010 against different components}\label{fig:pca_state_2010}
 \end{figure}
 
-    \item Analyze the data of all the five states of 2010 to 2016 respectively, and the results are shown in figure \ref{fig:pca_year}.
+From (a) in figure \ref{fig:pca_state_2010}, we can see the ratio shows the similar characteristics to (a) in figure \ref{fig:pca_state}, which means an excellent characterization of this problem with only four components. But when it comes to the evaluation part, form the (b) in figure \ref{fig:pca_state_2010}, we can directly see that the fitting is no as stable as the last one.
+
+~\smallskip
+
+(3) Analyze the data of all the five states of 2010 to 2016 respectively, and the results are shown in figure \ref{fig:pca_year}.
     \begin{figure}[H]
     \centering
     \begin{subfigure}[b]{0.49\textwidth}
@@ -456,7 +527,11 @@ We can see when we choose 4 components to describe this problem, the explained v
     \caption{PCA and LR results of data in 2010-2017 against different aggregations}\label{fig:pca_year}
 \end{figure}
 
-    \item Analyze the data of the state PA of 2010 to 2016 respectively, and the results are shown in figure \ref{fig:pca_year_PA}.
+From (a) in figure \ref{fig:pca_year}, we can see the curve for a single year raises as the number of the components increases almost in the same way. However, the superimposed explained variance ratio gets close to 1 when the components raises to 6 or more, which indicates that it does not do well in simplification. Moreover, the coefficient of determination that is shown in (b) of figure \ref{fig:pca_year} is unstable.
+
+~\smallskip
+
+(4) Analyze the data of the state PA of 2010 to 2016 respectively, and the results are shown in figure \ref{fig:pca_year_PA}.
     \begin{figure}[H]
     \centering
     \begin{subfigure}[b]{0.49\textwidth}
@@ -471,25 +546,23 @@ We can see when we choose 4 components to describe this problem, the explained v
     \end{subfigure}
     \caption{PCA and LR results of data in PA in 2010-2017 against different aggregations}\label{fig:pca_year_PA}
 \end{figure}
-\end{itemize}
 
-From the visualization that we have shown above, we can see 
+From (a) in figure \ref{fig:pca_year_PA}, the curve shows similar characteristics to the above ones and also does well in characterize through few components. But (b) of figure \ref{fig:pca_year_PA} shows its instability.
 
-We take the U.S. Census socio-economic data of KY state ranging from 2010 to 2016 as an example.
+From the visualization and analysis that we have shown above, it can be concluded that when we choose all the data over the years ranging from 2010 to 2016 of the five states respectively, we can gain a great, simple, and stable dimensionality reduction with only four components.
 
-In PCA, we choose to reduce the dimensions to four because the variance ratio reaches a threshold of about $0.01$ after that. The variance ratios are 
+For example, we select the U.S. Census socio-economic data of KY state ranging from 2010 to 2016. In PCA, the variance ratio reaches a threshold of about $0.01$ after the fourth dimension. The first four variance ratios are 
 \begin{center}
     $0.59396827$, $0.28748557$, $0.02754973$, $0.02732665$.
 \end{center}
 
 From these four dimension, we can get the score of about $0.92$ by linear regression, which shows a good result of the dimension reduction. 
 
-As we mentioned before, the five states can be treated similar. So we can apply the same method to these states and combine the results for all five states. The results are shown below: 
+\subsection{Strategy Program for the Opioid Crisis}\label{Sec:Strategy}
 
-
-	\subsection{Strategy for the Opioid Crisis}\label{Sec:Strategy}
+\subsubsection{SSD (Supply Control, Spread Control, and Demand Control) }
 	
-	Understanding that certain levels of drug use are inevitable, so we should focus on minimizing adverse effects associated with drug use rather than stopping the behavior itself. In the context of the opioid epidemic, we propose the \textbf{Harm Reduction Strategies} that are designed to improve health outcomes and reduce overdose deaths.
+	Understanding that certain levels of drug use are inevitable, so we should focus on minimizing adverse effects associated with drug use rather than stopping the behavior itself. In the context of the opioid epidemic, we propose the \textbf{Strategy Program "SSD" (Supply Control, Spread Control, Demand Control)} that are designed to improve health outcomes and reduce overdose deaths.
 	
     It can be divided into three aspects:
 \paragraph{\textbf{Supply Control}}
@@ -497,7 +570,7 @@ As we mentioned before, the five states can be treated similar. So we can apply 
 ~\smallskip
 
 \begin{itemize}
-    \item Requiring manufacturers of long-acting opioids to sponsor educational programs for prescribers. Through these educational programs, we can control opioid supply and help deter off-label and over-prescribing, making a threshold to those who want to abuse the opioids.
+    \item Requiring manufacturers of long-acting opioids to sponsor educational programs for prescribers. Through these educational programs, we can control opioid supply and help deter off-label and over-prescribing, making a threshold to those who want to abuse the opioids~\cite{FUSTER2018487}.
     \item We need to strengthen cooperation with countries such as Colombia and Mexico, to crack down on cross-border drug crimes.
 \end{itemize}
 
@@ -506,19 +579,34 @@ As we mentioned before, the five states can be treated similar. So we can apply 
 ~\smallskip
 
 \begin{itemize}
-    \item Strengthen public health data reporting and collection to improve the timeliness and specificity of data and to inform a real-time public health response as the opioid epidemic evolves，so that our Spreading Model can forecast the opioid epidemic more precisely.
+    \item Strengthen public health data reporting and collection to improve the timeliness and specificity of data and to inform a real-time public health response as the opioid epidemic evolves，so that our Spreading Model can forecast the opioid epidemic more precisely~\cite{AWSARE2019}.
     \item Strengthening Public Health Data and Reporting. Timely, high-quality data help both public health officials and law enforcement understand the extent of the problem and how it is evolving, develop interventions, focus resources where they are needed most, and evaluate the success of prevention and response efforts. 
 \end{itemize}
 
 \paragraph{\textbf{Demand Control}}
-
 ~\smallskip
 
 \begin{itemize}
-    \item Advance the practice of pain management to enable access to high-quality, evidence-based pain care that reduces the burden of pain for individuals, families, and society while also reducing the inappropriate use of opioids and opioid-related harms. Only by making opioid control and management more rigorous and formal can we effectively combat illicit drug abuse.
+    \item Advance the practice of pain management to enable access to high-quality, evidence-based pain care that reduces the burden of pain for individuals, families, and society while also reducing the inappropriate use of opioids and opioid-related harms~\cite{SEIGERMAN201928}.
+    \item Only by making opioid control and management more rigorous and formal can we effectively combat illicit drug abuse.
 \end{itemize}
 
+\subsubsection{Effectiveness of our Strategy Program}
+\paragraph{\textbf{Supply Control}}
 
+~\smallskip
+
+Corresponding to our SOS model, controlling Supply means setting a \textbf{threshold function} for input in our model. Once certain opioid reaches its threshold, it would be hindered strongly by FBI, which makes sense in reality. Therefore, the Corresponding output will decrease significantly.
+\paragraph{\textbf{Spread Control}}
+
+~\smallskip
+
+Corresponding to our SOS model, controlling Spread means setting a \textbf{punishing function }in our model based on the distance between each two counties. The farther apart the two counties are, the greater the spreading costs they pay, which also makes sense in reality.Therefore, the Corresponding output will decrease significantly.
+\paragraph{\textbf{Demand Control}}
+
+~\smallskip
+
+Corresponding to our SOS model, controlling Demand means setting a \textbf{resisting function} in our every neuron, since people are less convenient to have access to opioids. By this way, we can simulate actual situations, which prove to be effective in countering opioids crisis.Therefore, the Corresponding output will decrease significantly.
 \section{Model Analysis}\label{Sec-Analysis}
 
 \subsection{Sensitivity Analysis}
@@ -526,8 +614,19 @@ As we mentioned before, the five states can be treated similar. So we can apply 
 \subsection{Strengths and Weaknesses}
 \subsubsection{Strengths}
 \begin{itemize}
-\item \textbf{}
-\item \textbf{}
+\item \textbf {Effective and Uniform Data Extraction:} We uniformly use the library pandas in python  to evaluate and filter the vast data for each problem. In this way, we apply the most appropriate data to each part and get a better result effectively.
+
+\item \textbf{High Characterization and Generalizability:} We design the model by BPNN that fits not only all the data but also each state of this problem.
+
+\item \textbf{Innovative Modeling with BPNN:} We apply BPNN to construct our model with highly self-learning and highly self-adapting abilities, which is good for us to solve this problem.
+
+\item \textbf{Bilateral Prediction by BPNN:} Our model can predict not only when and where specific concerns may occur but also the source of the crisis.
+
+\item \textbf{Alternative Methods for Dimensionality Reduction:} We introduced two methods: PCA and AE for dimensionality reduction and compare their results.
+
+\item \textbf{Prudential Test of the Model:}After the dimensionality reduction, we apply the components that we get to LR and get a fitting result. Through comparison, we evaluate whether our dimensionality reduction is good.
+
+\item \textbf{Quantified and Rational Goals:} We set quantified goals strictly based on optimization theory.
 \end{itemize}
 
 
@@ -540,7 +639,7 @@ As we mentioned before, the five states can be treated similar. So we can apply 
 
 
 \section{Conclusion} \label{Sec-Conclusion}
-In this paper,we propose a novel framework called \textbf{SOS} (Spreading Model, Optimization, and Strategy for the Opioid Crisis). First we create a \textbf{Back-Propagation Neutral Network  (BPNN) Model} to describe the spread and characteristics of the opioid incidents in and between the five states over time. With this model we identified possible locations where specific opioid use might have emerged in each of the five states. Second we adopt two different techniques: \textbf{Principal Component Analysis (PCA)} and \textbf{Learning Approach: Auto Encoder}, to extract principal components from the U.S. Census Socio-Economic data. After testing the validity of these component with \textbf{Linear Regression} ,  we add to our Spreading Model for modification. Third we identify possible strategies for countering the opioid crisis. After being tested by our model, these strategies are proven to be significantly effective in controlling the opioid crisis, and we give a significant parameter bound that success is dependent upon. Finally, we conduct sensitivity analysis of some parameters in our model and discuss the strengths and weakness of our work.
+In this paper,we propose a novel framework called \textbf{SOS} (Spreading Model, Optimization, and Strategy Program for the Opioid Crisis). First we create a \textbf{Back-Propagation Neutral Network  (BPNN) Model} to describe the spread and characteristics of the opioid incidents in and between the five states over time. With this model we identified possible locations where specific opioid use might have emerged in each of the five states. Second we adopt two different techniques: \textbf{Principal Component Analysis (PCA)} and \textbf{Learning Approach: Auto Encoder}, to extract principal components from the U.S. Census Socio-Economic data. After testing the validity of these component with \textbf{Linear Regression} ,  we add to our Spreading Model for modification. Third we identify possible strategies for countering the opioid crisis. After being tested by our model, these strategies are proven to be significantly effective in controlling the opioid crisis, and we give a significant parameter bound that success is dependent upon. Finally, we conduct sensitivity analysis of some parameters in our model and discuss the strengths and weakness of our work.
 
 \newpage
 \section*{MEMORANDUM} 
@@ -551,34 +650,35 @@ In this paper,we propose a novel framework called \textbf{SOS} (Spreading Model,
 
 \noindent\textbf{Date}: Jananry 29, 2019
 
-\noindent\textbf{Subject:}
-
-Honorable Chief Administrator, DEA/NFLIS Database,
-
-
+\noindent\textbf{Subject:} The Opioids Model: Analysis for Spread, Idetification for Source, Prediction for Future, and Strategy For Control
 \addcontentsline{toc}{section}{MEMORANDUM}
 
-\subsection*{Part 1:  }
-\addcontentsline{toc}{subsection}{Part 1: }
+Honorable Chief Administrator, DEA/NFLIS Database, 
 
-\paragraph{one}
+Currently, the opioid crisis has overwhelmed the whole America, urging us to pay great emphasis on controlling the spreading opioid incidents. As the person in charge, our team has made a comprehensive study on countering opioid crisis based on the reported synthetic opioid and heroin incidents (cases) from 2010 to 2017 in and between the five states: Ohio (OH), Kentucky (KY), West Virginia (WV), Virginia (VA), and Pennsylvania (PA). We further analyze the U.S. Census Socio-Economic data to modify the initial model. Here comes our study results:
 
-\paragraph{two}
+\subsection*{Spreading Model }
+\addcontentsline{toc}{subsection}{Spreading Model }
+Here we utilize a Back-Propagation Neutral Network (BPNN) to build this model ,characterizing the basic evolving and spreading trends of the opioid and heroin incidents. Thus, we forecast the opioid accidents happened in the following two years, and find that 
+which demonstrates the urgence of solving the opioid abuse problem.
+Additionally, we conclude that when drug identification threshold levels is XX, the opioid incidents will explode rapidly.
+In order to identify any possible locations where specific opioid use 
+might have started, we adopt Outlier Detection and identify that XX
 
-\paragraph{three}
+\subsection*{Optimization}
+\addcontentsline{toc}{subsection}{Optimization}
+ In this part, we combine Principal Component Analysis (PCA) and Learning Approach Auto-Encoder two techniques to analyze the U.S. Census Socio-economic data provided. We successfully select the most important $4$ factors from the $596$ dimensions in data. And then, we use Linear Regression to test our selection and get the score for each selection, Which turn out XXX. In this way, we get a satisfying set of components added to our model for modification. 
 
-\subsection*{Part 2: }
-\addcontentsline{toc}{subsection}{Part 2: }
+\subsection*{Strategy Program}
+\addcontentsline{toc}{subsection}{Strategy Program }
+Eventually, according to the results above, we figure out a comprehensive and feasible Strategy Program called "SSD". The whole strategy program can be divided into three parts: Supply Control, Spread Control, and Demand Control. After being tested by our promoted model, these strategies are proven to be significantly effective in controlling and preventing the opioid crisis. Concrete Strategies are as follows:
+\begin{itemize}
+    \item \textbf{Supply Control:}To require manufacturers of long-acting opioids to sponsor educational programs for prescribers, making a threshold to those who want to abuse the opioids.To strengthen cooperation with countries such as Colombia and Mexico, to crack down on cross-border drug crimes.
+    \item \textbf{ Spread Control}To strengthen public health data reporting and collection to improve the timeliness and specificity of data and to inform a real-time public health response as the opioid epidemic evolves.
+    \item \textbf{Demand Control}To advance the practice of pain management to enable access to high-quality, evidence-based pain care that reduces the burden of pain for individuals, families, and society while also reducing the inappropriate use of opioids and opioid-related harms. To make opioid control and management more rigorous and formal for effectively combating illicit drug abuse.
+\end{itemize}
 
-\paragraph{one}
-
-\paragraph{two}
-
-\paragraph{three}
-
-\subsection*{Part 3: Strategies}
-\addcontentsline{toc}{subsection}{Part 3: }
-
+We finally give a significant parameter bound that success is dependent upon: XX
 
 The above is the summary of our study. We sincerely hope that it will provide you with useful information.
 
@@ -595,8 +695,26 @@ Thanks!
 
 \section{Python Code}
 
+\subsection{map.py}\label{code:map}
+\inputminted{python}{../src/map.py}
+
 \subsection{geocode.py}\label{code:geocode}
 \inputminted{python}{../src/geocode.py}
+
+\subsection{distance.py}\label{code:distance}
+\inputminted{python}{../src/distance.py}
+
+\subsection{count.py} \label{code:count}
+\inputminted{python}{../src/count.py}
+
+\subsection{bpnn.py} \label{code:bpnn}
+\inputminted{python}{../src/bpnn.py}
+
+\subsection{PCA.py} \label{code:PCA}
+\inputminted{python}{../src/PCA.py}
+
+\subsection{PCA\_plot.py} \label{code:PCA_plot}
+\inputminted{python}{../src/PCA_plot.py}
 
 \section{2}
 
