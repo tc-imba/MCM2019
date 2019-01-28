@@ -77,7 +77,7 @@
 	
 	Furthermore, we combine \textbf{Principal Component Analysis (PCA)} and \textbf{Deep Learning Approach Auto-encoder (AE)} techniques to analyze the U.S. Census Socio-economic data provided, aiming to reduce dimensions and find any important principal components. Then we use \textbf{Linear Regressions (LR)} to evaluate these principal components, proving that the data is effective for our model. Then we are able to add the transformed variables under the principal components axis into our Spreading Model for modification.
 	
-	Eventually, according to the results above, we figure out a comprehensive and feasible \textbf{Strategy Program} called \textbf{"SSD"}. The whole strategy program can be divided into three parts: \textbf{Supply Control, Spread Control, and Demand Control}. After being tested by our promoted model, these strategies are proven to be significantly effective in controlling and preventing the opioid crisis. We finally give a significant parameter bound that success is dependent upon.
+	Eventually, according to the results above, we figure out a comprehensive and feasible \textbf{Strategy Program} called \textbf{``SSD''}. The whole strategy program can be divided into three parts: \textbf{Supply Control, Spread Control, and Demand Control}. After being tested by our promoted model, these strategies are proven to be significantly effective in controlling and preventing the opioid crisis.
 	
 	\begin{keywords}
 		SOS; Back-Propagation Neutral Network (BPNN); Outlier Detection; Principal Component Analysis (PCA);Deep Learning Approach: Auto Encoder;Linear Regression (LR); Strategy Program ``SSD''
@@ -101,7 +101,7 @@ The Opioid Crisis means the rapid increase in the use of prescription and non-pr
 	\label{situation}  
 \end{figure}
 
-Studies show that the increase in opioid overdose deaths has been dramatic, and opioids are now responsible for 49,000 of the 72,000 drug overdose deaths overall in the US in 2017~\cite{NIH}. The rate of prolonged opioid use is also increasing globally, threatening not only Americans' health but also the U.S. economy in many aspects. Consequently, president Donald Trump declared the country's opioid crisis a "national emergency"~\cite{Trump}.
+Studies show that the increase in opioid overdose deaths has been dramatic, and opioids are now responsible for 49,000 of the 72,000 drug overdose deaths overall in the US in 2017~\cite{NIH}. The rate of prolonged opioid use is also increasing globally, threatening not only Americans' health but also the U.S. economy in many aspects. Consequently, president Donald Trump declared the country's opioid crisis a ``national emergency''~\cite{Trump}.
 
 Currently, the U.S. government has payed great attention and taken a bunch of measures on this issue~\cite{CORRIGAN201844}. While the U.S. Centers for Disease Control (CDC) continue to fight the opioid overdose epidemic, simply enforcing existing laws is still a complex challenge for the Federal Bureau of Investigation (FBI), and the U.S. Drug Enforcement Administration (DEA), among others~\cite{intro}. Therefore, they need investigate the spread and characteristics of the opioids and heroin incidents in the United States, so that they can develop their strategies to better control and prevent the deteriorating opioids overdose situation.
 
@@ -121,7 +121,7 @@ We can divide our SOS framework in figure  \ref{Framework}  into following steps
 \begin{itemize}
 \item \textbf{Spreading Model}: Based on the report provided, we focus on the individual counties located in five U.S. states: Ohio (OH), Kentucky (KY), West Virginia (WV), Virginia (VA), and Pennsylvania (PA). We first get the longitude and latitude of every county and build a \textbf{Back-Propagation Neutral Network (BPNN) Model~\cite{NURCIN2017417}} to describe the spread and characteristics of the reported opioid incidents over time. With this model, we identify some possible locations where specific opioid use might have started in each of the five states.
 \item \textbf{Optimization}: Furthermore, we analyze the U.S. Census Socio-Economic data provided with two techniques:   \textbf{Principal Component Analysis (PCA)} and \textbf{Learning Approach: Auto Encoder~\cite{NURCIN2017417}} ,  aiming to reduce the dimensionalities and find any important principal components. Then we make \textbf{Linear Regressions} to test the validity of these components, with which we add to our Spreading Model.
-\item \textbf{Strategy Program for the Opioid Crisis}: Eventually, we identify a comprehensive and feasible Strategy Program for countering the opioid crisis. It contains three aspects: \textbf{Supply Control, Spread Control, and Demand Control(SSD)} After being tested by our model, these strategies are proven to be significantly effective in controlling the opioid crisis. We finally give a significant parameter bound that success is dependent upon.
+\item \textbf{Strategy Program for the Opioid Crisis}: Eventually, we identify a comprehensive and feasible Strategy Program for countering the opioid crisis. It contains three aspects: \textbf{Supply Control, Spread Control, and Demand Control(SSD)} After being tested by our model, these strategies are proven to be significantly effective in controlling the opioid crisis.
 \end{itemize}
 
 \section{Assumptions}\label{Sec-Assume}
@@ -219,7 +219,7 @@ In that case, we can calculate the distance between each two counties. The earth
     
     where $C$ is a temporary variable and $D$ is distance. Using the location data we got before, we can make a matrix that represents all the distance between any two counties in these five states.
 
-\subsubsection{Count of Drug Report by State}
+\subsubsection{Count of Drug Report by State}\label{count-drug}
 
     Besides, we rank the number of opioid incidents of each drug in each state county, and then we get the table \ref{tab:my_label}. Since there is no statistic significance for small amounts of data, we screen out significant data with statistically large amounts for the following modeling. See appendix \ref{code:count} for the complete code. 
     
@@ -246,7 +246,7 @@ In that case, we can calculate the distance between each two counties. The earth
 
 \subsubsection{Model Evaluation Criteria:  Coefficient of Determination}
     
-    In our model, we take  Coefficient of Determination as our Evaluation Criteria.In statistics, the coefficient of determination, denoted $R^2$ and pronounced "R squared", is the proportion of the variance in the dependent variable that is predictable from the independent variable(s) ~\cite{R}. 
+    In our model, we take  Coefficient of Determination as our Evaluation Criteria.In statistics, the coefficient of determination, denoted $R^2$ and pronounced ``R squared'', is the proportion of the variance in the dependent variable that is predictable from the independent variable(s) ~\cite{R}. 
     
     A data set has $n$ values marked $y_1$,...,$y_n$ (collectively known as $y_i$ or as a vector $y = [y_1,...,y_n]^T$), each associated with a predicted (or modeled) value $f_1$,...,$f_n$ (known as $f_i$, or sometimes $\hat{y_i}$, as a vector $f$).
 
@@ -393,122 +393,105 @@ Then we can build a neutral network as shown in Figure \ref{fig:BPNN}. See appen
 
 Outlier is a value that lies in a data series on its extremes, which is either very small or large and thus can affect the overall observation made from the data series. Outliers are also termed as extremes because they lie on the either end of a data series. We apply Outlier to look for the prediction of the the specific concerns and the source of the each drug crisis.  
 
-Let $n$ be the number of data values in the data set. The $Median \left(Q2\right)$ is the middle value of the data set.
-\begin{equation}
-Median \left (Q2\right )=\frac{1}{2}\left ( n+1 \right )th~term.
-\end{equation}
-
-The $Lower~Quartile \left (Q1\right )$ is the median of the lower half of the data set.
-\begin{equation}
-    Lower~Quartile \left (Q1\right )=\frac{1}{4}\left ( n+1 \right )th~term.
-\end{equation}
-
-The $Upper~Quartile \left (Q3\right )$ is the median of the upper half of the data set.
-\begin{equation}
-    Upper~Quartile \left (Q3\right )=\frac{3}{4}\left ( n+1 \right )th~term.
-\end{equation}
-
-The $Interquartile~range \left(IQR\right)$ is the spread of the middle 50\% of the data values.
+Let $n$ be the number of data values in the data set. The Lower Quartile $Q1$ is the median of the lower half of the data set. The Upper Quartile $Q3$ is the median of the upper half of the data set. The Interquartile range $IQR$ is the spread of the middle 50\% of the data values.
 
 \begin{equation}
-    IQR=Q3-Q1
+\begin{aligned}
+    IQR &= Q3-Q1 \\
+    Lower Limit &= Q1-1.5IQR \\
+    Upper Limit &= Q3+1.5IQR \\
+\end{aligned}
 \end{equation}
 
-\begin{equation}
-    Lower Limit = Q1-1.5IQR
-\end{equation}
+So any value that will be more than the upper limit or lesser than the lower limit will be the outliers. We identify that these points are trending to have an opioid crisis.
 
-\begin{equation}
-    Upper Limit = Q3+1.5IQR
-\end{equation}
-
-So any value that will be more than the upper limit or lesser than the lower limit will be the outliers. Only the data that lies within Lower and upper limit are statistically considered normal and thus can be used for further prediction.
-
-\subsubsection{Source Dedection of Spreading Model}
+\subsubsection{Source Dedection and Future Prediction of Spreading Model}
 \label{sec: Implementation}
 
-As we mentioned before in 4.1.2 table\ref{tab:my_label}, Hydrocodone in the state KY is the most often occurred case by statistics. So we choose it to be a sample for us to derive its source. Considering that we have just 8-year data, so we only predict 2 years forward and backward to ensure the accuracy. Thus, With data from 2010 to 2017 inputted into our model, we predict how the identification counts for the Hydrocodone cases distribute in KY in 2008, which is shown in table \ref{tab:2008} and figure \ref{KY_Hydrocodone_5}. Similarly, we can predict Buprenorphine cases in Ohio (OH) in 2018, which is shown in table \ref{2018} and figure \ref{OH}.
+As we mentioned before in \ref{count-drug} table\ref{tab:my_label}, Hydrocodone in the state KY is the most often occurred case by statistics. So we choose it to be a sample for us to derive its source. Considering that we have just 8-year data, so we only predict 2 years forward and backward to ensure the accuracy. Thus, With data from 2010 to 2017 inputted into our model, we predict how the identification counts for the Hydrocodone cases distribute in KY in 2008, which is shown in table \ref{tab:2008} and figure \ref{KY_Hydrocodone_5}. Similarly, we can predict Buprenorphine cases in Ohio (OH) in 2018, which is shown in table \ref{2018} and figure \ref{OH}.
 
 \begin{table}[H]
-    \centering  
-    \caption{Hydrocodone identification counts in 2008 in  Kentucky (KY)}
+ \caption{Source Dedection and Future Prediction}
+  \label{tbl:main}
+  \begin{subtable}[t]{0.45\linewidth}
+    \centering
+     \caption{Hydrocodone identification counts in 2008 in  Kentucky (KY).}
     \label{tab:2008}
-    \begin{tabular}{|c|c|c|c|}
+    \begin{tabular}{|c|c|}
         \hline
-County&State & FIPS\_Combined & Drug Reports  \\\hline
-JEFFERSON&KY&21111&1255.2609121966236\\
-LAUREL&KY&21125&118.82046016127771\\
-PERRY&KY&21193&112.60682836636549\\
-BELL&KY&21013&87.37394803803085\\
-HARLAN&KY&21095&88.32856186367516\\
-PULASKI&KY&21199&85.35215622685533\\
-FAYETTE&KY&21067&115.80939466255792\\
-WHITLEY&KY&21235&64.73657669872404\\
-PIKE&KY&21195&91.37133733637823\\
-FLOYD&KY&21071&70.3041332520833\\
-KNOX&KY&21121&61.78282318731254\\
-\hline
+        County  &  Drug Reports  \\\hline
+        JEFFERSON &  1255.26\\
+        LAUREL &  118.82\\
+        PERRY & 112.61\\
+        BELL &  87.37\\
+        HARLAN & 88.33\\
+        PULASKI &  85.35\\
+        FAYETTE &  115.80\\
+        WHITLEY &  64.73\\
+        PIKE &  91.37\\
+        FLOYD &  70.30\\
+        KNOX & 61.78\\
+        \hline
     \end{tabular}
-\end{table} 
+   
 
-\begin{figure}[htbp]
-	\centering 
-	\includegraphics[width=0.8\linewidth]{../figure/KY_Hydrocodone_5}  
-	\caption{Hydrocodone identification counts in 2008 in  Kentucky (KY)} 
+  \end{subtable}\hfill
+  \begin{subtable}[t]{0.45\linewidth}
+    \centering
+    \caption{Buprenorphine identification counts in 2018 in Ohio (OH).}
+    \label{2018}
+    \begin{tabular}{|c|c|}
+        \hline
+        County &   Drug Reports\\\hline       
+        FRANKLIN & 240.30\\
+        HAMILTON & 155.90\\
+        MONTGOMERY & 140.91\\
+        CUYAHOGA & 139.50\\
+        FAIRFIELD & 98.06\\
+        CRAWFORD & 89.35\\
+        STARK & 82.62\\
+        GUERNSEY & 81.52\\
+        LAKE & 78.01\\
+        \hline
+    \end{tabular}
+  \end{subtable}
+\end{table}
+
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{../figure/KY_Hydrocodone_5}  
+	\subcaption{Hydrocodone identification counts in 2008 in  Kentucky (KY)} 
 	\label{KY_Hydrocodone_5}  
-\end{figure}
-
-\begin{table}[H]
-    \centering  
-    \caption{ Buprenorphine identification counts in 2018 in Ohio (OH)}
-    \label{tab:2018}
-    \begin{tabular}{|c|c|c|c|}
-        \hline
-FRANKLIN&OH&39049&240.30323117953546\\
-HAMILTON&OH&39061&155.8992887077675\\
-MONTGOMERY&OH&39113&140.91534090717613\\
-CUYAHOGA&OH&39035&139.50639150154788\\
-FAIRFIELD&OH&39045&98.06495486668322\\
-CRAWFORD&OH&39033&89.3587012990159\\
-STARK&OH&39151&82.62489026827468\\
-GUERNSEY&OH&39059&81.52033854514106\\
-LAKE&OH&39085&78.01769217413005\\
-        \hline
-    \end{tabular}
-\end{table} 
-
-\begin{figure}[htbp]
-	\centering 
-	\includegraphics[width=0.8\linewidth]{../figure/OH_Buprenorphine_1}  
-	\caption{ Buprenorphine identification counts in 2018 in Ohio (OH)} 
+    \end{subfigure}
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{../figure/OH_Buprenorphine_1}  
+	\subcaption{ Buprenorphine identification counts in 2018 in Ohio (OH)} 
 	\label{OH}
+    \end{subfigure}
+    \caption{ Source Dedection and Future Prediction  }\label{fig:fancy}
 \end{figure}
+
+
 
 Then we overlay such images generated from 2008 to 2012 in chronological order to show the spreading characteristics of Hydrocodone identification counts in Kentucky as figure \ref{KY_Hydrocodone} shows. With this method, we identify some  possible locations where specific opioid use might have started in each of the five states. Similarly, we can demonstrate the spreading characteristics of Buprenorphine identification counts in Ohio as figure \ref{OH_Buprenorphine} shows.
 
-\begin{figure}[htbp]
-	\centering 
-	\includegraphics[width=0.7\linewidth]{../figure/KY_Hydrocodone} 
-	\caption{Buprenorphine identification counts in 2018 in Ohio (OH)} 
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{../figure/KY_Hydrocodone} 
+	\caption{Hydrocodone identification counts spreading diagram from 2008 to 2012 in  Kentucky} 
 	\label{KY_Hydrocodone}  
-\end{figure}
-
-
-
-\begin{figure}[htbp]
-	\centering 
-	\includegraphics[width=0.7\linewidth]{../figure/OH_Buprenorphine} 
-	\caption{Buprenorphine identification counts preading diagram from 2014 to 2018 in Ohio (OH)} 
+    \end{subfigure}
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{../figure/OH_Buprenorphine} 
+	\caption{Buprenorphine identification counts spreading diagram from 2014 to 2018 in Ohio} 
 	\label{OH_Buprenorphine}  
+    \end{subfigure}
+    \caption{ Source Dedection and Future Prediction model }\label{fig:cool}
 \end{figure}
-
-
-
-\subsubsection{Future Prediction of Spreading Model}
-
-
-
-
 
 \subsection{Optimization: Modification using Socio-economic Component}\label{Sec:Optimazation}
 \subsubsection{Dimensionality Reduction}
@@ -566,7 +549,9 @@ The full principal components decomposition of $\mathbf{X}$ can therefore be giv
     \mathbf {T} =\mathbf {X} \mathbf {W}
 \end{equation}
 
-where $\mathbf{W}$ is a $p$-by-$p$ matrix whose columns are the eigenvectors of $\mathbf{X^TX}$. The transpose of $\mathbf{W}$ is sometimes called the whitening or sphering transformation. See appendix \ref{code:PCA} for the complete python code. 
+where $\mathbf{W}$ is a $p$-by-$p$ matrix whose columns are the eigenvectors of $\mathbf{X^TX}$. The transpose of $\mathbf{W}$ is sometimes called the whitening or sphering transformation.
+
+See appendix \ref{code:PCA} for the complete python code. 
 
 \paragraph{\textbf{Technique 2: Deep Learning Approach: Auto Encoder}}
 
@@ -608,7 +593,7 @@ If the feature space $\mathcal {F}$ has lower dimensionality than the input spac
 \subsubsection{Linear Regression (LR) for Principle Component}
 After we choose the number of components to express the use or trends-in-use according to the U.S. Census socio-economic data, we apply linear regression to test if the components we choose can give a satisfying result that is close to the reports given by the NFLIS data. In this way, we can a score of this linear regression. The closer it approaches $1$, the better the components show the fact.
 
-Given a data set $\left \{ y_{i}, x_{i1}, \cdots , x_{ip} \right \}_{i = 1}^{n}$ of n statistical units, a linear regression model assumes that the relationship between the dependent variable $y$ and the $p$-vector of regressors $x$ is linear. This relationship is modeled through a disturbance term or error variable $ε$ , an unobserved random variable that adds "noise" to the linear relationship between the dependent variable and regressors. Thus the model takes the form  as the following shows.
+Given a data set $\left \{ y_{i}, x_{i1}, \cdots , x_{ip} \right \}_{i = 1}^{n}$ of n statistical units, a linear regression model assumes that the relationship between the dependent variable $y$ and the $p$-vector of regressors $x$ is linear. This relationship is modeled through a disturbance term or error variable $ε$ , an unobserved random variable that adds ``noise'' to the linear relationship between the dependent variable and regressors. Thus the model takes the form  as the following shows.
 
 \begin{equation}
     y_i = \beta_{0}1+ \beta_{1}x_{i1}+\cdots +\beta_{p}x_{ip} + \varepsilon _{i} = x_{i}^{T}\beta + \varepsilon_{i}
@@ -626,7 +611,7 @@ Often these n equations are stacked together and written in matrix notation as t
 \item[-] $y$ is a vector of observed values $y_{i} ( i = 1, \cdots, n )$ of the variable called the regressand, endogenous variable, response variable, measured variable, criterion variable, or dependent variable. This variable is also sometimes known as the predicted variable. $X$ may be seen as a matrix of row-vectors 
 \item[-] $x_{i}$ or of n-dimensional column-vectors $X_{j}$, which are known as regressors, exogenous variables, explanatory variables, covariates, input variables, predictor variables, or independent variables (not to be confused with the concept of independent random variables).
  \item[-] $\beta$ is a $( p + 1 )$-dimensional parameter vector, where $\beta _{0}$ is the intercept term (if one is included in the model—otherwise $\beta$ is $p$-dimensional). Its elements are known as effects or regression coefficients (although the latter term is sometimes reserved for the estimated effects).
-\item[-] $\varepsilon$ is a vector of values $\varepsilon _{i}$. This part of the model is called the error term, disturbance term, or sometimes noise (in contrast with the "signal" provided by the rest of the model).
+\item[-] $\varepsilon$ is a vector of values $\varepsilon _{i}$. This part of the model is called the error term, disturbance term, or sometimes noise (in contrast with the ``signal'' provided by the rest of the model).
 
 \end{itemize}
 
@@ -733,37 +718,85 @@ For example, we select the U.S. Census socio-economic data of KY state ranging f
 From these four dimension, we can get the score of about $0.92$ by linear regression, which shows a good result of the dimension reduction. 
 
 \subsubsection{Results for Optimizied SOS Model}
-Based on the results of Dimension Reduction and Linear Regression in section \ref{sec:DRLR}, we add these four principal components into our BPNN model for modification. With this Optimizied SOS Model, we do as section \ref{sec: Implementation} do and get the table \ref{tab:2008new}.
+Based on the results of Dimension Reduction and Linear Regression in section \ref{sec:DRLR}, we add these four principal components into our BPNN model for modification. With this Optimizied SOS Model, we do as section \ref{sec: Implementation} do and get the table \ref{tab:2008new} and table \ref{tab:2018new}
 
-\begin{table}[h]
-    \centering  
+\begin{table}[H]
+    \caption{ Results table for Optimizied SOS Model}
+     \begin{subtable}[t]{0.45\linewidth}
+     \centering
     \caption{Hydrocodone identification counts in 2008 in  Kentucky (KY) using modified SOS model}
     \label{tab:2008new}
-    \begin{tabular}{|c|c|c|c|}
+    \begin{tabular}{|c|c|}
         \hline
-County&State & FIPS\_Combined & Drug Reports  \\\hline
-JEFFERSON&KY&21111&1158.6009419546995\\
-LAUREL&KY&21125&103.17384124461908\\
-PERRY&KY&21193&98.5873242291028\\
-BELL&KY&21013&86.35324952606659\\
-HARLAN&KY&21095&85.24447008432064\\
-PULASKI&KY&21199&78.44663884927238\\
-FAYETTE&KY&21067&77.75175859418509\\
-WHITLEY&KY&21235&68.65319115138982\\
-PIKE&KY&21195&68.61863843789055\\
-FLOYD&KY&21071&61.285023951904996\\
-KNOX&KY&21121&59.54623443228225\\
-BULLITT&KY&21029&52.96888785496657\\
-LETCHER&KY&21133&47.432846932984475\\
+County& Drug Reports  \\\hline
+JEFFERSON&1158.60\\
+LAUREL&103.17\\
+PERRY&98.59\\
+BELL&86.35\\
+HARLAN&85.24\\
+PULASKI&78.45\\
+FAYETTE&77.75\\
+WHITLEY&68.65\\
+PIKE&68.62\\
+FLOYD&61.29\\
+KNOX&59.55\\
+BULLITT&52.97\\
+LETCHER&47.43\\
 \hline
     \end{tabular}
+\end{subtable}
+\hfill
+
+ \begin{subtable}[t]{0.45\linewidth}
+    \centering
+    \caption{Buprenorphine identification counts in 2018 in Ohio (OH) using modified SOS model}
+    \label{tab:2018new}
+    \begin{tabular}{|c|c|}\hline
+      County& Drug Reports  \\\hline  
+FRANKLIN&240.30\\
+HAMILTON&155.90\\
+MONTGOMERY&140.92\\
+CUYAHOGA&139.51\\
+FAIRFIELD&98.06\\
+CRAWFORD&89.35\\
+STARK&82.62\\
+GUERNSEY&81.52\\
+LAKE&78.01\\
+\hline
+    \end{tabular}
+\end{subtable}
 \end{table} 
+
+Finally, we apply the model to all of the five states so that we can analysis the coefficient of determination between the origin model and the new model with PCA optimization. The results are shown in Table \ref{tab:final}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+        State & Substance & Origin Model & Optimized Model \\\hline
+        KY & Hydrocodone & 0.8957447139498953 & 0.9120307701827662 \\
+        OH & Hydrocodone & 0.8501898003702214 & 0.8641988375370137 \\
+        PA & Hydrocodone & 0.9319499913029298 & 0.9325942856975605 \\
+        VA & Hydrocodone & 0.8191016628092015 & 0.8374162880363936 \\
+        WV & Hydrocodone & 0.6797258899970731 & 0.7051639551372615 \\
+        KY & Buprenorphine & 0.7697562356106809 & 0.7998899587972155 \\
+        OH & Buprenorphine & 0.8720902736185301 & 0.8807783772009824 \\
+        PA & Buprenorphine & 0.9379855180669447 & 0.94186265136905 \\
+        VA & Buprenorphine & 0.8720028255610893 & 0.8832633164948145 \\
+        WV & Buprenorphine & 0.12985720067610063 & 0.14259618407280017 \\
+        \hline 
+    \end{tabular}
+    \caption{The coefficient of determination of the origin model vs the new model with PCA optimization.}
+    \label{tab:final}
+\end{table}
+
+We can found that the optimization have a good effect on the value of $R^2$, however, on the last row, Buprenorphine in WV State, the model doesn't fit the data well. This is probably because of the lack of data (only 234 data, and most of them are relatively small) of this kind of opioid in this state.
 
 \subsection{Strategy Program for the Opioid Crisis}\label{Sec:Strategy}
 
 \subsubsection{SSD (Supply Control, Spread Control, and Demand Control) }
 	
-	Understanding that certain levels of drug use are inevitable, so we should focus on minimizing adverse effects associated with drug use rather than stopping the behavior itself. In the context of the opioid epidemic, we propose the \textbf{Strategy Program "SSD" (Supply Control, Spread Control, Demand Control)} that are designed to improve health outcomes and reduce overdose deaths.
+	Understanding that certain levels of drug use are inevitable, so we should focus on minimizing adverse effects associated with drug use rather than stopping the behavior itself. In the context of the opioid epidemic, we propose the \textbf{Strategy Program ``SSD'' (Supply Control, Spread Control, Demand Control)} that are designed to improve health outcomes and reduce overdose deaths.
 	
     It can be divided into three aspects:
 \paragraph{\textbf{Supply Control}}
@@ -814,7 +847,7 @@ Corresponding to our SOS model, controlling Demand means setting a \textbf{resis
 \begin{itemize}
     \item In our Back-Propagation Neutral Network (BPNN) Model, there is no parameter, but a sparse-connected hidden layer between the input layer and output layer to solve this problem. Thus, the robustness of our model is only dependent on data scale.
     \item In our Principal Component Analysis (PCA) and Linear Regression progress, we did the sensitivity analysis in section \ref{sec:DRLR}.
-    \item As for Strategy Program "SSD", we have no extra time to do sensitivity analysis, but we did a comprehensive theoretical analysis concerning every possible factors.
+    \item As for Strategy Program ``SSD'', we have no extra time to do sensitivity analysis, but we did a comprehensive theoretical analysis concerning every possible factors.
 \end{itemize}
 
 \subsection{Strengths and Weaknesses}
@@ -840,17 +873,17 @@ Corresponding to our SOS model, controlling Demand means setting a \textbf{resis
 \begin{itemize}
 \item \textbf{No Verification of Raw Data:} We have no guarantee of the accuracy of given data , and the data is not complete.
 \item \textbf{No Involvement of Other States:} We do not consider states other than OH, KY, WV, VA, and PA, due to the lack of relevant data.
-\item \textbf{No Accurate Geographical Information: } We use the the official coordinates of counties to represent its geographical location. And we have no guarantee of the accuracy of the data  from the Search (Nominatim) API~\cite{NO}.
+\item \textbf{No Accurate Geographical Information: } We use the the official coordinates of counties to represent its geographical location. And we have no guarantee of the accuracy of the data  from the Search (Nominatim) API~\cite{bing}.
 \end{itemize}
 
 
 \section{Conclusion} \label{Sec-Conclusion}
-In this paper,we propose a novel framework called \textbf{SOS} (Spreading Model, Optimization, and Strategy Program for the Opioid Crisis). First we create a \textbf{Back-Propagation Neutral Network  (BPNN) Model} to describe the spread and characteristics of the opioid incidents in and between the five states over time. With this model we identified possible locations where specific opioid use might have emerged in each of the five states. Second we adopt two different techniques: \textbf{Principal Component Analysis (PCA)} and \textbf{Learning Approach: Auto Encoder}, to extract principal components from the U.S. Census Socio-Economic data. After testing the validity of these component with \textbf{Linear Regression} ,  we add to our Spreading Model for modification. Third we identify possible strategies for countering the opioid crisis. After being tested by our model, these strategies are proven to be significantly effective in controlling the opioid crisis, and we give a significant parameter bound that success is dependent upon. Finally, we conduct sensitivity analysis of some parameters in our model and discuss the strengths and weakness of our work.
+In this paper,we propose a novel framework called \textbf{SOS} (Spreading Model, Optimization, and Strategy Program for the Opioid Crisis). First we create a \textbf{Back Propagation Neutral Network  (BPNN) Model} to describe the spread and characteristics of the opioid incidents in and between the five states over time. With this model we identified possible locations where specific opioid use might have emerged in each of the five states. Second we adopt two different techniques: \textbf{Principal Component Analysis (PCA)} and \textbf{Deep Learning Approach: Auto-Encoder}, to extract principal components from the U.S. Census Socio-Economic data. After testing the validity of these components with \textbf{Linear Regression},  we add to our Spreading Model for modification. Third we identify a \textbf{Strategy Program ``SSD''} for countering the opioid crisis. Tested by our model, these strategies are proven to be significantly effective in overcoming the opioid crisis. Finally, we conduct sensitivity analysis of some parameters in our model and discuss the strengths and weakness of our work.
 
 \newpage
 \section*{MEMORANDUM} 
 
-b\noindent\textbf{To:} Chief Administrator, DEA/NFLIS Database
+\noindent\textbf{To:} Chief Administrator, DEA/NFLIS Database
 
 \noindent\textbf{From:} Team \# 1920446
 
@@ -865,8 +898,8 @@ Currently, the opioid crisis has overwhelmed the whole America, urging us to pay
 
 \subsection*{Spreading Model }
 \addcontentsline{toc}{subsection}{Spreading Model }
-Here we utilize a Back-Propagation Neutral Network (BPNN) to build this model ,characterizing the basic evolving and spreading trends of the opioid and heroin incidents. Thus, we forecast the opioid accidents happened in the following two years, and find that 
-which demonstrates the urgence of solving the opioid abuse problem.
+Here we utilize a Back-Propagation Neutral Network (BPNN) to build this model, characterizing the basic evolving and spreading trends of the opioid and heroin incidents. Thus, we forecast the opioid accidents happened in the following two years, and find that if we do not take effective measures at once, most of opioids incidents will increase sharply, which demonstrates the urgence of solving the opioid abuse problem right now.
+
 Additionally, we conclude that when drug identification threshold levels is XX, the opioid incidents will explode rapidly.
 In order to identify any possible locations where specific opioid use 
 might have started, we adopt Outlier Detection and identify that XX
@@ -877,14 +910,13 @@ might have started, we adopt Outlier Detection and identify that XX
 
 \subsection*{Strategy Program}
 \addcontentsline{toc}{subsection}{Strategy Program }
-Eventually, according to the results above, we figure out a comprehensive and feasible Strategy Program called "SSD". The whole strategy program can be divided into three parts: Supply Control, Spread Control, and Demand Control. After being tested by our promoted model, these strategies are proven to be significantly effective in controlling and preventing the opioid crisis. Concrete Strategies are as follows:
+Eventually, according to the results above, we figure out a comprehensive and feasible Strategy Program called ``SSD''. The whole strategy program can be divided into three parts: Supply Control, Spread Control, and Demand Control. After being tested by our promoted model, these strategies are proven to be significantly effective in controlling and preventing the opioid crisis. Concrete Strategies are as follows:
 \begin{itemize}
     \item \textbf{Supply Control:}To require manufacturers of long-acting opioids to sponsor educational programs for prescribers, making a threshold to those who want to abuse the opioids.To strengthen cooperation with countries such as Colombia and Mexico, to crack down on cross-border drug crimes.
     \item \textbf{ Spread Control}To strengthen public health data reporting and collection to improve the timeliness and specificity of data and to inform a real-time public health response as the opioid epidemic evolves.
     \item \textbf{Demand Control}To advance the practice of pain management to enable access to high-quality, evidence-based pain care that reduces the burden of pain for individuals, families, and society while also reducing the inappropriate use of opioids and opioid-related harms. To make opioid control and management more rigorous and formal for effectively combating illicit drug abuse.
 \end{itemize}
 
-We finally give a significant parameter bound that success is dependent upon: XX
 
 The above is the summary of our study. We sincerely hope that it will provide you with useful information.
 
