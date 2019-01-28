@@ -6,7 +6,7 @@ import sklearn.metrics
 
 tqdm.pandas()
 
-df_geocode = pd.read_csv('geocode_final.csv')
+df_geocode = pd.read_csv('geocode.csv')
 df_geocode.set_index('FIPS_Combined', inplace=True, drop=False)
 
 df_temp = df_geocode[['latitude', 'longitude']]

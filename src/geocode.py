@@ -1,4 +1,4 @@
-from geopy.geocoders import Nominatim
+from geopy.geocoders import Bing
 from geopy.extra.rate_limiter import RateLimiter
 
 import pandas as pd
@@ -6,8 +6,8 @@ from tqdm import tqdm
 
 tqdm.pandas()
 
-geolocator = Nominatim(user_agent='mcm2019-1920446')
-geocode = RateLimiter(geolocator.geocode, min_delay_seconds=0.5)
+geolocator = Bing(api_key='AtlqFZkg8aISlN-CNOpURU3oLthMK6g166C9gDCO1sc9Cl5njVi1NcGaqwIW21vd')
+geocode = RateLimiter(geolocator.geocode, min_delay_seconds=0.1)
 
 df = pd.read_excel('../data/MCM_NFLIS_Data.xlsx', sheet_name='Data')
 

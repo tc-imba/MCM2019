@@ -1,0 +1,219 @@
+State,SubstanceName,DrugReports
+KY,Hydrocodone,861
+KY,Oxycodone,838
+VA,Oxycodone,816
+VA,Hydrocodone,746
+VA,Heroin,716
+OH,Heroin,682
+OH,Oxycodone,682
+OH,Hydrocodone,659
+KY,Buprenorphine,642
+OH,Buprenorphine,607
+KY,Heroin,569
+VA,Buprenorphine,558
+VA,Morphine,553
+OH,Morphine,541
+KY,Morphine,524
+PA,Heroin,516
+VA,Methadone,505
+PA,Oxycodone,494
+PA,Buprenorphine,483
+VA,Tramadol,477
+KY,Methadone,473
+OH,Methadone,461
+VA,Hydromorphone,447
+PA,Hydrocodone,445
+OH,Fentanyl,417
+VA,Fentanyl,368
+OH,Codeine,356
+PA,Morphine,347
+PA,Fentanyl,330
+OH,Oxymorphone,327
+OH,Tramadol,315
+VA,Oxymorphone,303
+WV,Oxycodone,294
+PA,Methadone,290
+KY,Tramadol,283
+OH,Hydromorphone,283
+KY,Fentanyl,281
+PA,Tramadol,273
+VA,Codeine,269
+WV,Hydrocodone,268
+KY,Oxymorphone,259
+WV,Heroin,244
+WV,Buprenorphine,234
+KY,Hydromorphone,215
+PA,Codeine,210
+PA,Oxymorphone,193
+KY,Codeine,166
+PA,Hydromorphone,152
+WV,Morphine,137
+OH,Acetyl fentanyl,131
+OH,Carfentanil,129
+OH,Propoxyphene,122
+OH,Furanyl fentanyl,122
+WV,Oxymorphone,100
+WV,Hydromorphone,94
+VA,Furanyl fentanyl,89
+WV,Fentanyl,88
+VA,Propoxyphene,87
+PA,Propoxyphene,85
+PA,Furanyl fentanyl,83
+OH,U-47700,83
+PA,Acetyl fentanyl,81
+OH,Acryl fentanyl,69
+WV,Methadone,66
+KY,Methorphan,58
+OH,3-Methylfentanyl,55
+VA,4-Fluoroisobutyryl fentanyl,52
+PA,4-Fluoroisobutyryl fentanyl,49
+PA,U-47700,48
+OH,Cyclopropyl fentanyl,46
+KY,Propoxyphene,40
+VA,Meperidine,40
+PA,3-Methylfentanyl,37
+WV,Tramadol,36
+PA,Methorphan,35
+KY,Furanyl fentanyl,35
+VA,U-47700,34
+WV,Codeine,33
+PA,Carfentanil,33
+PA,Butyryl fentanyl,30
+VA,Acetyl fentanyl,29
+OH,Butyryl fentanyl,29
+KY,Carfentanil,29
+OH,4-Fluoroisobutyryl fentanyl,27
+OH,Mitragynine,24
+OH,Methoxyacetyl fentanyl,24
+KY,U-47700,24
+WV,Dextropropoxyphene,23
+VA,Methorphan,23
+KY,Mitragynine,22
+VA,Carfentanil,19
+KY,Acryl fentanyl,18
+PA,Fluoroisobutyryl fentanyl,18
+KY,Cyclopropyl fentanyl,17
+OH,Dextropropoxyphene,16
+OH,Meperidine,16
+OH,Pentazocine,15
+PA,ANPP,14
+VA,Cyclopropyl fentanyl,13
+OH,Phenyl fentanyl,13
+KY,Acetyl fentanyl,13
+PA,Acryl fentanyl,13
+VA,Opium,12
+PA,Cyclopropyl fentanyl,12
+WV,Furanyl fentanyl,12
+KY,Meperidine,12
+OH,Opiates,12
+PA,Valeryl fentanyl,11
+OH,ANPP,11
+KY,Pentazocine,11
+WV,Acetyl fentanyl,11
+PA,Methoxyacetyl fentanyl,11
+WV,Methorphan,10
+VA,Pentazocine,10
+OH,Benzylfentanyl,9
+KY,Methoxyacetyl fentanyl,9
+OH,U-48800,9
+OH,Methorphan,8
+PA,Meperidine,8
+VA,Acryl fentanyl,8
+OH,Fluoroisobutyryl fentanyl,8
+VA,3-Methylfentanyl,7
+OH,U-49900,7
+WV,Pentazocine,7
+PA,Dextropropoxyphene,6
+OH,Desmethylprodine ,6
+WV,U-47700,6
+KY,Butyryl fentanyl,6
+WV,Carfentanil,6
+OH,Crotonyl fentanyl,6
+KY,ANPP,6
+KY,Pethidine,5
+VA,Fluoroisobutyryl fentanyl,5
+VA,Methoxyacetyl fentanyl,5
+VA,Dihydrocodeine,5
+PA,Pethidine,5
+PA,p-Fluorobutyryl fentanyl,5
+VA,Butyryl fentanyl,4
+VA,Butorphanol,4
+PA,Pentazocine,4
+OH,Tetrahydrofuran fentanyl,4
+WV,Furanyl/3-Furanyl fentanyl,4
+PA,Mitragynine,4
+WV,Acryl fentanyl,4
+OH,o-Fluorofentanyl,4
+PA,Acetylcodeine,4
+WV,Meperidine,3
+OH,Dihydrocodeine,3
+VA,ANPP,3
+PA,Opiates,3
+PA,Hydrocodeinone,3
+WV,3-Methylfentanyl,3
+PA,Acetyldihydrocodeine,3
+WV,Mitragynine,2
+VA,Mitragynine,2
+WV,4-Fluoroisobutyryl fentanyl,2
+VA,o-Fluorofentanyl,2
+KY,4-Fluoroisobutyryl fentanyl,2
+OH,p-Fluorobutyryl fentanyl,2
+PA,U-48800,2
+PA,Levorphanol,2
+PA,MT-45,2
+OH,Cyclopropyl/Crotonyl Fentanyl,2
+KY,Fluoroisobutyryl fentanyl,2
+PA,Dihydrocodeine,2
+PA,cis-3-methylfentanyl,2
+PA,trans-3-Methylfentanyl,2
+OH,Thebaine,2
+WV,Fluorobutyryl fentanyl ,1
+OH,Fluorofentanyl,1
+KY,trans-3-Methylfentanyl,1
+OH,Fluorobutyryl fentanyl ,1
+OH,Isobutyryl fentanyl,1
+OH,Butorphanol,1
+WV,Dihydrocodeine,1
+OH,4-Methylfentanyl,1
+WV,Isobutyryl fentanyl,1
+VA,Desmethylprodine ,1
+WV,Methoxyacetyl fentanyl,1
+KY,p-Fluorobutyryl fentanyl,1
+KY,cis-3-methylfentanyl,1
+WV,Cyclopropyl fentanyl,1
+KY,Thebaine,1
+KY,Opium,1
+KY,Fluorofentanyl,1
+KY,Dihydrocodeine,1
+WV,Phenyl fentanyl,1
+WV,Propoxyphene,1
+WV,Thebaine,1
+KY,Desmethylprodine ,1
+KY,Cyclopentyl fentanyl,1
+OH,Opium,1
+OH,U-51754,1
+OH,Pethidine,1
+PA,Dihydromorphone,1
+VA,Acetylcodeine,1
+VA,3-Fluorofentanyl,1
+PA,p-methoxybutyryl fentanyl,1
+PA,Thebaine,1
+PA,Tetrahydrofuran fentanyl,1
+PA,Remifentanil,1
+PA,Phenyl fentanyl,1
+PA,Opium,1
+VA,Nalbuphine,1
+PA,Metazocine,1
+VA,Pethidine,1
+WV,Butyryl fentanyl,1
+PA,Butorphanol,1
+PA,Benzylfentanyl,1
+PA,Alphaprodine,1
+VA,p-Fluorobutyryl fentanyl,1
+PA,"3,4-Methylenedioxy U-47700",1
+OH,p-Fluorofentanyl,1
+WV,ANPP,1
+WV,Acetylcodeine,1
+OH,Valeryl fentanyl,1
+VA,Benzylfentanyl,1
+WV,p-Fluorofentanyl,1
