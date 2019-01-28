@@ -1,0 +1,550 @@
+%%
+%% This is file `mcmthesis-demo.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% mcmthesis.dtx  (with options: `demo')
+%%
+%% -----------------------------------
+%%
+%% This is a generated file.
+%%
+%% Copyright (C)
+%%     2010 -- 2015 by Zhaoli Wang
+%%     2014 -- 2016 by Liam Huang
+%%
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License, either version 1.3
+%% of this license or (at your option) any later version.
+%% The latest version of this license is in
+%%   http://www.latex-project.org/lppl.txt
+%% and version 1.3 or later is part of all distributions of LaTeX
+%% version 2005/12/01 or later.
+%%
+%% This work has the LPPL maintenance status `maintained'.
+%%
+%% The Current Maintainer of this work is Liam Huang.
+%%
+\documentclass{mcmthesis}
+\mcmsetup{CTeX = false,   % 使用 CTeX 套装时，设置为 true
+        tcn = 1920446, problem = C,
+        sheet = true, titleinsheet = true, keywordsinsheet = true,
+        titlepage = true}
+\usepackage{palatino}
+\usepackage{mwe}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{multirow}
+\usepackage{indentfirst}
+\usepackage{gensymb}
+\usepackage[ruled,lined,commentsnumbered]{algorithm2e}
+\usepackage{geometry}
+\geometry{left=2cm,right=2cm,top=2cm,bottom=2cm} %%页边距
+\usepackage{algorithm}  
+\usepackage{algorithmicx}  
+\usepackage{algpseudocode}  
+\usepackage{amsmath} 
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}  % Use Input in the format of Algorithm  
+\renewcommand{\algorithmicensure}{\textbf{Output:}} % Use Output in the format of Algorithm 
+
+
+\begin{document}
+\linespread{0.6}  %%行间距
+\setlength{\parskip}{0.5\baselineskip}  %%段间距
+\title{SOS: Spreading Model, Optimization, and Strategy for the Opioid Crisis}
+
+\date{\today}
+	\begin{abstract}
+	
+	
+	
+		\begin{keywords}
+			
+			KEYWORD
+			
+		\end{keywords}
+	\end{abstract}
+
+\maketitle
+
+\tableofcontents
+
+\newpage
+
+\section{Introduction}	
+\subsection{Problem Background}
+The Opioid Crisis means the rapid increase in the use of prescription and non-prescription opioid drugs in the United States beginning in the late 1990s and continuing throughout the past two decades. Nowadays, it has developed into a nationwide crisis sweeping across the United States. For instance, using the data supplied with this problem, we analyze just heroin identification counts during years 2010-2017 in figure \ref{situation}, which to some extent demonstrate the rampant drug problem in these five states, especially in Ohio (OH) and Pennsylvania (PA).
+
+\begin{figure}[h]
+	\centering 
+	\includegraphics[width=1\linewidth]{test.png}  
+	\caption{Heroin identification counts in years 2010-2017 in each of the counties from five states: Ohio (OH), Kentucky (KY), West Virginia (WV), Virginia (VA), and Pennsylvania (PA)} 
+	\label{situation}  
+\end{figure}
+
+ Studies show that the increase in opioid overdose deaths has been dramatic, and opioids are now responsible for 49,000 of the 72,000 drug overdose deaths overall in the US in 2017~\cite{NIH}.The rate of prolonged opioid use is also increasing globally, threatening not only Americans' health but also the U.S. economy in many aspects. Consequently, president Donald Trump declared the country's opioid crisis a "national emergency"~\cite{Trump}.
+
+Currently, the U.S. government has payed great attention and taken a bunch of measures on this issue. While the U.S. Centers for Disease Control (CDC) continue to fight the opioid overdose epidemic, simply enforcing existing laws is still a complex challenge for the Federal Bureau of Investigation (FBI), and the U.S. Drug Enforcement Administration (DEA), among others~\cite{intro}. Therefore, they need investigate the spread and characteristics of the opioids and heroin incidents in the United States, so that they can develop their strategies to better control and prevent the deteriorating opioids overdose situation.
+
+\subsection{Our Work}
+In this paper, we propose a novel framework, named SOS ( Spreading Model, Optimization, and Strategy for the Opioid Crisis), seeking for new strategies to combat the exacerbating opioid crisis. The framework of SOS is shown in Figure XXX. 
+
+\begin{figure}[h]
+	\centering 
+	\includegraphics[width=1\linewidth]{XXX}  
+	\caption{Framework of SOS: Spreading Model, Optimization, and Strategy for the Opioid Crisis} 
+	\label{Framework}  
+\end{figure}
+
+
+We can divide our SOS framework in Figure xxx into following steps:
+
+\begin{itemize}
+\item \textbf{Spreading Model}: Based on the report provided, we focus on the individual counties located in five U.S. states: Ohio (OH), Kentucky (KY), West Virginia (WV), Virginia (VA), and Pennsylvania (PA). We first get the longitude and latitude of every county and build a \textbf{Back-Propagation Neutral Network (BPNN) Model} to describe the spread and characteristics of the reported opioid incidents over time. With this model, we identify some possible locations where specific opioid use might have started in each of the five states.
+\item \textbf{Optimization}: Furthermore, we analyze the U.S. Census Socio-Economic data provided with two techniques:   \textbf{Principal Component Analysis (PCA)} and \textbf{Learning Approach: Auto Encoder} ,  aiming to reduce the dimensions and find any important principal components. Then we make \textbf{Linear Regressions} to test the validity of these components, with which we add to our Spreading Model.
+\item \textbf{Strategy for the Opioid Crisis}: Eventually, we identify some possible and feasible strategies for countering the opioid crisis.  After being tested by our model, these strategies are proven to be significantly effective in controlling the opioid crisis. We finally give a significant parameter bound that success is dependent upon.
+\end{itemize}
+
+\section{Assumptions}\label{Sec-Assume}
+First and foremost, we make some basic assumptions and explain their rationales.
+	\paragraph{Assumption 1.}\itshape{Each state pays great attention to the drug cases and establishes common goals to overcome the opioid crisis.}
+	
+	\upshape This assumption is the premise of our work, because our goals as well as actions make sense only if every state strives to attack the drug problem.
+	
+	\paragraph{Assumption 2.}\itshape{The spread of the opioid and heroin incidents only takes place between two counties that are close to each other.}
+	
+	\upshape To simplify this problem, we only take short-distance spread between counties into consideration, and omit long-distance smuggling of opioid.
+	
+	\paragraph{Assumption 3.}\itshape{There will be no sudden enactment of strict laws or regulations on drug control.}
+	
+	\upshape The sudden changes of laws on drug controls will change the amount of the the cases during the period of time. There is no sign for changing of the laws, so that the assumption is reasonable. In that case, our data can be treated stable.
+	
+	\paragraph{Assumption 4.}\itshape{The drug identification data and the county location data are reliable to a certain extent.}
+	
+	\upshape Although the data can not be as complete as the fact and some statistical errors are inevitable, we make this assumption to reach one valid solution.
+
+\section{Nomenclature}\label{Sec-Nomen}  %符号表
+In this paper we use the nomenclature in Table \ref{tab:Nomen} to describe our model. Other symbols that are used only once will be described later.
+\begin{table}[h]
+    \centering
+    \caption{Nomenclature}
+    \label{tab:Nomen}
+    \begin{tabular}{c|c}
+\hline
+    	Symbol & Definition\\
+\hline
+	$LatX$ & The latitude of point X\\
+	$LonX$ & The longitude of point X\\
+    $D_{ij}$ &  The distance between any two state counties\\
+    $R^2$ & The coefficient of determination, pronounced "R squared"\\
+	$h_{w}$ & A vector function depends on the input-layer weights \\
+	$y$ & Target result of the function $h_{w}$ \\
+	$Err_k$ & The $k$th component of the error vector $y-h_{w}$\\
+	$\Delta_k$ &  A modified error $Err _{k}\times g{}'\left ( in_{k} \right )$\\
+	$w_{k}$ & A set of $p$-dimensional vectors of weights or loadings\\
+	$\mathbf {t} _{(i)}$ & A new $m$-dimensional vector of principal component scores \\
+	$\mathbf{X^TX}$ & A positive semidefinite matrix\\
+	$\mathbf{W}$ & A $p$-by-$p$ matrix whose columns are the eigenvectors of $\mathbf{X^TX}$\\
+    MLP	& The Multilayer Perception\\
+\hline
+    \end{tabular}
+\end{table}    
+
+\section{SOS: Spreading Model, Optimization, and Strategy for the Opioid Crisis} \label{Sec-Model}
+In this section, we will discuss all details about our model \textbf{SOS}. Generally, this model consists of three parts: Spreading Model  for Opioid Incidents, Optimization with Socio-Economic Components, and Strategy for the Opioid Crisis.
+
+\subsection{ Spreading Model for Opioid Incidents }
+    \subsubsection{Data Pre-Processing}
+     To begin with, we consider the relative distance between any two counties as a main factor that affects the spread rate. Thus, we use python to get the geographical locations of all the counties in the above five states from the Search (Nominatim) API, which is a tool used to search through OpenStreetMap data by name and address. The official coordinates of these 462 counties that we get are partly present as follows. See the attached page for the complete code.
+     
+     \begin{algorithm}[htb]  
+  \caption{The Framework of getting the latitude and longitude  of each state county}  
+  \label{alg:Framwork}  
+  \begin{algorithmic}[1]  
+    \Require The geocode of each county in the given data;
+    \Ensure \State $FIPS\_Combined, State, COUNTY, Latitude, Longitude;$
+    
+    \State $21003, KY, ALLEN, 36.7528961, -86.1924103;$
+
+    \State $39001, OH, ADAMS, 38.8398935, -83.5051704;$
+
+    \State $42001, PA, ADAMS, 9.351015, -79.8952079;$
+    
+    \State $42003,PA,ALLEGHENY,40.4597204,-79.9760405;$
+    
+    \State $42005, PA, ARMSTRONG, 40.7876239, -79.4689832;$
+    
+    \State $51001, VA, ACCOMACK, 37.7422207, -75.6743538;$
+    
+    \State $51007, VA, AMELIA, 37.3319664, -78.008448;$
+    
+    \State $51013, VA, ARLINGTON, 38.8903961, -77.0841585;$
+      
+    \State $51510, VA, ALEXANDRIA CITY, 38.8147596, -77.0902476527272;$  
+     
+    \State $\hdots$
+     
+  \end{algorithmic}  
+\end{algorithm}  
+  
+     In that case, we can calculate the distance between each two counties. The earth is a near-standard ellipsoid with an equatorial radius of $6,378.140$ km and a polar radius of $6,356.755$ km, with an average radius of $6,371.004$ km. If we assume that the earth is a perfect sphere, then its radius is the average radius of the earth, called R. If the zero degree longitude line is the basis, the surface distance between any two points on the earth's surface can be calculated based on the longitude and latitude of the two points. Let the longitude and latitude of point A be $(LonA, LatA)$, and the longitude and latitude of point B be $(LonB, L
+     atB)$. Then, according to the Trigonometric Derivation, the equation \ref{1} and equation \ref{2} for calculating the distance between two points can be obtained.
+     \begin{equation}
+          \label{1}
+          C = \sin(LatA)*\sin(LatB)*\cos(LonA-LonB) + \cos(LatA)*\cos(LatB)
+     \end{equation}
+     \begin{equation}
+         \label{2}
+         D = R*\arccos(C)*\pi/180
+     \end{equation}
+    
+    Using the location data we got before, we can make a matrix that represents all the distance between any two counties in these five states.
+    
+    \subsubsection{Model Evaluation Criteria:  Coefficient of Determination}
+    
+    In our model, we take  Coefficient of Determination as our Evaluation Criteria.In statistics, the coefficient of determination, denoted $R^2$ or $r^2$ and pronounced "R squared", is the proportion of the variance in the dependent variable that is predictable from the independent variable(s) ~\cite{R}. 
+    
+    A data set has $n$ values marked $y_1$,...,$y_n$ (collectively known as $y_i$ or as a vector $y = [y_1,...,y_n]^T$), each associated with a predicted (or modeled) value $f_1$,...,$f_n$ (known as $f_i$, or sometimes $\hat{y_i}$, as a vector $f$).
+
+   Define the residuals as $e_i = y_i$ - $f_i$ (forming a vector $\vec{e}$ ). $\bar{y}$ is the mean of the observed data: 
+    $\bar{y}=\frac{1}{n}\sum_{i=1}^n y_{i}$ , then the variability of the data set can be measured using three sums of squares formulas:
+    
+    \begin{gather}
+        SS_{tot}=\sum _{i} \left ( y_i-\bar{y} \right )^2\\
+         SS_{reg}=\sum _{i} \left ( f_i-\bar{y} \right )^2\\
+       SS_{res}=\sum _{i} \left ( y_i-f_i \right )^2=\sum _{i}e_i^2\\
+       R^2\equiv 1-\frac{SS_{res}}{SS_{tot}}
+    \end{gather}
+    
+   The better the linear regression (on the right) fits the data in comparison to the simple average (on the left graph), the closer the value of $R^{2}$ is to 1. 
+    
+	\subsubsection{Back-Propagation Neutral Network (BPNN) Model} \label{Sec:BPNN} 
+	In order to describe how the opioid identification counts spread in and between the five states, we build a Back-Propagation Neutral Network Model, using distance matrix and last year's data as input. Back-Propagation is a supervised learning algorithm, for training Artificial Neural Networks, especially,  multi-layer networks. The weights such that the minimum error occurs is then considered to be a solution to the learning problem.
+	
+	Let $h_{w}$ be a vector function and $y$ be its target result. Then $Err_{k}$ be the $k$th component of the error vector $y-h_{w}$.
+	
+	Whereas a percentage network decomposes into $m$ seperate learning problems for an $m$-output problem, this decomposition fails in multi-layer network. The vector $h_{w}$ that returns depends on the all of the input-layer weights, so updates to those weights will depend on errors in the vector. Fortunately, this dependency is very simple in the case of any loss function that is additive across the components of the error vector $y-h_{w}$. For the $L_{2}$ loss, we have, for any weight $w$,  equation \ref{Loss}.
+	\begin{equation}
+	\label{Loss}
+	   \frac{\partial }{\partial w}Loss\left ( w \right )=\frac{\partial }{\partial w}\left | y-h_{w}\left ( x \right ) \right |^{2}
+   =\frac{\partial }{\partial w}\sum_{k}\left ( y_{k}-a_{k} \right )^{2}=\sum_{k}\frac{\partial }{\partial w}\left ( y_{k}-a_{k} \right )^{2} 
+	\end{equation}
+
+	The major complication comes from the addition of hidden layers to the network. Whereas the error ${y-h_{w}}$ at the output layer is clear, the error at the hidden layers seems mysterious because the training data do not say what value the hidden nodes should have. Fortunately, it turns out that we can back-propagate the error from the output layer to the hidden layers. The back-propagation progress emerges directly from a derivation of the overall error gradient.
+	
+	We can easily define a modified error $\Delta _{k}=Err _{k}\times g{}'\left ( in_{k} \right )$, where $in_{k}$ means the $k$th component of input, so that the weight update rule becomes the equation \ref{weight}.
+	\begin{equation}
+       \label{weight}
+	    w_{j,k}\leftarrow w_{j,k}+\alpha \times a_{j} \times\Delta _{k}
+	\end{equation}
+	
+	To update the connections between the input units and the hidden units, we need to define a quantity analogous to the error term for output nodes. Here is where we do the error back-propagation. The idea is that hidden node $j$ is ``responsible'' for some fraction of the error $\Delta _{k}$ in each of the output nodes to which it connects. Thus, the $\Delta _{k}$ values are divided according to the strength of the connections between the hidden node and the output node and are propagated back to provide the $\Delta_{j}$ values for the hidden layer. The propagation rule for the $\Delta$ values is showed in equation \ref{prop}.
+	\begin{equation}
+        \label{prop}
+	    \Delta_{j} = g{}'\left ( in_{k} \right)\sum_{k}w_{j,k}\Delta_{k}
+	\end{equation}
+
+	Now the weight-update rule for the weights between the inputs and the hidden layer is essentially identical to the update rule for the output layer:
+	\begin{equation}
+	    w_{j,k}\leftarrow w_{j,k}+\alpha \times a_{j} \times\Delta _{k}
+	\end{equation}
+	
+	The process of back-propagation can be shown as the following steps:
+\begin{itemize}
+\item Compute the $\Delta$ values for the output units, using the observed error.
+\item Starting with output layer, repeat the following for each layer in the network, until the earliest hidden layer is reached:
+\begin{itemize}
+    \item[-] Propagation the $\Delta$ values back to the previous layer.
+    \item[-] Update the weights between the two layers.
+\end{itemize}
+\end{itemize}
+
+From above, we compute the gradient for $Loss_{k}=\left ( y_{k}-a_{k} \right )^{2}$ at the $k$th output. The gradient of this loss with respect to weights connecting the hidden layer to the output layer will be zero except for weights $w_{j,k}$ that connect to the $k$th output unit. For those weights, we have the following equation \ref{align}.
+
+\begin{align}
+\label{align}
+\frac{\partial Loss_{k}}{\partial w_{j,k}}
+&=-2\left ( y_{k}-a_{k} \right )\frac{\partial a_{k}}{\partial w_{j,k}}=-2\left ( y_{k}-a_{k} \right )\frac{\partial g\left ( in_{k} \right )}{\partial w_{j,k}} \notag\\
+&=2\left ( y_{k}-a_{k} \right )g{}'\left ( in_{k} \right )\frac{\partial in_{k}}{\partial w_{j,k}} = 2\left ( y_{k}-a_{k} \right )g{}'\left ( in_{k} \right )\frac{\partial }{\partial w_{j,k}} \left ( \sum_{j} w_{j,k}a_{j}\right )\notag\\
+&=-2\left ( y_{k}-a_{k} \right )g{}'\left ( in_{k} \right )a_{j}=-a_{j}\Delta _{k}
+\end{align}
+
+To obtain the gradient with respect to the $w_{i,j}$ weights connecting the input layer to the hidden layer, we have to expand out the activation $a_{j}$ and reapply the chain rule. We will show the derivation in gory detail because it is interesting to see how the derivation operator propagates back through the network as equation \ref{omg}.
+
+\begin{align}
+\label{omg}
+\frac{\partial Loss_{k}}{\partial w_{i,j}} &=-2\left ( y_{k}-a_{k} \right )\frac{\partial a_{k}}{\partial w_{i,j}}=-2\left ( y_{k}-a_{k} \right )\frac{\partial g\left ( in_{k} \right )}{\partial w_{i,j}} \notag\\
+&=-2\left ( y_{k}-a_{k} \right )g{}'\left ( in_{k} \right ) \frac{\partial in_{k}}{\partial w_{i,j}} = -2\Delta_{k}\frac{\partial }{\partial w_{i,j}} \left ( \sum_{j} w_{j,k}a_{j}\right )\notag\\ &=-2\Delta_{k}w_{j,k}\frac{\partial a_{j}}{\partial w_{i,j}}=-2\Delta_{k}w_{j,k}\frac{\partial g\left ( in_{j} \right )}{\partial w_{i,j}}=-2\Delta_{k}w_{j,k}g{}'\left ( in_{j} \right )\frac{\partial in_{j}}{\partial w_{i,j}}\notag\\ &=-2\Delta_{k}w_{j,k}g{}'\left ( in_{j} \right )\frac{\partial }{\partial w_{i,j}}\left ( \sum_{j} w_{i,j}a_{i}\right )\notag\\ 
+&=-2\Delta_{k}w_{j,k}g{}'\left ( in_{j} \right )a_{i} = -a_{i}\Delta_{j}
+\end{align}
+
+ Thus, we obtain the update rules obtained earlier from intuitive considerations. It is also clear that the process can be continued for networks with more than one hidden layer.
+
+The error value indicates how much the network's output (actual) is off the mark from the expected output (target) so that we use the \textbf{Mean Squared Error Function} to calculate the error.
+
+In this way, we solve every individual differential to get the initial desired differential.
+
+We just saw how back propagation of errors is used in MLP neural networks to adjust weights for the output layer to train the network. We use a similar process to adjust weights in the hidden layers of the network which we would see next with a real neural network's implementation since it will be easier to explain it with an example where we have actual numbers to play with.
+
+   	\subsection{Optimization: Modification using Socio-economic Component}\label{Sec:Optimazation}
+\subsubsection{Dimensionality Reduction}
+
+\paragraph{\textbf{Technique 1: Principal Component Analysis (PCA)}}
+
+~\smallskip
+
+Now, our model can basically describe the spread and characteristics of the opioid and identify some possible locations where specific opioid use might have started. Next, we consider whether any important factors from the U.S. Census socio-economic data provided can further modify our model so that it can explain how opioid use got to its current level, what contributes to the growth in opioid addiction, and analyze who is using/abusing it despite its known dangers.
+
+When we process the U.S. Census socio-economic data, we first adopt  the Principal component analysis (PCA), which is a statistical procedure that uses an orthogonal transformation to convert a set of observations of possibly correlated variables into a set of values of linearly uncorrelated variables called principal components. If there are $n$ observations with $p$ variables, then the number of distinct principal components is $\min(n-1,p)$. 
+
+PCA is mathematically defined as an orthogonal linear transformation that transforms the data to a new coordinate system such that the greatest variance by some projection of the data comes to lie on the first coordinate (called the first principal component), the second greatest variance on the second coordinate, and so on.
+
+Consider a data matrix, $\mathbf{X}$, with column-wise zero empirical mean (the sample mean of each column has been shifted to zero), where each of the n rows represents a different repetition of the experiment, and each of the p columns gives a particular kind of feature (say, the results from a particular sensor).
+
+Mathematically, the transformation is defined by a set of p-dimensional vectors of weights or loadings $ \mathbf {w} _{(k)}=(w_{1},\dots ,w_{p})_{(k)}$ that map each row vector $\mathbf{x}_{(i)}$ of X to a new vector of principal component scores $ \mathbf {t} _{(i)}=(t_{1},\dots ,t_{m})_{(i)}$, given by
+$$ {t_{k}}_{(i)}=\mathbf {x} _{(i)}\cdot \mathbf {w} _{(k)}\qquad \mathrm {for} \qquad i=1,\dots ,n\qquad k=1,\dots ,m$$
+in such a way that the individual variables $ t_{1},\dots ,t_{m}$ of t considered over the data set successively inherit the maximum possible variance from $\mathbf {x}$, with each loading vector $\mathbf {w}$ constrained to be a unit vector. \\
+
+In order to maximize variance, the first loading vector $\mathbf{w}_{(1)}$ thus has to satisfy
+\begin{equation}
+    \mathbf {w} _{(1)}={\underset {\Vert \mathbf {w} \Vert =1}{\operatorname {\arg \,max} }}\,\left\{\sum _{i}\left(t_{1}\right)_{(i)}^{2}\right\}={\underset {\Vert \mathbf {w} \Vert =1}{\operatorname {\arg \,max} }}\,\left\{\sum _{i}\left(\mathbf {x} _{(i)}\cdot \mathbf {w} \right)^{2}\right\}
+\end{equation}
+Equivalently, writing this in matrix form gives
+\begin{equation}
+    \mathbf {w} _{(1)}={\underset {\Vert \mathbf {w} \Vert =1}{\operatorname {\arg \,max} }}\,\{\Vert \mathbf {Xw} \Vert ^{2}\}={\underset {\Vert \mathbf {w} \Vert =1}{\operatorname {\arg \,max} }}\,\left\{\mathbf {w} ^{T}\mathbf {X} ^{T}\mathbf {Xw} \right\}
+\end{equation} 
+
+Since $\mathbf{w}_{(1)}$ has been defined to be a unit vector, it equivalently also satisfies
+\begin{equation}
+    \mathbf {w} _{(1)}={\operatorname {\arg \,max} }\,\left\{{\frac {\mathbf {w} ^{T}\mathbf {X} ^{T}\mathbf {Xw} }{\mathbf {w} ^{T}\mathbf {w} }}\right\}
+\end{equation}
+
+The quantity to be maximised can be recognised as a Rayleigh quotient. A standard result for a positive semidefinite matrix such as $\mathbf{X^TX}$ is that the quotient's maximum possible value is the largest eigenvalue of the matrix, which occurs when w is the corresponding eigenvector.
+
+With $\mathbf{w}_{(1)}$ found, the first principal component of a data vector $\mathbf{x}_{(1)}$ can then be given as a score $t_{1(1)} = \mathbf{x}_{(1)} \cdot \mathbf{w}_{(1)}$ in the transformed co-ordinates, or as the corresponding vector in the original variables, $\{\mathbf{x}_{(1)} \cdot \mathbf{w}_{(1)}\} \mathbf{w}_{(1)}$. \\
+
+The $k$th component can be found by subtracting the first $k_1$ principal components from $\textbf{X}$:
+\begin{equation}
+    \mathbf {\hat {X}} _{k}=\mathbf {X} -\sum _{s=1}^{k-1}\mathbf {X} \mathbf {w} _{(s)}\mathbf {w} _{(s)}^{\rm {T}}
+\end{equation}
+
+and then finding the loading vector which extracts the maximum variance from this new data matrix
+\begin{equation}
+    \mathbf {w} _{(k)}={\underset {\Vert \mathbf {w} \Vert =1}{\operatorname {arg\,max} }}\left\{\Vert \mathbf {\hat {X}} _{k}\mathbf {w} \Vert ^{2}\right\}={\operatorname {\arg \,max} }\,\left\{{\tfrac {\mathbf {w} ^{T}\mathbf {\hat {X}} _{k}^{T}\mathbf {\hat {X}} _{k}\mathbf {w} }{\mathbf {w} ^{T}\mathbf {w} }}\right\}
+\end{equation}
+
+It turns out that this gives the remaining eigenvectors of $\mathbf{X^TX}$, with the maximum values for the quantity in brackets given by their corresponding eigenvalues. Thus the loading vectors are eigenvectors of $\mathbf{X^TX}$.
+
+The $k$th principal component of a data vector $\mathbf{x}_{(i)}$ can therefore be given as a score $t_{k(i)} = \mathbf{x}_{(i)} \cdot \mathbf{w}_{(k)}$ in the transformed co-ordinates, or as the corresponding vector in the space of the original variables, $\{\mathbf{x}_{(i)} \cdot \mathbf{w}_{(k)}\} \mathbf{w}_{(k)}$, where $\mathbf{w}_{(k)}$ is the $k$th eigenvector of $\mathbf{X^TX}$.
+
+The full principal components decomposition of $\mathbf{X}$ can therefore be given as
+\begin{equation}
+    \mathbf {T} =\mathbf {X} \mathbf {W}
+\end{equation}
+
+where $\mathbf{W}$ is a $p$-by-$p$ matrix whose columns are the eigenvectors of $\mathbf{X^TX}$. The transpose of $\mathbf{W}$ is sometimes called the whitening or sphering transformation. 
+
+\paragraph{\textbf{Technique 2: Deep Learning Approach: Auto Encoder}}
+
+~\smallskip
+
+An autoencoder is an artificial neural network used for unsupervised learning of efficient codings. The aim of an autoencoder is to learn a representation (encoding) for a set of data, typically for the purpose of dimensionality reduction. Recently, the autoencoder concept has become more widely used for learning generative models of data. Some of the most powerful AI in the 2010s involves stacking sparse autoencoders in a deep learning network.
+
+Architecturally, the simplest form of an autoencoder is a feedforward, non-recurrent neural network very similar to the multilayer perception (MLP), having an input layer, an output layer and one or more hidden layers connecting them, but with the output layer having the same number of nodes as the input layer, and with the purpose of reconstructing its own inputs (instead of predicting the target value $Y$ given inputs $X$. Therefore, autoencoders are unsupervised learning models.
+
+An autoencoder always consists of two parts, the encoder and the decoder, which can be defined as transitions $\phi$  and $\psi$ such that:
+\begin{gather}
+\phi :{\mathcal {X}}\rightarrow {\mathcal {F}} \notag\\
+\psi :{\mathcal {F}}\rightarrow {\mathcal {X}} \notag\\
+\phi ,\psi ={\underset {\phi ,\psi }{\operatorname {arg\,min} }}\,\|X-(\psi \circ \phi )X\|^{2}
+\end{gather}
+
+In the simplest case, where there is one hidden layer, the encoder stage of an autoencoder takes the input $\mathbf {x} \in \mathbb {R} ^{d}={\mathcal {X}}$ and maps it to $\mathbf {z} \in \mathbb {R} ^{p}={\mathcal {F}}$:
+\begin{equation}
+    \mathbf {z} =\sigma (\mathbf {Wx} +\mathbf {b} )
+\end{equation}
+
+This image $\mathbf {z}$  is usually referred to as code, latent variables, or latent representation. Here, $\sigma$  is an element-wise activation function such as a sigmoid function or a rectified linear unit. $\mathbf {W}$  is a weight matrix and $\mathbf {b}$  is a bias vector. After that, the decoder stage of the autoencoder maps $\mathbf {z}$  to the reconstruction $\mathbf {x'}$  of the same shape as $\mathbf {x}$ :
+\begin{equation}
+    \mathbf {x'} =\sigma '(\mathbf {W'z} +\mathbf {b'} )
+\end{equation}
+
+
+where $ \mathbf {\sigma '} ,\mathbf {W'} ,{\text{ and }}\mathbf {b'} $ for the decoder may differ in general from the corresponding $ \mathbf {\sigma } ,\mathbf {W} ,{\text{ and }}\mathbf {b} $ for the encoder, depending on the design of the autoencoder.
+
+Autoencoders are also trained to minimise reconstruction errors (such as squared errors):
+\begin{equation}
+     {\mathcal {L}}(\mathbf {x} ,\mathbf {x'} )=\|\mathbf {x} -\mathbf {x'} \|^{2}=\|\mathbf {x} -\sigma '(\mathbf {W'} (\sigma (\mathbf {Wx} +\mathbf {b} ))+\mathbf {b'} )\|^{2}
+\end{equation}
+
+where $\mathbf {x}$  is usually averaged over some input training set.
+
+If the feature space $\mathcal {F}$ has lower dimensionality than the input space $\mathcal {X}$, then the feature vector $\phi (x)$ can be regarded as a compressed representation of the input $x$. If the hidden layers are larger than the input layer, an autoencoder can potentially learn the identity function and become useless. However, experimental results have shown that autoencoders might still learn useful features in these cases.
+
+\paragraph{\textbf{Results for the Two Methods}}
+
+~\smallskip
+
+We select the most important factors from the $596$ dimensions provided by the U.S. Census socio-economic data by dimensionality reduction. The variance ratio shows The ratio of the variance value of each principal component to the total variance value after dimension reduction. The larger the value of the variance ratio, the more important the principal component. To get better ratio, we analyze the data of the five states respectively. 
+
+We take the U.S. Census socio-economic data of KY state ranging from 2010 to 2016 as an example. 
+
+In PCA, we choose to reduce the dimensions to $4$ because the variance ratio reaches a threshold of about $0.01$ after that. The variance ratios are 
+\begin{center}
+    $0.59396827$, $0.28748557$, $0.02754973$, $0.02732665$.
+\end{center}
+From these four dimension, we can get the score of about $0.92$, which shows a good result of the dimension reduction. 
+
+As we mentioned before, the five states can be treated similar. So we can apply the same method to these states and combine the results for all five states. The results are shown below:
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{../figure/pca_state_ratio.eps}
+        \caption*{\parbox{20em}{(a) Five states in 2010-2017   different components}}
+        \label{fig:flow2d}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{../figure/pca_state_score.eps}
+        \caption*{\parbox{20em}{(b) name}}
+        \label{fig:flow3d}
+    \end{subfigure}
+    \caption{name}\label{fig:flow}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{../figure/pca_year_ratio.eps}
+        \caption*{\parbox{20em}{(a) name}}
+        \label{fig:flow2d}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{../figure/pca_year_score.eps}
+        \caption*{\parbox{20em}{(b) name}}
+        \label{fig:flow3d}
+    \end{subfigure}
+    \caption{name}\label{fig:flow}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{../figure/pca_year_PA_ratio.eps}
+        \caption*{\parbox{20em}{(a) name}}
+        \label{fig:flow2d}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{../figure/pca_year_PA_score.eps}
+        \caption*{\parbox{20em}{(b) name}}
+        \label{fig:flow3d}
+    \end{subfigure}
+    \caption{name}\label{fig:flow}
+\end{figure}
+
+
+
+
+\subsubsection{Linear Regression for Principle Component}
+After we choose the number of components to express the get the important factors by dimension reduction, we apply linear regression to test the results that we get from dimension reduction. 
+
+
+
+
+
+
+	\subsection{Strategy for the Opioid Crisis}\label{Sec:Strategy}
+	
+
+\section{Model Analysis}\label{Sec-Analysis}
+
+\subsection{Sensitivity Analysis}
+
+\subsection{Strengths and Weaknesses}
+\subsubsection{Strengths}
+\begin{itemize}
+\item 
+\end{itemize}
+
+
+\subsubsection{Weaknesses}
+\begin{itemize}
+\item \textbf{No Verification of Raw Data:} We have no guarantee of the accuracy of given data , and the data is not complete.
+\item \textbf{No Involvement of Other States:} We do not consider states other than OH, KY, WV, VA, and PA, due to the lack of relevant data.
+\item \textbf{Too Ideal Coordinates: } We use the the official coordinates of all the counties to represent its geographical location. And we have no guarantee of the accuracy of the data  from the Search (Nominatim) API~\cite{NO}.
+\end{itemize}
+
+
+\section{Conclusion} \label{Sec-Conclusion}
+In this paper,we propose a novel framework called \textbf{SOS} (Spreading Model, Optimization, and Strategy for the Opioid Crisis). First we create a \textbf{Back-Propagation Neutral Network  (BPNN) Model} to describe the spread and characteristics of the opioid incidents in and between the five states over time. With this model we identified possible locations where specific opioid use might have emerged in each of the five states. Second we adopt two different techniques: \textbf{Principal Component Analysis (PCA)} and \textbf{Learning Approach: Auto Encoder}, to extract principal components from the U.S. Census Socio-Economic data. After testing the validity of these component with \textbf{Linear Regression} ,  we add to our Spreading Model for modification. Third we identify possible strategies for countering the opioid crisis. After being tested by our model, these strategies are proven to be significantly effective in controlling the opioid crisis, and we give a significant parameter bound that success is dependent upon. Finally, we conduct sensitivity analysis of some parameters in our model and discuss the strengths and weakness of our work.
+
+\newpage
+\section*{MEMORANDUM} 
+
+\noindent\textbf{To:} Chief Administrator, DEA/NFLIS Database
+
+\noindent\textbf{From:} Team \# 1920446
+
+\noindent\textbf{Date}: Jananry 29, 2019
+
+\noindent\textbf{Subject:}
+
+Honorable Chief Administrator, DEA/NFLIS Database,
+
+
+\addcontentsline{toc}{section}{MEMORANDUM}
+
+\subsection*{Strategy 1: Supply Reduction }
+\addcontentsline{toc}{subsection}{Strategy 1: }
+
+\paragraph{one}
+
+\paragraph{two}
+
+\paragraph{three}
+
+\subsection*{Strategy 2: Demand Reduction}
+\addcontentsline{toc}{subsection}{Strategy 2: }
+
+\paragraph{one}
+
+\paragraph{two}
+
+\paragraph{three}
+
+The above is the summary of our study. We sincerely hope that it will provide you with useful information.
+
+Thanks!
+	\bibliographystyle{IEEEtran}
+	\bibliography{newrefs}
+	
+%\newpage
+%\section*{Executive Summary}
+	
+%\noindent To whom it may concern,
+	
+\newpage
+
+\begin{appendices}
+
+\section{1}
+
+\section{2}
+
+\end{appendices}
+\end{document}
+
+%%
+%% This work consists of these files mcmthesis.dtx,
+%%                                   figures/ and
+%%                                   code/,
+%% and the derived files             mcmthesis.cls,
+%%                                   mcmthesis-demo.tex,
+%%                                   README,
+%%                                   LICENSE,
+%%                                   mcmthesis.pdf and
+%%                                   mcmthesis-demo.pdf.
+%%
+%% End of file `mcmthesis-demo.tex'.
