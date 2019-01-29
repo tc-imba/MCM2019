@@ -405,7 +405,7 @@ Let $n$ be the number of data values in the data set. The Lower Quartile $Q1$ is
 
 Therefore, any value that will be more than the upper limit or lesser than the lower limit will be the outliers. We identify that these points are trending to have an opioid crisis.
 
-\subsubsection{Source Dedection and Future Prediction of Spreading Model}
+\subsubsection{Source Deduction and Future Prediction: Spreading Model between Counties}
 \label{sec: Implementation}
 
 As we mentioned before in \ref{count-drug} Table \ref{tab:my_label}, Hydrocodone in the state KY and Buprenorphine in OH are the most often occurred cases by statistics. So we choose it as a sample for us to derive its source. Considering that we have just 8-year data, so we only predict 2 years forward and backward to ensure our results accurate. Thus, With data from 2010 to 2017 inputted into our model, we predict how the identification counts for the Hydrocodone cases distribute in KY in 2008, which is shown in Table \ref{tab:2008} and Figure \ref{KY_Hydrocodone_5}. Similarly, we can predict Buprenorphine cases in Ohio (OH) in 2019, which is shown in Table \ref{2019} and Figure \ref{OH}.
@@ -479,6 +479,34 @@ As we mentioned before in \ref{count-drug} Table \ref{tab:my_label}, Hydrocodone
 
 Then we overlay such images generated from 2008 to 2012 in chronological order to show the spreading characteristics of Hydrocodone identification counts in Kentucky as Figure \ref{KY_Hydrocodone} shows. With this method, we identify some  possible locations where specific opioid use might have started in each of the five states. Similarly, we can demonstrate the spreading characteristics of Buprenorphine identification counts in Ohio as Figure \ref{OH_Buprenorphine} shows.
 
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{../figure/KY_Hydrocodone} 
+	\caption{Hydrocodone identification counts spreading diagram from 2008 to 2012 in  Kentucky} 
+	\label{KY_Hydrocodone}  
+    \end{subfigure}\hfill
+    \begin{subfigure}[b]{0.49\textwidth}
+        \includegraphics[width=\textwidth]{../figure/OH_Buprenorphine} 
+	\caption{Buprenorphine identification counts spreading diagram from 2014 to 2019 in Ohio} 
+	\label{OH_Buprenorphine}  
+    \end{subfigure}
+    \caption{ Source Dedection and Future Prediction model }\label{fig:cool}
+\end{figure}
+
+\subsubsection{Source Deduction and Future Prediction: Spreading Model of States}
+
+The Spreading Model of states can be easily modified to obtain source deduction and future prediction for each state, since the five states in the dataset are next to each other, we can consider they are full-connected in the neutral network. After removing the distance module in the previous model, we build a Spreading Model of states. See appendix \ref{code:bpnn} for the complete python code (same file as the previous model). 
+
+For example, we take 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{../figure/state_Buprenorphine} 
+    \caption{Buprenorphine identification counts of five states from 2008 to 2019}
+    \label{fig:state_Buprenorphine}
+\end{figure}
 
 \begin{figure}[H]
     \centering
@@ -949,8 +977,6 @@ Thanks!
 \subsection{PCA\_plot.py} \label{code:PCA_plot}
 \inputminted{python}{../src/PCA_plot.py}
 
-\subsection{.py}\label{}
-\inputminted{python}{../src/.py}
 
 
 \end{appendices}
