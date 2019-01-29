@@ -499,29 +499,22 @@ Then we overlay such images generated from 2008 to 2012 in chronological order t
 
 The Spreading Model of states can be easily modified to obtain source deduction and future prediction for each state, since the five states in the dataset are next to each other, we can consider they are full-connected in the neutral network. After removing the distance module in the previous model, we build a Spreading Model of states. See appendix \ref{code:bpnn} for the complete python code (same file as the previous model). 
 
-For example, we take 
-
-\begin{figure}
-    \centering
-    \includegraphics[width=\textwidth]{../figure/state_Buprenorphine} 
-    \caption{Buprenorphine identification counts of five states from 2008 to 2019}
-    \label{fig:state_Buprenorphine}
-\end{figure}
+For example, we take Buprenorphine and Morphine and predict the drug report on 2008-2009 and 2018-2019, the results are shown in Figure \ref{fig:state}.
 
 \begin{figure}[H]
     \centering
     \begin{subfigure}[b]{0.48\textwidth}
-        \includegraphics[width=\textwidth]{../figure/state_Buprenorphine} 
-    \caption{Buprenorphine identification counts of five states in each year from 2008 to 2019}
+        \includegraphics[width=\textwidth]{../figure/state_Buprenorphine.eps} 
+    \caption{Buprenorphine}
     \label{fig:state_Buprenorphine}
     \end{subfigure}\hfill
     \begin{subfigure}[b]{0.48\textwidth}
-        \includegraphics[width=\textwidth]{../figure/OH_Buprenorphine} 
-	\caption{  identification counts of five states in each year from 2008 to 2019} 
-	\label{fig:}  
+        \includegraphics[width=\textwidth]{../figure/state_Morphine.eps} 
+	\caption{Morphine} 
+	\label{fig:state_Morphine}  
     \end{subfigure}
-    \caption{  }
-    \label{fig:cool}
+    \caption{Buprenorphine and Morphine identification counts of five states in each year from 2008 to 2019.}
+    \label{fig:state}
 \end{figure}
 
 \subsection{Optimization: Modification using Socio-economic Component}\label{Sec:Optimazation}
@@ -971,6 +964,21 @@ Thanks!
 
 \subsection{bpnn.py} \label{code:bpnn}
 \inputminted{python}{../src/bpnn.py}
+
+\subsection{bpnn\_analysis.py} \label{code:bpnn_analysis}
+\inputminted{python}{../src/bpnn_analysis.py}
+
+\subsection{bpnn\_plot.py} \label{code:bpnn_plot}
+\inputminted{python}{../src/bpnn_plot.py}
+
+\subsection{bpnn\_plot\_stack.py} \label{code:bpnn_plot_stack}
+\inputminted{python}{../src/bpnn_plot_stack.py}
+
+\subsection{bpnn\_plot\_state.py} \label{code:bpnn_plot_state}
+\inputminted{python}{../src/bpnn_plot_state.py}
+
+\subsection{bpnn\_plot\_transfer.py} \label{code:bpnn_plot_transfer}
+\inputminted{python}{../src/bpnn_plot_transfer.py}
 
 \subsection{PCA.py} \label{code:PCA}
 \inputminted{python}{../src/PCA.py}
