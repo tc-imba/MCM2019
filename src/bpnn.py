@@ -229,29 +229,151 @@ def bpnn(state, substance_name, n_components=0, reverse=False):
     return [state, substance_name, n_components, error]
 
 
-arr = list()
+#
+# arr = list()
+#
+# arr.append(bpnn('KY', 'Hydrocodone', 0, True))
+# arr.append(bpnn('KY', 'Hydrocodone', 1, True))
+# arr.append(bpnn('OH', 'Hydrocodone', 0, True))
+# arr.append(bpnn('OH', 'Hydrocodone', 1, True))
+# arr.append(bpnn('PA', 'Hydrocodone', 0, True))
+# arr.append(bpnn('PA', 'Hydrocodone', 1, True))
+# arr.append(bpnn('VA', 'Hydrocodone', 0, True))
+# arr.append(bpnn('VA', 'Hydrocodone', 1, True))
+# arr.append(bpnn('WV', 'Hydrocodone', 0, True))
+# arr.append(bpnn('WV', 'Hydrocodone', 1, True))
+#
+# arr.append(bpnn('KY', 'Buprenorphine', 0, False))
+# arr.append(bpnn('KY', 'Buprenorphine', 1, False))
+# arr.append(bpnn('OH', 'Buprenorphine', 0, False))
+# arr.append(bpnn('OH', 'Buprenorphine', 1, False))
+# arr.append(bpnn('PA', 'Buprenorphine', 0, False))
+# arr.append(bpnn('PA', 'Buprenorphine', 1, False))
+# arr.append(bpnn('VA', 'Buprenorphine', 0, False))
+# arr.append(bpnn('VA', 'Buprenorphine', 1, False))
+# arr.append(bpnn('WV', 'Buprenorphine', 0, False))
+# arr.append(bpnn('WV', 'Buprenorphine', 1, False))
+#
+# df_total = pd.DataFrame(arr, columns=['State', 'Substance', 'N', 'R2'])
+# df_total.to_csv('../result/bpnn.csv')
 
-arr.append(bpnn('KY', 'Hydrocodone', 0, True))
-arr.append(bpnn('KY', 'Hydrocodone', 1, True))
-arr.append(bpnn('OH', 'Hydrocodone', 0, True))
-arr.append(bpnn('OH', 'Hydrocodone', 1, True))
-arr.append(bpnn('PA', 'Hydrocodone', 0, True))
-arr.append(bpnn('PA', 'Hydrocodone', 1, True))
-arr.append(bpnn('VA', 'Hydrocodone', 0, True))
-arr.append(bpnn('VA', 'Hydrocodone', 1, True))
-arr.append(bpnn('WV', 'Hydrocodone', 0, True))
-arr.append(bpnn('WV', 'Hydrocodone', 1, True))
 
-arr.append(bpnn('KY', 'Buprenorphine', 0, False))
-arr.append(bpnn('KY', 'Buprenorphine', 1, False))
-arr.append(bpnn('OH', 'Buprenorphine', 0, False))
-arr.append(bpnn('OH', 'Buprenorphine', 1, False))
-arr.append(bpnn('PA', 'Buprenorphine', 0, False))
-arr.append(bpnn('PA', 'Buprenorphine', 1, False))
-arr.append(bpnn('VA', 'Buprenorphine', 0, False))
-arr.append(bpnn('VA', 'Buprenorphine', 1, False))
-arr.append(bpnn('WV', 'Buprenorphine', 0, False))
-arr.append(bpnn('WV', 'Buprenorphine', 1, False))
+def bpnn_state(substance_name, reverse=False):
+    global weight_dim_used
+    weight_dim_used = 2
+    df = pd.read_excel('../data/MCM_NFLIS_Data.xlsx', sheet_name='Data')
+    df = df[df['SubstanceName'] == substance_name].reset_index()
+    df_state = df.groupby(['State', 'YYYY'], as_index=False).sum().reset_index()
 
-df_total = pd.DataFrame(arr, columns=['State', 'Substance', 'N', 'R2'])
-df_total.to_csv('../result/bpnn.csv')
+    state_list = dict()
+
+    for index, row in df_state.iterrows():
+        state_name = row['State']
+        state_list[state_name] = County(state_name, state_name)
+
+    for _i, state_i in state_list.items():
+        for _j, state_j in state_list.items():
+            state_i.add_path(state_j, 0)
+
+    for index, row in df_state.iterrows():
+        state_name = row['State']
+        if reverse:
+            year = start_year - 1 + total_years - row['YYYY']
+        else:
+            year = row['YYYY'] - start_year
+        data = row['DrugReports']
+        state_list[state_name].set_train_data_drug(year, data)
+
+    mean = 0
+    for year in range(total_years - 1):
+        for _, state_i in state_list.items():
+            mean += state_i.train_data[year + 1][0]
+    mean = mean / (total_years - 1) / len(state_list)
+
+    print(mean)
+
+    u = 0
+    error = 0
+    for i in tqdm(range(1000)):
+        # u = 0
+        # v = 0
+        # for year in range(total_years - 1):
+        #     for _, state_i in state_list.items():
+        #         state_i.prepare_train(year)
+        #
+        #     for _, state_i in state_list.items():
+        #         state_i.train(year)
+        #
+        #     for _, state_i in state_list.items():
+        #         u += state_i.aggregate_data ** 2
+        #         v += (state_i.train_data[year + 1][0] - mean) ** 2
+        # error = 1 - u / v
+        # print(error, u)
+
+        for year in range(total_years - 1):
+            for _, state_i in state_list.items():
+                state_i.prepare_train(year)
+
+            for _, state_i in state_list.items():
+                state_i.train(year)
+
+            for _, state_i in state_list.items():
+                state_i.back_propagation(year)
+
+    u = 0
+    v = 0
+    error = 0
+    for year in range(total_years - 1):
+        for _, state_i in state_list.items():
+            state_i.prepare_train(year)
+
+        for _, state_i in state_list.items():
+            state_i.train(year)
+
+        for _, state_i in state_list.items():
+            u += state_i.aggregate_data ** 2
+            v += (state_i.train_data[year + 1][0] - mean) ** 2
+    error = 1 - u / v
+
+    print(error)
+
+    predict_years = 2
+
+    for _, state_i in state_list.items():
+        state_i.prepare_predict(predict_years)
+
+    for i in range(predict_years):
+        for _, state_i in state_list.items():
+            state_i.predict(i)
+
+    result_arr = []
+    for _, state_i in state_list.items():
+        # if county_i.predict_data[-1] >= 10:
+        # print(_, county_i.train_data, county_i.predict_data)
+        arr = [_]
+        for i in range(total_years):
+            arr.append(state_i.train_data[i][0])
+        for i in range(2):
+            arr.append(state_i.predict_data[2 + i][0])
+
+        result_arr.append(arr)
+
+    df_result = pd.DataFrame(result_arr)
+    df_result.set_index(0, inplace=True)
+
+    return df_result
+
+    # df_result.to_csv('../result/bpnn_source_state_%s.csv' % substance_name, index=False)
+    # return [substance_name, error]
+
+
+def bpnn_state_bidirection(substance_name):
+    df_result1 = bpnn_state('Buprenorphine', False)
+    df_result2 = bpnn_state('Buprenorphine', True).drop([1, 2, 3, 4, 5, 6, 7, 8], axis=1)
+    df_result2.columns = ['a', 'b']
+    df_result = pd.concat([df_result2[['b', 'a']], df_result1], axis=1)
+    df_result.to_csv('../result/bpnn_source_state_%s.csv' % substance_name, index=False)
+    return df_result
+
+
+df_temp = bpnn_state_bidirection('Buprenorphine')
