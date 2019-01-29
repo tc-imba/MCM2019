@@ -368,12 +368,13 @@ def bpnn_state(substance_name, reverse=False):
 
 
 def bpnn_state_bidirection(substance_name):
-    df_result1 = bpnn_state('Buprenorphine', False)
-    df_result2 = bpnn_state('Buprenorphine', True).drop([1, 2, 3, 4, 5, 6, 7, 8], axis=1)
+    df_result1 = bpnn_state(substance_name, False)
+    df_result2 = bpnn_state(substance_name, True).drop([1, 2, 3, 4, 5, 6, 7, 8], axis=1)
     df_result2.columns = ['a', 'b']
     df_result = pd.concat([df_result2[['b', 'a']], df_result1], axis=1)
     df_result.to_csv('../result/bpnn_source_state_%s.csv' % substance_name, index=False)
     return df_result
 
 
-df_temp = bpnn_state_bidirection('Buprenorphine')
+bpnn_state_bidirection('Buprenorphine')
+bpnn_state_bidirection('Morphine')
