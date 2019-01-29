@@ -80,7 +80,7 @@
 	Eventually, according to the results above, we figure out a comprehensive and feasible \textbf{Strategy Program} called \textbf{``SSD''}. The whole strategy program can be divided into three parts: \textbf{Supply Control, Spread Control, and Demand Control}. After being tested by our promoted model, these strategies are proven to be significantly effective in controlling and preventing the opioid crisis.
 	
 	\begin{keywords}
-		SOS; Back-Propagation Neutral Network (BPNN); Outlier Detection; Principal Component Analysis (PCA);Deep Learning Approach: Auto Encoder;Linear Regression (LR); Strategy Program ``SSD''
+		SOS; Back-Propagation Neutral Network (BPNN); Outlier Detection; Principal Component Analysis (PCA); Deep Learning Approach Auto-Encoder; Linear Regression (LR);  Strategy Program ``SSD''
 	\end{keywords}
 \end{abstract}
 
@@ -92,7 +92,7 @@
 
 \section{Introduction}	
 \subsection{Problem Background}
-The Opioid Crisis means the rapid increase in the use of prescription and non-prescription opioid drugs in the United States beginning in the late 1990s and continuing throughout the past two decades~\cite{op}. Nowadays, it has developed into a nationwide crisis sweeping across the United States. For instance, using the data supplied with this problem, we analyze just heroin identification counts during years 2010-2017 in figure \ref{situation}, which to some extent demonstrate the rampant drug problem in these five states, especially in Ohio (OH) and Pennsylvania (PA).See appendix \ref{code:map} for the complete code. 
+The Opioid Crisis means the rapid increase in the use of prescription and non-prescription opioid drugs in the United States beginning in the late 1990s and continuing throughout the past two decades~\cite{op}. Nowadays, it has developed into a nationwide crisis sweeping across the United States. For instance, using the data supplied with this problem, we analyze just heroin identification counts during years 2010-2017 in Figure \ref{situation}, which to some extent demonstrate the rampant drug problem in these five states, especially in Ohio (OH) and Pennsylvania (PA).See appendix \ref{code:map} for the complete code. 
 
 \begin{figure}[htbp]
 	\centering 
@@ -106,7 +106,7 @@ Studies show that the increase in opioid overdose deaths has been dramatic, and 
 Currently, the U.S. government has payed great attention and taken a bunch of measures on this issue~\cite{CORRIGAN201844}. While the U.S. Centers for Disease Control (CDC) continue to fight the opioid overdose epidemic, simply enforcing existing laws is still a complex challenge for the Federal Bureau of Investigation (FBI), and the U.S. Drug Enforcement Administration (DEA), among others~\cite{intro}. Therefore, they need investigate the spread and characteristics of the opioids and heroin incidents in the United States, so that they can develop their strategies to better control and prevent the deteriorating opioids overdose situation.
 
 \subsection{Our Work}
-In this paper, we propose a novel framework, named SOS ( Spreading Model, Optimization, and Strategy Pragram for the Opioid Crisis), seeking for new strategies to combat the exacerbating opioid crisis. The framework of SOS is shown in figure \ref{Framework}. 
+In this paper, we propose a novel framework, named SOS ( Spreading Model, Optimization, and Strategy Pragram for the Opioid Crisis), seeking for new strategies to combat the exacerbating opioid crisis. The framework of SOS is shown in Figure \ref{Framework}. 
 
 \begin{figure}[htbp]
 	\centering 
@@ -116,7 +116,7 @@ In this paper, we propose a novel framework, named SOS ( Spreading Model, Optimi
 \end{figure}
 
 
-We can divide our SOS framework in figure  \ref{Framework}  into following steps:
+We can divide our SOS framework in Figure  \ref{Framework}  into following steps:
 
 \begin{itemize}
 \item \textbf{Spreading Model}: Based on the report provided, we focus on the individual counties located in five U.S. states: Ohio (OH), Kentucky (KY), West Virginia (WV), Virginia (VA), and Pennsylvania (PA). We first get the longitude and latitude of every county and build a \textbf{Back-Propagation Neutral Network (BPNN) Model~\cite{NURCIN2017417}} to describe the spread and characteristics of the reported opioid incidents over time. With this model, we identify some possible locations where specific opioid use might have started in each of the five states.
@@ -186,25 +186,25 @@ To begin with, we consider the relative distance between any two counties as one
     \centering
      \caption{Part of the official coordinates of these 462 counties we get through Python from Microsoft Bing Map API.}
     \label{tab:geotable}
-    \begin{tabular}{|c|c|c|c|c|}
+    \begin{tabular}{|c|c|c|c|}
         \hline
-FIPS-Combined &	State &	County &	latitude &	longitude \\ \hline
-21001 &	KY &	ADAIR&	37.97293091	&-86.84214783\\
-21003&	KY&	ALLEN&	37.61523056&	-82.72395325\\
-21005&	KY&	ANDERSON&	37.01742172	&-86.79804993\\
-21007&	KY&	BALLARD&	38.23900986	&-85.7456665\\
-21009&	KY&	BARREN&	37.18073654&	-86.62342072\\
-21011&	KY&	BATH&	37.24637985&	-82.90135956\\
-21013&	KY& BELL&	36.73059845&   -83.67401123\\
-21015&	KY&	BOONE&	37.51216888&	-84.32032776\\
-21017&	KY&	BOURBON	&37.05149841&	-84.62284088\\
+	State &	County &	latitude &	longitude \\ \hline
+	KY &	ADAIR&	37.97293091	&-86.84214783\\
+	KY&	ALLEN&	37.61523056&	-82.72395325\\
+	KY&	ANDERSON&	37.01742172	&-86.79804993\\
+	KY&	BALLARD&	38.23900986	&-85.7456665\\
+	KY&	BARREN&	37.18073654&	-86.62342072\\
+	KY&	BATH&	37.24637985&	-82.90135956\\
+	KY& BELL&	36.73059845&   -83.67401123\\
+	KY&	BOONE&	37.51216888&	-84.32032776\\
+	KY&	BOURBON	&37.05149841&	-84.62284088\\
 \hline
     \end{tabular}
 \end{table}    
     
 
 
-In that case, we can calculate the distance between each two counties. The earth is a near-standard ellipsoid with an equatorial radius of 6,378.140 km and a polar radius of 6,356.755 km, with an average radius of 6,371.004 km. If we assume that the earth is a perfect sphere, then its radius is the average radius of the earth, called R. If the zero degree longitude line is the basis, the surface distance between any two points on the earth's surface can be calculated based on the longitude and latitude of the two points. Let the longitude and latitude of point $A$ be $(A_x, A_y)$, and the longitude and latitude of point $B$ be $(B_x, B_y)$. Then, according to the Trigonometric Derivation, the equation \ref{1}and \ref{2} for calculating the distance ($D$) between two points can be obtained.
+In that case, we can calculate the distance between each two counties. The earth is a near-standard ellipsoid with an equatorial radius of 6,378,140 km and a polar radius of 6,356,755 km, with an average radius of 6,371,004 km. If we assume that the earth is a perfect sphere, then its radius is the average radius of the earth, called R. If the zero degree longitude line is the basis, the surface distance between any two points on the earth's surface can be calculated based on the longitude and latitude of the two points. Let the longitude and latitude of point $A$ be $(A_x, A_y)$, and the longitude and latitude of point $B$ be $(B_x, B_y)$. Then, according to the Trigonometric Derivation, the equation \ref{1}and \ref{2} for calculating the distance ($D$) between two points can be obtained.
 
 \begin{equation}
 \label{1}
@@ -221,11 +221,11 @@ In that case, we can calculate the distance between each two counties. The earth
 
 \subsubsection{Count of Drug Report by State}\label{count-drug}
 
-    Besides, we rank the number of opioid incidents of each drug in each state county, and then we get the table \ref{tab:my_label}. Since there is no statistic significance for small amounts of data, we screen out significant data with statistically large amounts for the following modeling. See appendix \ref{code:count} for the complete code. 
+    Besides, we rank the number of opioid incidents of each drug in each state county, and then we get the Table \ref{tab:my_label}. Since there is no statistic significance for small amounts of data, we screen out significant data with statistically large amounts for the following modeling. See appendix \ref{code:count} for the complete code. 
     
 \begin{table}[H]
     \centering  
-    \caption{Part of ranking table according to the number of specific opioid incidents in each state county, sorted in descending order.}
+    \caption{Part of ranking Table according to the number of specific opioid incidents in each state county, sorted in descending order.}
     \label{tab:my_label}
     \begin{tabular}{|c|c|c|}
         \hline
@@ -255,7 +255,7 @@ In that case, we can calculate the distance between each two counties. The earth
     \begin{gather*}
         SS_{tot}=\sum _{i} \left ( y_i-\bar{y} \right )^2 ~,~
          SS_{reg}=\sum _{i} \left ( f_i-\bar{y} \right )^2 ~,~
-       SS_{res}=\sum _{i} \left ( y_i-f_i \right )^2=\sum _{i}e_i^2
+       SS_{res}=\sum _{i} \left ( y_i-f_i \right )^2=\sum _{i}e_i^2.
      \end{gather*}
      
     Here we use the most general definition of the coefficient of determination as equation \ref{R^2}.
@@ -403,19 +403,19 @@ Let $n$ be the number of data values in the data set. The Lower Quartile $Q1$ is
 \end{aligned}
 \end{equation}
 
-So any value that will be more than the upper limit or lesser than the lower limit will be the outliers. We identify that these points are trending to have an opioid crisis.
+Therefore, any value that will be more than the upper limit or lesser than the lower limit will be the outliers. We identify that these points are trending to have an opioid crisis.
 
 \subsubsection{Source Dedection and Future Prediction of Spreading Model}
 \label{sec: Implementation}
 
-As we mentioned before in \ref{count-drug} table\ref{tab:my_label}, Hydrocodone in the state KY is the most often occurred case by statistics. So we choose it to be a sample for us to derive its source. Considering that we have just 8-year data, so we only predict 2 years forward and backward to ensure the accuracy. Thus, With data from 2010 to 2017 inputted into our model, we predict how the identification counts for the Hydrocodone cases distribute in KY in 2008, which is shown in table \ref{tab:2008} and figure \ref{KY_Hydrocodone_5}. Similarly, we can predict Buprenorphine cases in Ohio (OH) in 2018, which is shown in table \ref{2018} and figure \ref{OH}.
+As we mentioned before in \ref{count-drug} Table \ref{tab:my_label}, Hydrocodone in the state KY and Buprenorphine in OH are the most often occurred cases by statistics. So we choose it as a sample for us to derive its source. Considering that we have just 8-year data, so we only predict 2 years forward and backward to ensure our results accurate. Thus, With data from 2010 to 2017 inputted into our model, we predict how the identification counts for the Hydrocodone cases distribute in KY in 2008, which is shown in Table \ref{tab:2008} and Figure \ref{KY_Hydrocodone_5}. Similarly, we can predict Buprenorphine cases in Ohio (OH) in 2019, which is shown in Table \ref{2019} and Figure \ref{OH}.
 
 \begin{table}[H]
  \caption{Source Dedection and Future Prediction}
   \label{tbl:main}
   \begin{subtable}[t]{0.45\linewidth}
     \centering
-     \caption{Hydrocodone identification counts in 2008 in  Kentucky (KY).}
+     \caption{Source Dedection: Hydrocodone identification counts in 2008 in  Kentucky (KY).}
     \label{tab:2008}
     \begin{tabular}{|c|c|}
         \hline
@@ -438,8 +438,8 @@ As we mentioned before in \ref{count-drug} table\ref{tab:my_label}, Hydrocodone 
   \end{subtable}\hfill
   \begin{subtable}[t]{0.45\linewidth}
     \centering
-    \caption{Buprenorphine identification counts in 2018 in Ohio (OH).}
-    \label{2018}
+    \caption{Future Prediction: Buprenorphine identification counts in 2019 in Ohio (OH).}
+    \label{2019}
     \begin{tabular}{|c|c|}
         \hline
         County &   Drug Reports\\\hline       
@@ -452,6 +452,8 @@ As we mentioned before in \ref{count-drug} table\ref{tab:my_label}, Hydrocodone 
         STARK & 82.62\\
         GUERNSEY & 81.52\\
         LAKE & 78.01\\
+        COLUMBIANA &76.87\\
+        BUTLER &73.77\\
         \hline
     \end{tabular}
   \end{subtable}
@@ -460,14 +462,14 @@ As we mentioned before in \ref{count-drug} table\ref{tab:my_label}, Hydrocodone 
 
 \begin{figure}[H]
     \centering
-    \begin{subfigure}[b]{0.49\textwidth}
+    \begin{subfigure}[b]{0.45\textwidth}
         \includegraphics[width=\textwidth]{../figure/KY_Hydrocodone_5}  
 	\subcaption{Hydrocodone identification counts in 2008 in  Kentucky (KY)} 
 	\label{KY_Hydrocodone_5}  
-    \end{subfigure}
-    \begin{subfigure}[b]{0.49\textwidth}
+    \end{subfigure}\hfill
+    \begin{subfigure}[b]{0.45\textwidth}
         \includegraphics[width=\textwidth]{../figure/OH_Buprenorphine_1}  
-	\subcaption{ Buprenorphine identification counts in 2018 in Ohio (OH)} 
+	\subcaption{ Buprenorphine identification counts in 2019 in Ohio (OH)} 
 	\label{OH}
     \end{subfigure}
     \caption{ Source Dedection and Future Prediction  }\label{fig:fancy}
@@ -475,7 +477,7 @@ As we mentioned before in \ref{count-drug} table\ref{tab:my_label}, Hydrocodone 
 
 
 
-Then we overlay such images generated from 2008 to 2012 in chronological order to show the spreading characteristics of Hydrocodone identification counts in Kentucky as figure \ref{KY_Hydrocodone} shows. With this method, we identify some  possible locations where specific opioid use might have started in each of the five states. Similarly, we can demonstrate the spreading characteristics of Buprenorphine identification counts in Ohio as figure \ref{OH_Buprenorphine} shows.
+Then we overlay such images generated from 2008 to 2012 in chronological order to show the spreading characteristics of Hydrocodone identification counts in Kentucky as Figure \ref{KY_Hydrocodone} shows. With this method, we identify some  possible locations where specific opioid use might have started in each of the five states. Similarly, we can demonstrate the spreading characteristics of Buprenorphine identification counts in Ohio as Figure \ref{OH_Buprenorphine} shows.
 
 
 \begin{figure}[H]
@@ -484,10 +486,10 @@ Then we overlay such images generated from 2008 to 2012 in chronological order t
         \includegraphics[width=\textwidth]{../figure/KY_Hydrocodone} 
 	\caption{Hydrocodone identification counts spreading diagram from 2008 to 2012 in  Kentucky} 
 	\label{KY_Hydrocodone}  
-    \end{subfigure}
+    \end{subfigure}\hfill
     \begin{subfigure}[b]{0.49\textwidth}
         \includegraphics[width=\textwidth]{../figure/OH_Buprenorphine} 
-	\caption{Buprenorphine identification counts spreading diagram from 2014 to 2018 in Ohio} 
+	\caption{Buprenorphine identification counts spreading diagram from 2014 to 2019 in Ohio} 
 	\label{OH_Buprenorphine}  
     \end{subfigure}
     \caption{ Source Dedection and Future Prediction model }\label{fig:cool}
@@ -617,7 +619,7 @@ Often these n equations are stacked together and written in matrix notation as t
 
 \subsubsection{Results for Dimension Reduction and Linear Regression}\label{sec:DRLR}
 
-We have selected the most important factors from the $596$ dimensions that the U.S. Census socio-economic data that provides by dimensionality reduction. And then, we use linear regression to test our selection and get a score for each selection. In this way, we can get a satisfying set of components. 
+We have selected the most important factors from the $596$ dimensions that the U.S. Census socio-economic data that provides by dimensional reduction. And then, we use linear regression to test our selection and get a score for each selection. In this way, we can get a satisfying set of components. 
 
 According to PCA, we can get the variance ratio, which shows the ratio of the variance value of each principal component to the total variance value after dimension reduction. The larger the value of the variance ratio, the more important the principal component. Actually, the more components we take into account, the larger variance ratio that we can get. However, what we pursue is not only the completeness characterization of the fact ,but also the simplification of the vast dimension. So we need to get an appropriate set of components that can characterize all the information as well as simplify this problem.
 
@@ -627,16 +629,16 @@ In addition, to get a good result, we also need to select the way to deal with t
 
 ~\smallskip
 
-(1) Analyze all the data over the years ranging from 2010 to 2016 of the five states respectively, and the results are shown in figure \ref{fig:pca_state}.
+(1) Analyze all the data over the years ranging from 2010 to 2016 of the five states respectively, and the results are shown in Figure \ref{fig:pca_state}.
 
     \begin{figure}[H]
     \centering
-    \begin{subfigure}[b]{0.49\textwidth}
+    \begin{subfigure}[b]{0.48\textwidth}
         \includegraphics[width=\textwidth]{../figure/pca_state_ratio.eps}
-        \subcaption{The ratio of data retained after dimensionality reduction among five states in 2010-2016 against different components}
+        \subcaption{The ratio of data retained after dimensional reduction among five states in 2010-2016 against different components}
         \label{fig:pca_state_ratio}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.49\textwidth}
+    \end{subfigure}\hfill
+    \begin{subfigure}[b]{0.48\textwidth}
         \includegraphics[width=\textwidth]{../figure/pca_state_score.eps}
         \subcaption{The $R^2$ of linear regression results among five states in 2010-2016 against different components }
         \label{fig:pca_state_score}
@@ -644,21 +646,21 @@ In addition, to get a good result, we also need to select the way to deal with t
     \caption{PCA and LR results of data among five states in 2010-2016 against different components}\label{fig:pca_state}
 \end{figure}
 
-From (a) in figure \ref{fig:pca_state}, we can see the curve for a single state raises as the number of the components increases. When we choose four components to describe this problem, the superimposed explained variance ratio is almost close to 1. That is to say that under this circumstance, the results that we get from the fitting is very close to the fact. 
+From (a) in Figure \ref{fig:pca_state}, we can see the curve for a single state raises as the number of the components increases. When we choose four components to describe this problem, the superimposed explained variance ratio is almost close to 1. That is to say that under this circumstance, the results that we get from the fitting is very close to the fact. 
 
-From (b) in figure \ref{fig:pca_state}, we can see the curves for the five years are almost stable as the number of the components increase, except some special cases. As for one component for the WV state, the low coefficient of determination ascribes that there is only one component to characterize the problem. As for nine components for the OH state, the low coefficient of determination may attribute to overfitting. 
+From (b) in Figure \ref{fig:pca_state}, we can see the curves for the five years are almost stable as the number of the components increase, except some special cases. As for one component for the WV state, the low coefficient of determination ascribes that there is only one component to characterize the problem. As for nine components for the OH state, the low coefficient of determination may attribute to over-fitting. 
 
 ~\smallskip
 
-(2) Analyze the data of 2010 of the five states respectively, and the results are shown in figure \ref{fig:pca_state_2010}. 
+(2) Analyze the data of 2010 of the five states respectively, and the results are shown in Figure \ref{fig:pca_state_2010}. 
     \begin{figure}[H]
     \centering
-    \begin{subfigure}[b]{0.49\textwidth}
+    \begin{subfigure}[b]{0.48\textwidth}
         \includegraphics[width=\textwidth]{../figure/pca_state_2010_ratio.eps}
-        \subcaption{The ratio of data retained after dimensionality reduction among five states in 2010 against different components}
+        \subcaption{The ratio of data retained after dimensional reduction among five states in 2010 against different components}
         \label{fig:pca_state_2010_ratio}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.49\textwidth}
+    \end{subfigure}\hfill
+    \begin{subfigure}[b]{0.48\textwidth}
         \includegraphics[width=\textwidth]{../figure/pca_state_2010_score.eps}
         \subcaption{The $R^2$ of Linear Regression results among five states in 2010 against different components}
         \label{fig:pca_state_2010_score}
@@ -666,19 +668,19 @@ From (b) in figure \ref{fig:pca_state}, we can see the curves for the five years
     \caption{PCA and LR results of data among five states in 2010 against different components}\label{fig:pca_state_2010}
 \end{figure}
 
-From (a) in figure \ref{fig:pca_state_2010}, we can see the ratio shows the similar characteristics to (a) in figure \ref{fig:pca_state}, which means an excellent characterization of this problem with only four components. But when it comes to the evaluation part, from (b) in figure \ref{fig:pca_state_2010}, we can directly see that the fitting is not as stable as the last one.
+From (a) in Figure \ref{fig:pca_state_2010}, we can see the ratio shows the similar characteristics to (a) in Figure \ref{fig:pca_state}, which means an excellent characterization of this problem with only four components. But when it comes to the evaluation part, from (b) in Figure \ref{fig:pca_state_2010}, we can directly see that the fitting is not as stable as the last one.
 
 ~\smallskip
 
-(3) Analyze the data of all the five states of 2010 to 2016 respectively, and the results are shown in figure \ref{fig:pca_year}.
+(3) Analyze the data of all the five states of 2010 to 2016 respectively, and the results are shown in Figure \ref{fig:pca_year}.
     \begin{figure}[H]
     \centering
-    \begin{subfigure}[b]{0.49\textwidth}
+    \begin{subfigure}[b]{0.48\textwidth}
         \includegraphics[width=\textwidth]{../figure/pca_year_ratio.eps}
-        \subcaption{The ratio of data remained after dimensionality reduction in 2010-2016}
+        \subcaption{The ratio of data remained after dimensional reduction among five states in 2010-2016}
         \label{fig:pca_year_ratio}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.49\textwidth}
+    \end{subfigure}\hfill
+    \begin{subfigure}[b]{0.48\textwidth}
         \includegraphics[width=\textwidth]{../figure/pca_year_score.eps}
         \subcaption{The $R^2$ of Linear Regression results of data in 2010-2016 against different aggregations}
         \label{fig:pca_year_score}
@@ -686,19 +688,19 @@ From (a) in figure \ref{fig:pca_state_2010}, we can see the ratio shows the simi
     \caption{PCA and LR results of data in 2010-2016 against different aggregations}\label{fig:pca_year}
 \end{figure}
 
-From (a) in figure \ref{fig:pca_year}, we can see the curve for a single year raises as the number of the components increases almost in the same way. However, the superimposed explained variance ratio gets close to 1 when the number of the components raises to 6 or more, which indicates that it does not do well in simplification. Moreover, the coefficient of determination that is shown in (b) of figure \ref{fig:pca_year} is unstable.
+From (a) in Figure \ref{fig:pca_year}, we can see the curve for a single year raises as the number of the components increases almost in the same way. However, the superimposed explained variance ratio gets close to 1 when the number of the components raises to 6 or more, which indicates that it does not do well in simplification. Moreover, the coefficient of determination that is shown in (b) of Figure \ref{fig:pca_year} is unstable.
 
 ~\smallskip
 
-(4) Analyze the data of the state PA of 2010 to 2016 respectively, and the results are shown in figure \ref{fig:pca_year_PA}.
+(4) Analyze the data of the state PA of 2010 to 2016 respectively, and the results are shown in Figure \ref{fig:pca_year_PA}.
     \begin{figure}[H]
     \centering
-    \begin{subfigure}[b]{0.49\textwidth}
+    \begin{subfigure}[b]{0.48\textwidth}
         \includegraphics[width=\textwidth]{../figure/pca_year_PA_ratio.eps}
-        \subcaption{The ratio of data after dimensionality reduction in PA in 2010-2016}
+        \subcaption{The ratio of data after dimensional reduction in PA in 2010-2016}
         \label{fig:pca_year_PA_ratio}
-    \end{subfigure}
-    \begin{subfigure}[b]{0.49\textwidth}
+    \end{subfigure}\hfill
+    \begin{subfigure}[b]{0.48\textwidth}
         \includegraphics[width=\textwidth]{../figure/pca_year_PA_score.eps}
         \subcaption{The $R^2$ of Linear Regression results in PA over years against different aggregations}
         \label{fig:pca_year_PA_score}
@@ -706,9 +708,9 @@ From (a) in figure \ref{fig:pca_year}, we can see the curve for a single year ra
     \caption{PCA and LR results of data in PA in 2010-2016 against different aggregations}\label{fig:pca_year_PA}
 \end{figure}
 
-From (a) in figure \ref{fig:pca_year_PA}, the curve shows similar characteristics to the above ones and also does well in characterize through only few components. But (b) of figure \ref{fig:pca_year_PA} also shows its instability.
+From (a) in Figure \ref{fig:pca_year_PA}, the curve shows similar characteristics to the above ones and also does well in characterize through only few components. But (b) of Figure \ref{fig:pca_year_PA} also shows its instability.
 
-From the visualization and analysis that we have shown above, it can be concluded that when we choose all the data over the years ranging from 2010 to 2016 of the five states respectively, we can gain a great, simple, and stable dimensionality reduction with only 4 components.
+From the visualization and analysis that we have shown above, it can be concluded that when we choose all the data over the years ranging from 2010 to 2016 of the five states respectively, we can gain a great, simple, and stable dimensional reduction with only 4 components.
 
 For example, we select the U.S. Census socio-economic data of KY state ranging from 2010 to 2016. In PCA, the variance ratio reaches a threshold of about 0.01 after the fourth dimension. The first four variance ratios are 
 \begin{center}
@@ -718,10 +720,10 @@ For example, we select the U.S. Census socio-economic data of KY state ranging f
 From these four dimension, we can get the score of about $0.92$ by linear regression, which shows a good result of the dimension reduction. 
 
 \subsubsection{Results for Optimizied SOS Model}
-Based on the results of Dimension Reduction and Linear Regression in section \ref{sec:DRLR}, we add these four principal components into our BPNN model for modification. With this Optimizied SOS Model, we do as section \ref{sec: Implementation} do and get the table \ref{tab:2008new} and table \ref{tab:2018new}
+Based on the results of Dimension Reduction and Linear Regression in section \ref{sec:DRLR}, we add these four principal components into our BPNN model for modification. With this Optimizied SOS Model, we do as section \ref{sec: Implementation} do and get the Table \ref{tab:2008new} and Table \ref{tab:2019new}
 
 \begin{table}[H]
-    \caption{ Results table for Optimizied SOS Model}
+    \caption{ Results Table for Optimizied SOS Model}
      \begin{subtable}[t]{0.45\linewidth}
      \centering
     \caption{Hydrocodone identification counts in 2008 in  Kentucky (KY) using modified SOS model}
@@ -739,18 +741,13 @@ FAYETTE&77.75\\
 WHITLEY&68.65\\
 PIKE&68.62\\
 FLOYD&61.29\\
-KNOX&59.55\\
-BULLITT&52.97\\
-LETCHER&47.43\\
 \hline
     \end{tabular}
-\end{subtable}
-\hfill
-
+\end{subtable}\hfill
  \begin{subtable}[t]{0.45\linewidth}
     \centering
-    \caption{Buprenorphine identification counts in 2018 in Ohio (OH) using modified SOS model}
-    \label{tab:2018new}
+    \caption{Buprenorphine identification counts in 2019 in Ohio (OH) using modified SOS model}
+    \label{tab:2019new}
     \begin{tabular}{|c|c|}\hline
       County& Drug Reports  \\\hline  
 FRANKLIN&240.30\\
@@ -762,6 +759,7 @@ CRAWFORD&89.35\\
 STARK&82.62\\
 GUERNSEY&81.52\\
 LAKE&78.01\\
+COLUMBIANA&75.36\\
 \hline
     \end{tabular}
 \end{subtable}
@@ -781,7 +779,7 @@ Finally, we apply the model to all of the five states so that we can analysis th
         WV & Hydrocodone & 0.6797258899970731 & 0.7051639551372615 \\
         KY & Buprenorphine & 0.7697562356106809 & 0.7998899587972155 \\
         OH & Buprenorphine & 0.8720902736185301 & 0.8807783772009824 \\
-        PA & Buprenorphine & 0.9379855180669447 & 0.94186265136905 \\
+        PA & Buprenorphine & 0.9379855180669447 & 0.9418626513609050 \\
         VA & Buprenorphine & 0.8720028255610893 & 0.8832633164948145 \\
         WV & Buprenorphine & 0.12985720067610063 & 0.14259618407280017 \\
         \hline 
@@ -876,7 +874,6 @@ Corresponding to our SOS model, controlling Demand means setting a \textbf{resis
 \item \textbf{No Accurate Geographical Information: } We use the the official coordinates of counties to represent its geographical location. And we have no guarantee of the accuracy of the data  from the Search (Nominatim) API~\cite{bing}.
 \end{itemize}
 
-
 \section{Conclusion} \label{Sec-Conclusion}
 In this paper,we propose a novel framework called \textbf{SOS} (Spreading Model, Optimization, and Strategy Program for the Opioid Crisis). First we create a \textbf{Back Propagation Neutral Network  (BPNN) Model} to describe the spread and characteristics of the opioid incidents in and between the five states over time. With this model we identified possible locations where specific opioid use might have emerged in each of the five states. Second we adopt two different techniques: \textbf{Principal Component Analysis (PCA)} and \textbf{Deep Learning Approach: Auto-Encoder}, to extract principal components from the U.S. Census Socio-Economic data. After testing the validity of these components with \textbf{Linear Regression},  we add to our Spreading Model for modification. Third we identify a \textbf{Strategy Program ``SSD''} for countering the opioid crisis. Tested by our model, these strategies are proven to be significantly effective in overcoming the opioid crisis. Finally, we conduct sensitivity analysis of some parameters in our model and discuss the strengths and weakness of our work.
 
@@ -894,27 +891,25 @@ In this paper,we propose a novel framework called \textbf{SOS} (Spreading Model,
 
 Honorable Chief Administrator, DEA/NFLIS Database, 
 
-Currently, the opioid crisis has overwhelmed the whole America, urging us to pay great emphasis on controlling the spreading opioid incidents. As the person in charge, our team has made a comprehensive study on countering opioid crisis based on the reported synthetic opioid and heroin incidents (cases) from 2010 to 2017 in and between the five states: Ohio (OH), Kentucky (KY), West Virginia (WV), Virginia (VA), and Pennsylvania (PA). We further analyze the U.S. Census Socio-Economic data to modify the initial model. Here comes our study results:
+Currently, the opioid crisis has overwhelmed the whole America, urging us to lay great emphasis on controlling the spreading opioid incidents. As the person in charge, our team has made a comprehensive study on countering opioid crisis based on the reported synthetic opioid and heroin incidents (cases) from 2010 to 2017 in and between the five states: Ohio (OH), Kentucky (KY), West Virginia (WV), Virginia (VA), and Pennsylvania (PA). We further analyze the U.S. Census Socio-Economic data to modify the initial model. Here come our study results:
 
 \subsection*{Spreading Model }
 \addcontentsline{toc}{subsection}{Spreading Model }
 Here we utilize a Back-Propagation Neutral Network (BPNN) to build this model, characterizing the basic evolving and spreading trends of the opioid and heroin incidents. Thus, we forecast the opioid accidents happened in the following two years, and find that if we do not take effective measures at once, most of opioids incidents will increase sharply, which demonstrates the urgence of solving the opioid abuse problem right now.
 
-Additionally, we conclude that when drug identification threshold levels is XX, the opioid incidents will explode rapidly.
-In order to identify any possible locations where specific opioid use 
-might have started, we adopt Outlier Detection and identify that XX
+In order to identify any possible locations where specific opioid use might have started, we adopt Outlier Detection and identify the outliers as the trending locations.
 
 \subsection*{Optimization}
 \addcontentsline{toc}{subsection}{Optimization}
- In this part, we combine Principal Component Analysis (PCA) and Learning Approach Auto-Encoder two techniques to analyze the U.S. Census Socio-economic data provided. We successfully select the most important $4$ factors from the $596$ dimensions in data. And then, we use Linear Regression to test our selection and get the score for each selection, Which turn out XXX. In this way, we get a satisfying set of components added to our model for modification. 
+ In this part, we combine Principal Component Analysis (PCA) and Learning Approach Auto-Encoder two techniques to analyze the U.S. Census Socio-economic data provided. We successfully select the most important $4$ factors from the $596$ dimensions in data. And then, we use Linear Regression to test our selection and get a score for each selection, Which shows the similarity to the fact. In this way, we get a satisfying set of components added to our model for modification. 
 
 \subsection*{Strategy Program}
 \addcontentsline{toc}{subsection}{Strategy Program }
 Eventually, according to the results above, we figure out a comprehensive and feasible Strategy Program called ``SSD''. The whole strategy program can be divided into three parts: Supply Control, Spread Control, and Demand Control. After being tested by our promoted model, these strategies are proven to be significantly effective in controlling and preventing the opioid crisis. Concrete Strategies are as follows:
 \begin{itemize}
-    \item \textbf{Supply Control:}To require manufacturers of long-acting opioids to sponsor educational programs for prescribers, making a threshold to those who want to abuse the opioids.To strengthen cooperation with countries such as Colombia and Mexico, to crack down on cross-border drug crimes.
-    \item \textbf{ Spread Control}To strengthen public health data reporting and collection to improve the timeliness and specificity of data and to inform a real-time public health response as the opioid epidemic evolves.
-    \item \textbf{Demand Control}To advance the practice of pain management to enable access to high-quality, evidence-based pain care that reduces the burden of pain for individuals, families, and society while also reducing the inappropriate use of opioids and opioid-related harms. To make opioid control and management more rigorous and formal for effectively combating illicit drug abuse.
+    \item \textbf{Supply Control:} To require manufacturers of long-acting opioids to sponsor educational programs for prescribers, making a threshold to those who want to abuse the opioids.To strengthen cooperation with countries such as Colombia and Mexico, to crack down on cross-border drug crimes.
+    \item \textbf{ Spread Control:} To strengthen public health data reporting and collection to improve the timeliness and specificity of data and to inform a real-time public health response as the opioid epidemic evolves.
+    \item \textbf{Demand Control:} To advance the practice of pain management to enable access to high-quality, evidence-based pain care that reduces the burden of pain for individuals, families, and society while also reducing the inappropriate use of opioids and opioid-related harms. To make opioid control and management more rigorous and formal for effectively combating illicit drug abuse.
 \end{itemize}
 
 
@@ -953,6 +948,9 @@ Thanks!
 
 \subsection{PCA\_plot.py} \label{code:PCA_plot}
 \inputminted{python}{../src/PCA_plot.py}
+
+\subsection{.py}\label{}
+\inputminted{python}{../src/.py}
 
 
 \end{appendices}
